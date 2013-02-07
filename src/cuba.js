@@ -1,5 +1,5 @@
 /*
- * cuba.js: a tiny micro-framework JavaScript
+ * cuba.js: a micro-framework JavaScript
  * copyright Adrian Statescu 2013 (@thinphp)
  * http://thinkphp.ro
  * MIT License
@@ -52,6 +52,46 @@ var cuba = {
 
                })(foo);
     }, 
+
+
+    script: function(url, callback) {
+
+            var s = document.createElement('script')
+                s.setAttribute('type','text/javascript')
+                s.setAttribute('src',url)
+                s.setAttribute('id','leach')
+
+                if(s.readyState) {
+
+                  s.onreadystatechange = function() {
+
+                     if(s.readyState == 'loaded' || s.readyState == 'complete') {
+ 
+                          s.onreadystatechange = null
+                          callback( s )
+                          var old = document.getElementById('leach')
+
+                          if( old ) {
+                            old.parentNode.removeChild( old ) 
+                          } 
+
+                     }
+                  }
+                
+                } else {
+
+                  s.onload = function() {
+
+                    callback( s )
+                    var old = document.getElementById('leach')
+                        if( old ) {
+                            old.parentNode.removeChild( old ) 
+                        } 
+                  } 
+                }
+
+                document.getElementsByTagName("head")[0].appendChild(s);
+    },
 
     select: function( selector ) {
  
