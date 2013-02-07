@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>cuba.js micro JavaScript Framework</title>
+<style type="text/css">
+</style>
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+//if dom is ready go ahead!!!
+cuba.ready(function() {
+
+         //select an element and added a handler on event 'click'
+         cuba.select("#btn").on('click', function(){
+              alert('clicked')
+         })
+
+         //added label
+         cuba.select("#btn").html("Click Me")  
+
+         //select an element, then called the methods: html and css
+         cuba.select("#out")
+             .html("Jean Baptiste Poquelin")
+             .css("width: 100px; height: 100px;border: 1px solid #ccc;background: #393;color: #fff")
+})
+
+</script>
+</head>
+<body>
+<h1>cuba.js micro JavaScript Framework</h1>
+<button id="btn"></button>
+<div id="out"></div>
+</body>
+</html>
+
