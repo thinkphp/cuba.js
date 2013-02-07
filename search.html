@@ -76,7 +76,7 @@ var googlesearch = function(){
 
           if(f && resultscontainer && send && q) {
 
-                  cuba.select('#googleform').on("click", googlesearch.get) 
+                  cuba.select('#googleform').on("submit", googlesearch.get) 
           }
       }
 
@@ -86,8 +86,10 @@ var googlesearch = function(){
           event.stopPropagation()
           event.preventDefault() 
 
-          send.value = "Loading...";
+          cuba.select('#send').attr('value','Loading...')            
+
           var searchterm = q.value;
+
           var url = 'http://ajax.googleapis.com/ajax/services/search/web?gl=en'+
                     '&userip=&'+
                     'hl=en&'+
@@ -107,7 +109,8 @@ var googlesearch = function(){
                  console.log(o);
               }
 
-              send.value = 'Go!';
+              cuba.select('#send').attr('value','Go!')            
+
               var out = '';
 
               if(o.responseStatus == 200) {
