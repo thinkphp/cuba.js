@@ -1,4 +1,10 @@
-//cuba.js micro JavaScript Framework 
+/*
+ * cuba.js: a tiny micro-framework JavaScript
+ * copyright Adrian Statescu 2013 (@thinphp)
+ * http://thinkphp.ro
+ * MIT License
+ */
+
 var cuba = {
 
     ready: function( foo ) {
