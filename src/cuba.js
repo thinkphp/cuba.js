@@ -117,6 +117,21 @@ var cuba = {
       return this
     },
 
+    stopPropagation: function( e ) {
+
+        if(window.event) {
+
+           window.event.cancelBubble = true
+           window.event.returnValue = false 
+        }   
+
+        if(e.preventDefault && e.stopPropagation) {
+
+           e.preventDefault()
+           e.stopPropagation()  
+        }
+    },
+
     ajax: function(method,url,callback,postData) {
 
                   function handleReadyState(o,callback) { 
