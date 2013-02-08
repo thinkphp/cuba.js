@@ -25,7 +25,8 @@ OR
          })
 
 OR
-         //added label
+
+         //added label to the button
          cuba.select("#btn").html("Click Me")  
 
 OR
@@ -34,6 +35,23 @@ OR
          cuba.select("#out")
              .html("Jean Baptiste Poquelin")
              .css("width: 100px; height: 100px;border: 1px solid #ccc;background: #393;color: #fff")
+
+OR
+
+
+         // JSONP or JSON with padding is a communication technique (CORS can be used as a modern alternative to the JSONP)
+         // creates a JSON request using script tag injection and handles the callbacks for you.
+         var url = 'http://ajax.googleapis.com/ajax/services/search/web?gl=en'+
+                   '&userip=&'+
+                   'hl=en&'+
+                   'v=1.0&'+
+                   'start=0&'+
+                   'rsz=8&'+
+                   'callback=googlesearch.incoming'+
+                   '&q='+searchterm;
+
+          cuba.script(url, function(){});
+
 
 OR
 
