@@ -24,11 +24,17 @@ cuba.ready(function() {
              .html("Jean Baptiste Poquelin")
              .css("width: 100px; height: 100px;border: 1px solid #ccc;background: #393;color: #fff")
 
-         //make a AJAX GET request 
+         //make an AJAX GET request (asynchronous HTTP)
          cuba.ajax('GET','README.md', function( data ){
 
-                   console.log(data)
+                   if(window.console) console.log(data)
          }) 
+
+         //make an YQL request
+         cuba.yql("select title from rss where url=\"http://rss.news.yahoo.com/rss/topstories\"", function( data ) {
+                   if(window.console) console.log(data) 
+         }).fetch()
+           
 })
 
 </script>
@@ -58,7 +64,7 @@ cuba.ready(function() {
          cuba.ajax('GET','README.md', function( data ){
 
                    console.log(data)
-         }) 
+         })
 })
 </code></pre>
 </body>

@@ -249,6 +249,81 @@ var cuba = {
                       loaded ? foo() : fns.push( foo ) 
 
                })(foo);
-     }
+     },
+
+     /**
+          A method YQL client for this micro-framework;
+          Yahoo! Query Language is an expressive SQL-like language that lets you query, filter, and join data across web services.
+          With YQL, apps runs faster with fewer lines of codes and smaller network footprint.
+          Yahoo! and other sites across the internet make much of their structured data available to developers, primarily through
+          Web Services. To access and query these services, developers traditionally endure the pain and location the right URLs and 
+          documentation to access and query each Web service.
+
+          i.e: select * from twitter.usertimeline where id='YQL'
+
+          console: http://developer.yahoo.com/yql/console/  
+
+          @param query String - a YQL query;
+          @param callback Function - a callback function that receives the result of the query;
+          @param format String - the format of the result, by default 'json';
+          @param diagnostics Boolean - true or false, by default to false;
+          @return - return this, c`est-a-dire this object;
+               
+      */
+     yql: function(query, callback, format, diagnostics) {
+
+          this.query = query;
+
+          this.format = format || 'json';
+
+          this.diagnostics = diagnostics || false;
+
+          this.fetch( callback )
+
+        return this 
+     },
+
+     fetch: function( callback ) {
+
+         var scriptEl = document.createElement("script"),
+
+         endpoint = 'http://query.yahooapis.com/v1/public/yql?q=',
+
+         env = '&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
+
+         encodedURL = encodeURIComponent(this.query),
+
+         format = this.format,
+
+         id = 'YQL' + (+new Date()),
+
+         src = endpoint + encodedURL + '&format='+ format + '&callback=cuba.' + id + '&diagnostics=' + this.diagnostics + env;
+
+         cuba[ id ] = function( data ) {
+
+              //for debug
+              if(window.console) console.log( data )
+ 
+              //invoke the callback function to execute
+              callback( data ) 
+
+              //delete from memory
+              delete cuba[ id ]
+
+              //delete script node
+              document.body.removeChild( scriptEl )
+         }
+
+         //set type attribute
+         scriptEl.setAttribute('type', 'text/javascript')
+
+         //set src attribute
+         scriptEl.setAttribute('src', src)
+
+         //append to body dom
+         document.body.appendChild( scriptEl ) 
+
+       return this 
+    }
 };
 
