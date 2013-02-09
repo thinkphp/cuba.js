@@ -43,5 +43,31 @@ OR
                    console.log(data)
          })
 
+OR
+
+         //Yahoo! Query Language YQL is an expressive SQL-like language that lets you query, filter, and join data across Web Services.
+         //With YQL apps run faster with fewer lines of code and smaller network footprint.
+         var query = "select * from flickr.photos.search where has_geo='true' and text='san francisco' and api_key='e407090ddb7d7c7c36e0a0474289ec74'"
+        
+         //@param - query (String) - A query YQL
+         //@param - callback (Function) - A callback function that receives the result of the query
+         cuba.yql(query, function(data){
+
+                      var photos = data.query.results.photo,
+
+                          n = photos.length;
+
+                      var out = '<ul>';
+
+                      for(var i=0; i<n; i++) {
+
+                          out += template( tpl, photos[i] )
+                      }  
+
+                      out += '</ul>';
+
+                      cuba.select('#flickr').html( out )
+         })
+
 
 ## Demos:
