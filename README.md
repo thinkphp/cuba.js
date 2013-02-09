@@ -1,7 +1,7 @@
 cuba.js - a micro JavaScript Framework
 --------------------------------------
 
-A library for basic domready, script tag injection, AJAX, DOM CSS manipulation!
+A library for basic domready, JSONP (JSON with padding and script tag injection), AJAX, DOM, CSS manipulation!
  
 ##Syntax
 
@@ -41,23 +41,47 @@ OR
 
          // JSONP or JSON with padding is a communication technique (CORS can be used as a modern alternative to the JSONP)
          // creates a JSON request using script tag injection and handles the callbacks for you.
-         var url = 'http://ajax.googleapis.com/ajax/services/search/web?gl=en'+
-                   '&userip=&'+
-                   'hl=en&'+
-                   'v=1.0&'+
-                   'start=0&'+
-                   'rsz=8&'+
-                   'callback=googlesearch.incoming'+
-                   '&q='+searchterm;
+         var url = 'http://search.twitter.com/search.json?q=mootools&rpp=5&callback=?'
 
-          cuba.script(url, function(){});
+         cuba.jsonp(url, function(data){
 
+               var result = data.results, 
+
+               out = '<ul>'
+                
+               for(var i in result) {
+
+                   out += template(tpl,result[i])
+               } 
+               out += '</ul>'
+
+               cuba.select('#result-twitter').html( out )
+         })
+
+         //you can specify the name of the jsoncallback and describing the parameters
+         var urlflickr = 'http://api.flickr.com/services/rest/',      
+ 
+              var params = {api_key: 'e407090ddb7d7c7c36e0a0474289ec74',
+                            per_page: 20, 
+                            page: 1, 
+                            text: 'beach kudos', 
+                            has_geo: true, 
+                            method: 'flickr.photos.search', 
+                            format: 'json'};
+
+         cuba.jsonp(urlflickr, function(data) {
+
+                      //do something with the data
+                      cuba.select('#container').html( out );  
+
+         }, params, 'jsoncallback')
 
 OR
 
          //load data from the server using HTTP GET request
          cuba.ajax('GET','README.md', function( data ){
 
+                   //do stuff with data
                    console.log(data)
          })
 

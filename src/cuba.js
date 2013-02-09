@@ -18,6 +18,8 @@ var cuba = {
          return this
     },
 
+    one: function( id ) { id = id.replace('#',''); this.value = [document.getElementById( id )]; return this},  
+
     each: function(arr, fn) {
 
           var len = arr.length,
@@ -339,6 +341,91 @@ var cuba = {
          document.body.appendChild( scriptEl ) 
 
        return this 
-    }
+    },
+
+    jsonp: function(url, callback, params, callbackname) {
+
+       this.url = url
+
+       this.callback = callback
+
+       this.jsonCallbackName = callbackname || 'callback'
+
+       if(params !== 'undefined' && typeof params == 'object'){
+
+          var query = ''
+                  for(var key in params) {
+                       if(params.hasOwnProperty(key)) {
+                          query += encodeURIComponent(key) + '=' + encodeURIComponent(params[key]) + '&' 
+                       } 
+                  }
+          this.url = this.url + '?' + query  
+       }      
+
+       this.url = this.url + '&' + this.jsonCallbackName + '=?'
+   
+       this.fetchjson( callback ) 
+
+      return this 
+    },
+
+    fetchjson: function( callback ) {
+
+       var id = new Date().getTime(),
+
+           doc = document,  
+
+           fn = 'callback_' + id,
+
+           url = this.url.replace('=?','=cuba.' + fn),
+
+           s = doc.createElement('script');
+
+           s.setAttribute('type','text/javascript')
+
+           cuba[ fn ] = this.evalJSON( callback )
+
+           s.setAttribute('src', url)
+
+           document.getElementsByTagName('head')[0].appendChild( s )
+
+           this.s = s
+
+           this.fn = fn
+    },
+
+    evalJSON: function( callback ) {
+
+          return function( data ) {
+
+                 var validjson = false;
+ 
+                 if( typeof data == 'string' ) {
+
+                      validjson = JSON.parse( data )
+
+                 } else if( typeof data == 'object' ) {
+
+                      validjson = data
+
+                 } else {
+
+                      validjson = JSON.parse( JSON.stringify(data) )
+                 }
+
+                 if( validjson ) {
+
+                      callback( validjson )
+
+                      if(window.console) console.log('VALID JSON')
+
+                 } else {
+
+                      if(window.console) oonsole.log('JSONP call returned invalid JSON or empty JSON') 
+                 }
+          }
+     }
+
+
 };
 
