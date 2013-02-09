@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>cuba.js micro JavaScript Framework</title>
+<style type="text/css">
+</style>
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+//if dom is ready go ahead!!!
+cuba.ready(function() {
+
+         //make an AJAX GET request (asynchronous HTTP)
+         cuba.ajax('GET','data.txt', function( data ){
+
+                   if(window.console) console.log(data)
+                   cuba.select("#results").html( data ) 
+         })            
+})
+
+</script>
+</head>
+<body>
+<h1>AJAX cuba.js</h1>
+<div id="out"></div>
+<h2>How it works</h3>
+<div id="results"></div>
+<pre><code>
+cuba.ready(function() {
+
+         //make a AJAX GET request 
+         cuba.ajax('GET','ajax.txt', function( data ){
+
+                   if(window.console) console.log(data)
+                   cuba.select("#results").html( data ) 
+         })
+})
+</code></pre>
+</body>
+</html>
+
