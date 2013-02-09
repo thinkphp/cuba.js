@@ -7,92 +7,10 @@
 
 var cuba = {
 
-    ready: function( foo ) {
+    version: 1.00,
 
-           var fns = [], fn, f = false, d = document,  
-
-               testEl = d.documentElement, hack = testEl.doScroll,
-
-               domContentLoaded = 'DOMContentLoaded', addEventListener = 'addEventListener',
-
-               attachEvent = 'attachEvent',detachEvent = 'detachEvent',
-
-               readyState = 'readyState', onreadystatechange = 'onreadystatechange',
-
-               loaded = /^loade|c/.test(d[readyState]); 
-
-               function flush() {
-
-                        loaded = 1
-
-                        while( f = fns.shift() ) f()
-               }
-
-               d[addEventListener] && d[addEventListener](domContentLoaded, fn = function(){
-
-                     d.removeEventListener(domContentLoaded, fn, f)
-
-                     flush()
-
-               }, f);
-
-               hack && d.attachEvent(onreadystatechange, fn = function(){
-
-                  if(/^c/.test(d[readyState])) { 
-
-                    d[detachEvent](onreadystatechange, fn)
-
-                    flush()
-                  }
-               });
-                
-               (function( foo ) {
-
-                      loaded ? foo() : fns.push( foo ) 
-
-               })(foo);
-    }, 
-
-
-    script: function(url, callback) {
-
-            var s = document.createElement('script')
-                s.setAttribute('type','text/javascript')
-                s.setAttribute('src',url)
-                s.setAttribute('id','leach')
-
-                if(s.readyState) {
-
-                  s.onreadystatechange = function() {
-
-                     if(s.readyState == 'loaded' || s.readyState == 'complete') {
+    name: 'cuba.js',
  
-                          s.onreadystatechange = null
-                          callback( s )
-                          var old = document.getElementById('leach')
-
-                          if( old ) {
-                            old.parentNode.removeChild( old ) 
-                          } 
-
-                     }
-                  }
-                
-                } else {
-
-                  s.onload = function() {
-
-                    callback( s )
-                    var old = document.getElementById('leach')
-                        if( old ) {
-                            old.parentNode.removeChild( old ) 
-                        } 
-                  } 
-                }
-
-                document.getElementsByTagName("head")[0].appendChild(s);
-    },
-
     select: function( selector ) {
  
             this.value = Array.prototype.slice.call( document.querySelectorAll( selector ) )
@@ -245,8 +163,92 @@ var cuba = {
                        http.send(postData || null);   
  
               return http;
+     },
+
+     script: function(url, callback) {
+
+            var s = document.createElement('script')
+                s.setAttribute('type','text/javascript')
+                s.setAttribute('src',url)
+                s.setAttribute('id','leach')
+
+                if(s.readyState) {
+
+                  s.onreadystatechange = function() {
+
+                     if(s.readyState == 'loaded' || s.readyState == 'complete') {
+ 
+                          s.onreadystatechange = null
+                          callback( s )
+                          var old = document.getElementById('leach')
+
+                          if( old ) {
+                            old.parentNode.removeChild( old ) 
+                          } 
+
+                     }
+                  }
+                
+                } else {
+
+                  s.onload = function() {
+
+                    callback( s )
+                    var old = document.getElementById('leach')
+                        if( old ) {
+                            old.parentNode.removeChild( old ) 
+                        } 
+                  } 
+                }
+
+                document.getElementsByTagName("head")[0].appendChild(s);
+     },
+
+
+     ready: function( foo ) {
+
+           var fns = [], fn, f = false, d = document,  
+
+               testEl = d.documentElement, hack = testEl.doScroll,
+
+               domContentLoaded = 'DOMContentLoaded', addEventListener = 'addEventListener',
+
+               attachEvent = 'attachEvent',detachEvent = 'detachEvent',
+
+               readyState = 'readyState', onreadystatechange = 'onreadystatechange',
+
+               loaded = /^loade|c/.test(d[readyState]); 
+
+               function flush() {
+
+                        loaded = 1
+
+                        while( f = fns.shift() ) f()
+               }
+
+               d[addEventListener] && d[addEventListener](domContentLoaded, fn = function(){
+
+                     d.removeEventListener(domContentLoaded, fn, f)
+
+                     flush()
+
+               }, f);
+
+               hack && d.attachEvent(onreadystatechange, fn = function(){
+
+                  if(/^c/.test(d[readyState])) { 
+
+                    d[detachEvent](onreadystatechange, fn)
+
+                    flush()
+                  }
+               });
+                
+               (function( foo ) {
+
+                      loaded ? foo() : fns.push( foo ) 
+
+               })(foo);
      }
-
-
 };
 
