@@ -86,6 +86,11 @@ var cuba = {
  
     },
 
+    trim: function( s ) {
+
+          return String.prototype.trim ? s.trim() : s.replace(/(^\s*|\s*$)/g,'')    
+    },
+
     addClass: function() {
         //to do
     },
