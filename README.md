@@ -2,8 +2,28 @@ cuba.js - a micro JavaScript Framework
 --------------------------------------
 
 A library for basic domready, JSONP (JSON with padding and script tag injection), AJAX, DOM, CSS manipulation!
+
+## Complete cuba API
+
+* select( selector )
+* one( id )
+* each(arr, fn)
+* css( v )
+* html( h, text )
+* attr( a, v )
+* addClass()
+* removeClass()
+* toggleClass()
+* trim()
+* on(evType, handlerFn)
+* stopPropagation( event )
+* ready( fn )
+* script(url, callback)
+* yql(query, callback, format, diagnostics)
+* jsonp(url, callback, params, callbackName)
+* ajax(method, url, callback, postData)
  
-##Syntax
+##How it works
 
           //specify a function to execute when the DOM is fully loaded
           cuba.ready(function(){
@@ -111,5 +131,12 @@ OR
                       cuba.select('#flickr').html( out )
          })
 
+##Browser Support
+
+* IE6+
+* Chrome 1+
+* Safari 3+
+* Firefox 2+
+* Opera
 
 ## Demos:
