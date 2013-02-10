@@ -61,13 +61,13 @@ OR
          //you can specify the name of the jsoncallback and describing the parameters
          var urlflickr = 'http://api.flickr.com/services/rest/',      
  
-              var params = {api_key: 'e407090ddb7d7c7c36e0a0474289ec74',
-                            per_page: 20, 
-                            page: 1, 
-                            text: 'beach kudos', 
-                            has_geo: true, 
-                            method: 'flickr.photos.search', 
-                            format: 'json'};
+              params = {api_key: 'e407090ddb7d7c7c36e0a0474289ec74',
+                        per_page: 20, 
+                        page: 1, 
+                        text: 'beach kudos', 
+                        has_geo: true, 
+                        method: 'flickr.photos.search', 
+                        format: 'json'};
 
          cuba.jsonp(urlflickr, function(data) {
 
