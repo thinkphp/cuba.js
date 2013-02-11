@@ -18,6 +18,8 @@ A micro-library for basic domready, JSONP (JSON with padding and script tag inje
 * toggleClass( c )
 * trim(s)
 * on(evType, handlerFn)
+* attach(elem, evType, fn, useCapture)
+* elem.Click( fn )
 * stopPropagation( event )
 * ready( fn )
 * script(url, callback)
