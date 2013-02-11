@@ -13,6 +13,9 @@ cuba.ready(function() {
 
          //select an element and added a handler on event 'click'
          cuba.select("#btn").on('click', function(){
+
+              cuba.select('#out').toggleClass('myClass')
+
               alert('clicked')
          })
 
@@ -26,15 +29,14 @@ cuba.ready(function() {
 
          //make an AJAX GET request (asynchronous HTTP)
          cuba.ajax('GET','README.md', function( data ){
-
                    if(window.console) console.log(data)
          }) 
 
          //make an YQL request
          cuba.yql("select title from rss where url=\"http://rss.news.yahoo.com/rss/topstories\"", function( data ) {
-                   if(window.console) console.log(data) 
-         }).fetch()
-           
+                   if(window.console) console.log( data ) 
+         })
+         cuba.select('#out').addClass('myClass') 
 })
 
 </script>
@@ -44,6 +46,7 @@ cuba.ready(function() {
 <button id="btn"></button>
 <div id="out"></div>
 <h2>How it works</h3>
+
 <pre><code>
 cuba.ready(function() {
 
