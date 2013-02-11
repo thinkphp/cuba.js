@@ -20,6 +20,18 @@ var cuba = {
 
     one: function( id ) { id = id.replace('#',''); this.value = [document.getElementById( id )]; return this},  
 
+    first: function() {
+ 
+           this.value = this.value.length > 0 ? this.value[0]:[]
+
+        return this
+    },
+
+    last: function() {
+
+         return this.value = this.value.length > 0 ? this.value[this.value.length-1]:[]
+    },
+
     grab: function( id ) { id = id.replace('#',''); return document.getElementById( id ) },
 
     each: function(arr, fn) {
@@ -197,6 +209,22 @@ var cuba = {
        })  
 
       return this
+    },
+
+    attach: function(elem, ev, fn, useCapture) {
+
+                  if( elem.addEventListener ) {
+
+                     elem.addEventListener(ev, fn, useCapture)
+
+                  } else if( elem.attachEvent ) {
+
+                     elem.attachEvent( 'on' + ev, fn)  
+
+                  } else {
+
+                     elem[ 'on' + ev ] = fn
+                  }
     },
 
     stopPropagation: function( e ) {
@@ -506,6 +534,10 @@ var cuba = {
           }
      }
 
-
 };
+
+HTMLElement.prototype.Click = function( fn ) {
+alert(fn)
+     return cuba.attach(this, 'click', fn, false)  
+}
 
