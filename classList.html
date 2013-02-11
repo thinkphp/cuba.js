@@ -18,11 +18,13 @@ cuba.ready(function() {
      var plast = cuba.select("p").value[2];
 
      cuba.addClass(plast,'selected').addClass(plast,'highlight')
+
+     cuba.select('p').first().addClass('selected').addClass('highlight')
 })
 
 </script>
 </head>
-<body>
+<body id="body">
 
 <h1 id='h1'>HTML5 classList API</h1>
 <h2>element.classList</h2>
