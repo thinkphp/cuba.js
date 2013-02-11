@@ -20,16 +20,24 @@ var cuba = {
 
     one: function( id ) { id = id.replace('#',''); this.value = [document.getElementById( id )]; return this},  
 
-    first: function() {
+    first: function( bool ) {
  
-           this.value = this.value.length > 0 ? this.value[0]:[]
+           if(typeof bool == 'undefined') this.value = this.value.length > 0 ? [this.value[0]] : [];
+
+              else
+                    return this.value.length > 0 ? this.value[0] : null
 
         return this
     },
 
-    last: function() {
+    last: function( bool ) {
 
-         return this.value = this.value.length > 0 ? this.value[this.value.length-1]:[]
+           if(typeof bool == 'undefined') this.value = this.value.length > 0 ? [this.value[this.value.length-1]] : []
+
+                   else
+
+                     return this.value.length > 0 ? this.value[this.value.length-1]:null
+         return this   
     },
 
     grab: function( id ) { id = id.replace('#',''); return document.getElementById( id ) },
@@ -117,9 +125,9 @@ var cuba = {
     addClass: function(elem, c) {
 
           if('classList' in document.createElement('p')) {
-
+            
               arguments.length == 1 && typeof elem == 'string' ? 
-                      
+
               this.value = this.each.call(this, this.value, function( el ){
 
                    el.classList.add( elem )
@@ -240,6 +248,20 @@ var cuba = {
            e.preventDefault()
            e.stopPropagation()  
         }
+    },
+
+    getTarget: function( evt ) {
+
+         var target = window.event ? window.event.srcElement : evt ? evt.target : null  
+
+         while(target.nodeType != 1 && target.nodeName.toLowerCase() != 'body') {
+
+               target = target.parentNode
+         }  
+ 
+         if(!target) return false
+
+       return target;
     },
 
     ajax: function(method,url,callback,postData) {
@@ -537,7 +559,7 @@ var cuba = {
 };
 
 HTMLElement.prototype.Click = function( fn ) {
-alert(fn)
+
      return cuba.attach(this, 'click', fn, false)  
 }
 
