@@ -7,7 +7,7 @@
 
 var cuba = {
 
-    version: 1.00,
+    version: 1.05,
 
     name: 'cuba.js',
  
@@ -19,6 +19,8 @@ var cuba = {
     },
 
     one: function( id ) { id = id.replace('#',''); this.value = [document.getElementById( id )]; return this},  
+
+    grab: function( id ) { id = id.replace('#',''); return document.getElementById( id ) },
 
     each: function(arr, fn) {
 
@@ -91,16 +93,89 @@ var cuba = {
           return String.prototype.trim ? s.trim() : s.replace(/(^\s*|\s*$)/g,'')    
     },
 
-    addClass: function() {
-        //to do
+    /**
+     *  Adds the specified class(es) to each of the set of matched elements.
+     *  It's important to note that this method does not replace a class. It simply adds the class, appending it to any which
+     *  may already be assigned to the elements.
+     * 
+     *  @param elem Object - the element for which add class
+     *  @param c String - add specified class to the element
+     *  @return (cuba) object
+     */
+    addClass: function(elem, c) {
+
+          if('classList' in document.createElement('p')) {
+
+              arguments.length == 1 && typeof elem == 'string' ? 
+                      
+              this.value = this.each.call(this, this.value, function( el ){
+
+                   el.classList.add( elem )
+
+              }) : 
+
+                   elem.classList.add( c )  
+
+          } else {
+
+              this.value = this.each.call(this, this.value, function( elem ){
+
+                   elem.className = this.trim(elem.className + ' ' + c)
+              })
+          }
+
+       return this
     },
 
-    removeClass: function() {
-        //to do
+    hasClass: function( el, c ) {
+
+          if('classList' in document.createElement('p')) {
+
+              return el.classList.contains( c )  
+
+          } else {
+
+              return this.classReg( c ).test(el.className)
+          }
+
     },
 
-    toggleClass: function() {
-       //to do 
+    removeClass: function(elem, c ) {
+
+         if('classList' in document.createElement('p')) {
+
+              arguments.length == 1 && typeof elem == 'string' ? 
+                      
+              this.value = this.each.call(this, this.value, function( el ){
+
+                   el.classList.remove( elem )
+
+              }) : 
+ 
+                   elem.classList.remove( c )                                      
+
+         } else {
+
+              this.value = this.each.call(this, this.value, function( elem ){
+
+                   elem.className = this.trim(elem.className + ' ' + c)
+              })
+         }
+
+       return this
+    },
+
+    classReg: function( c ) {
+
+        return new RegExp('(^|\\s+)' + c +'(\\s+$)')
+    }, 
+
+    toggleClass: function( c ) {
+
+        this.each.call(this, this.value, function( elem ){
+
+             this.hasClass(elem, c) ? this.removeClass(elem, c) : this.addClass(elem, c)
+        })   
     },
 
     on: function(ev, fn) {
