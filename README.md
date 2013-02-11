@@ -1,20 +1,22 @@
 cuba.js - a micro JavaScript Framework
 --------------------------------------
 
-A library for basic domready, JSONP (JSON with padding and script tag injection), AJAX, DOM, CSS manipulation!
+A micro-library for basic domready, JSONP (JSON with padding and script tag injection), AJAX, DOM, CSS manipulation!
 
-## Complete cuba API
+## cuba API Documentation
 
 * select( selector )
 * one( id )
+* grab( id )
 * each(arr, fn)
 * css( v )
 * html( h, text )
 * attr( a, v )
-* addClass()
-* removeClass()
-* toggleClass()
-* trim( s )
+* addClass(elem, c)
+* removeClass(elem, c)
+* hasClass(elem, c)
+* toggleClass( c )
+* trim(s)
 * on(evType, handlerFn)
 * stopPropagation( event )
 * ready( fn )
