@@ -76,6 +76,16 @@ var cuba = {
        return this  
     },
 
+    removeAttr: function( k ) {
+
+         this.value = this.each.call(this, this.value, function( elem ){
+
+              elem.removeAttribute(k)
+         })
+
+       return this  
+    },
+
     html: function( h, text ) {
 
           var specialTags = /select|fieldset|table|tbody|tfoot|td|tr|colgroup/i,
@@ -111,6 +121,19 @@ var cuba = {
     trim: function( s ) {
 
           return String.prototype.trim ? s.trim() : s.replace(/(^\s*|\s*$)/g,'')    
+    },
+
+    is: function( node ) {
+          
+        return node && node.nodeName && node.nodeType == 1
+    },
+
+    camelize: function( s ) {
+
+        return s.replace(/-(.)/g, function(m,m1){
+
+               return m1.toUpperCase();
+        })  
     },
 
     /**
