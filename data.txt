@@ -1,2 +1,0 @@
-<h3>The Request Was Successful</h3>
-<p>Here is some <em>HTML content</em></p>
