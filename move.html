@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>cuba.js micro JavaScript Framework</title>
+<style type="text/css">
+pre, code {
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  overflow: auto;
+  font-family: courier;
+  background: ghostwhite;
+  border: 1px solid #ddd;
+}
+
+code {
+  padding: 2px 5px;
+}
+
+pre code {
+  padding: 0;
+  margin-bottom: 0;
+  border: 0;
+}
+#out {
+     font-weight: bold
+}
+#sandbox .box {
+  border: 1px solid #ccc;
+  width: 100px;
+  height: 100px;
+}
+
+</style>
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+
+;(function(exports) {
+
+        var map = {
+            'top': 'px',
+            'bottom': 'px',
+            'left': 'px',
+            'right': 'px',
+            'width': 'px',
+            'height': 'px',
+            'margin-left': 'px'  
+        };
+
+        exports.move = function( selector ) {
+
+                return new Move(move.select( selector ))
+        } 
+
+        /**
+         *  Library version
+         */
+        move.version = '0.0.3';
+
+        move.defaults = {duration: 500}
+
+
+        move.select = function( selector ) {
+
+             return document.getElementById( selector ) || document.querySelectorAll( selector )[0] 
+        }
+
+        var current = window.getComputedStyle || window.currentStyle;
+
+        /**
+         *  EventEmitter
+         */
+           
+        function EventEmitter() {
+
+                 this.callbacks = {}; 
+        }; 
+
+        EventEmitter.prototype.on = function(event, fn) {
+
+                 (this.callbacks[ event ] = this.callbacks[ event ] || []).push( fn )
+
+           return this
+        };
+        
+       
+        EventEmitter.prototype.emit = function( event ) {
+
+                  var args = Array.prototype.slice.call(arguments, 1),
+
+                      callbacks = this.callbacks[ event ],
+
+                      len;
+
+                      if(callbacks) {
+
+                         len = callbacks.length;
+
+                         for(var i=0;i<len;++i) {
+
+                             callbacks[ i ].apply(this, args)
+                         }  
+                      } 
+
+              return this
+        };
+
+        exports.Move = function Move( el ) {
+
+                if(!(this instanceof Move)) return new Move( el )
+
+                EventEmitter.call(this) 
+                this.el = el
+                this._props = {}
+                this._transitionProps = []
+                this._transform = []
+                this._rotate = 0
+                this.duration(move.defaults.duration)    
+        }
+
+        Move.prototype = new EventEmitter;
+
+        Move.prototype.constructor = Move;
+
+        Move.prototype.setProperty = function(prop, val) {
+
+             this._props[ prop ] = val
+
+           return this
+        } 
+
+        Move.prototype.setVendorProperty = function(prop, val) {
+
+             this.setProperty('-webkit-' + prop, val);            
+             this.setProperty('-moz-' + prop, val);            
+             this.setProperty('-ms-' + prop, val);            
+             this.setProperty('-o-' + prop, val);            
+
+           return this
+        }
+
+        Move.prototype.set = function( prop, val ) {
+
+             this.transition( prop )
+
+             if(typeof val == 'number' && map[ prop ]) val += map[ prop ]              
+
+             this._props[ prop ] = val 
+
+          return this
+        }
+
+        Move.prototype.transition = function( prop ) {
+
+             this._transitionProps.push( prop )
+        } 
+
+        Move.prototype.applyProperties = function() {
+
+             var props = this._props, 
+
+                 elem = this.el;
+
+                 for(var prop in props) {
+
+                     if(props.hasOwnProperty(prop)) {
+
+                           elem.style.setProperty(prop, props[prop],'')
+                     }
+                 } 
+
+           return this
+        }
+
+        Move.prototype.end = function() {
+
+             this.setVendorProperty('transition-properties', this._transitionProps.join(", "))
+
+             this.applyProperties()
+
+          return this
+        }
+
+        Move.prototype.duration = function( n ) {
+             
+                n = this._duration = 'string' == typeof n ? parseFloat(n) * 1000 : n
+
+             return this.setVendorProperty('transition-duration', n + 'ms'); 
+        }
+
+})(this);
+
+var $ = function(id) { return cuba.grab( id ) }
+
+//if dom is ready go ahead!!!
+cuba.ready(function() {
+
+         $('move').Click( function( event ){
+
+                 cuba.stopPropagation( event )   
+
+                 move("#sandbox .box").set('margin-left',200).end()
+
+                 console.log(cuba.getStyle($('move'),'font-size'))
+         } )
+
+         $('moveback').Click( function( event ){
+
+                 cuba.stopPropagation( event ) 
+
+                 move("#sandbox .box").set('margin-left',0).end()
+          } )
+})
+
+</script>
+</head>
+<body>
+<h1>cuba.js micro JavaScript Framework</h1>
+
+<div id="sandbox">
+     <div class="box"></div>
+</div>
+     <a href="#" id="move">move</a> 
+
+     <a href="#" id="moveback">move back</a> 
+
+<h2>How it works</h3>
+
+<pre><code>
+</code></pre>
+</body>
+</html>
+
