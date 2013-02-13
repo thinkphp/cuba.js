@@ -148,3 +148,5 @@ OR
 * Opera
 
 ## Demos:
+  
+* [http://thinkphp.github.com/cuba.js/](http://thinkphp.github.com/cuba.js/)
