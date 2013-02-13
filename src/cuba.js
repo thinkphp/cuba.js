@@ -69,8 +69,48 @@ var cuba = {
         return false  
     },
 
-    css: function( v ) {
+    getStyle: document.defaultView && document.defaultView.getComputedStyle ? function(elem, property) {
 
+               var value = null;
+
+               if(property == 'float') { property = 'cssFloat';}      
+
+               var computed = document.defaultView.getComputedStyle(elem, '') 
+
+               value = computed[this.camelize(property)] 
+
+             return elem.style[property] || value
+        
+        } : (ie && html.currentStyle) ? function(elem, property){
+
+              property = this.camelize(property);
+
+              property = property == 'float' ? 'styleFloat' : property;
+
+              if(property == 'opacity') {
+
+                 var val = 100;
+                 try {
+                   val = elem.filters['DXImageTransform.Microsoft.Alpha'].opacity;
+                 } catch( e1 ) {
+                   try{
+                      val = elem.filters('alpha').opacity   
+                   }catch( e2 ) {
+                   }
+                 }
+              }
+
+              var value = elem.currentStyle ? elem.currentStyle[property] : null;
+
+            return elem.style[property] || value
+              
+        } : function(elem, property){ 
+
+            return elem.style[this.camelize[property]]
+    }
+
+    ,css: function( v ) {
+         
          this.value = this.each.call(this, this.value, function( elem ){
 
               elem.style.cssText = v 
