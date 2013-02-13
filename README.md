@@ -9,6 +9,7 @@ A micro-library for basic domready, JSONP (JSON with padding and script tag inje
 * one( id )
 * grab( id )
 * each(arr, fn)
+* some(arr, fn, scope)
 * css( v )
 * html( h, text )
 * attr( a, v )
