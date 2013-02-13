@@ -56,6 +56,19 @@ var cuba = {
          return arr
     },
 
+    some: function(arr, fn, scope) {
+          
+          for(var i = 0, j = arr.length; i < j; i++) {
+
+              if( fn.call(scope, arr[i], i, arr) ) {
+
+                  return true 
+              }
+          }  
+
+        return false  
+    },
+
     css: function( v ) {
 
          this.value = this.each.call(this, this.value, function( elem ){
