@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>cuba.js micro JavaScript Framework</title>
+<style type="text/css">
+pre, code {
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  overflow: auto;
+  font-family: courier;
+  background: ghostwhite;
+  border: 1px solid #ddd;
+}
+
+code {
+  padding: 2px 5px;
+}
+
+pre code {
+  padding: 0;
+  margin-bottom: 0;
+  border: 0;
+}
+#out {
+     font-weight: bold
+}
+#sandbox .box {
+  border: 1px solid #ccc;
+  width: 100px;
+  height: 100px;
+}
+
+#padx {
+ position: relative
+}
+
+#padx .box {
+  position: absolute;
+  border: 1px solid #ccc;
+  width: 100px;   
+  height: 100px;
+  float: left;
+  text-align: center;
+  line-height: 90px;
+  vertical-align: middle;
+}
+</style>
+<script type="text/javascript" src="src/cuba.js"></script>
+
+<script type="text/javascript">
+
+var $ = function(id) { return cuba.grab( id ) }
+
+//if dom is ready go ahead!!!
+cuba.ready(function() {
+
+         $('move').Click( function( event ){
+
+                 cuba.stopPropagation( event )   
+
+                 move("#sandbox .box").set('margin-left',200).end()
+
+                 window.setTimeout(function(){
+                        move("#sandbox .box").set('background-color','#69c').end()
+                        move("#sandbox .box").set('border','10px solid #ccc').end()
+                        move("#sandbox .box").set('margin-left',0).end()
+                 }, 1200) 
+
+                 console.log(cuba.getStyle($('move'),'font-size'))
+         } )
+
+         $('move2').Click( function( event ){
+
+                 cuba.stopPropagation( event ) 
+ 
+                 move("#sandbox .box").set('margin-left',0).end()
+
+                 console.log( cuba.getStyle( cuba.select('#sandbox .box').value[0], 'background-color') ) 
+          } )
+
+
+         $('move3').Click( function( event ){
+
+                 cuba.stopPropagation( event ) 
+ 
+                 move("#sandbox .box").set('margin-left',330).end(function(){
+                       move("#sandbox .box").set('margin-left',0).end()    
+                       move("#sandbox .box").set('background-color','lightblue').end()
+                       move("#sandbox .box").set('border','2px solid blue').end()
+                 })
+                 
+          } )
+
+         $('move4').Click( function( event ){
+
+                 cuba.stopPropagation( event ) 
+                 move("#sandbox .box").set('background-color','red')
+                                      .set('margin-left',100)
+                                      .then()
+                                        .set('background-color','#fff')
+                                        .pop()
+                                      .end()
+          } )
+
+         $('move5').Click( function( event ){
+
+                 cuba.stopPropagation( event ) 
+ 
+                 cuba.select('#sandbox .box').html("move").css('text-align: center;line-height: 90px;vertical-align: middle')
+
+          } )
+
+         $('run').Click( function( event ){
+
+                 cuba.stopPropagation( event ) 
+
+                 bubble(0,0,pads.length-1,function(i,j){
+
+                        var aux; 
+
+                        if(toNumber(pads[j]) > toNumber(pads[j+1])) {
+      
+                              aux = pads[j]
+                              pads[j] = pads[j+1]
+                              pads[j+1] = aux
+                              
+                              draw(j, j + 1) 
+                        }
+                 })
+
+                 //move('box5').set('left',cuba.getStyle(pads[6],'left')).end( move('box6').set('left',cuba.getStyle(pads[5],'left')).end() )
+
+                 //.then( function(){ move('box0').set('left',cuba.getStyle(pads[1],'left')).end( move('box1').set('left',cuba.getStyle(pads[0],'left')).end( function(){ move('box3').set('left',cuba.getStyle(pads[4],'left')).end( move('box4').set('left',cuba.getStyle(pads[3],'left')).end() )  }  ) )  })                
+
+                 
+         });
+
+
+         pads = Array.prototype.slice.call( document.querySelectorAll( "#padx .box" ) )
+
+             cuba.each(pads, function( pad, index ){
+
+                  pad.style.left = (index * 150) + 'px';
+                  pad.setAttribute('id','box'+index)
+             })  
+
+         console.log(pads)
+})      
+
+
+function bubble(i,j,max,callback) {
+
+        callback(i,j)
+
+         if(++j>=max) {
+
+            j = 0
+
+            i++ 
+         }
+ 
+         if(i<max) window.setTimeout(function(){
+
+                          bubble(i,j,max,callback)   
+
+                   }, 500)
+}
+
+function draw(i,j) {
+
+         move(pads[i]).set('left', cuba.getStyle(pads[j],'left')).end( move(pads[j]).set('left', cuba.getStyle(pads[i],'left')).end() )         
+}
+
+function toNumber(o) {
+
+     return parseInt(o.innerHTML)
+}
+
+</script>
+</head>
+<body>
+<h1>cuba.move micro JavaScript Framework</h1>
+
+<div id="sandbox">
+     <div class="box"></div>
+</div>
+     <a href="#" id="move">move</a> |
+
+     <a href="#" id="move2">back</a> |
+
+     <a href="#" id="move3">move3</a> |
+
+     <a href="#" id="move4">move4</a> |
+
+     <a href="#" id="move5">move5</a> |
+
+     <a href="#" id="run">bubble sort</a> 
+<h2>How it works</h3>
+
+<div id="padx">
+     <div class="box">9</div>
+     <div class="box">8</div>
+     <div class="box">7</div>
+     <div class="box">6</div>
+     <div class="box">5</div>
+     <div class="box">4</div>
+     <div class="box">3</div>
+</div>
+<pre><code>
+</code></pre>
+</body>
+</html>
+

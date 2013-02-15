@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>cuba.js micro JavaScript Framework</title>
+<style type="text/css">
+h1,#result{
+font-size: 90px;
+text-align: center
+}
+</style>
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+var arr = [9,8,7,6,5,4,3,2,1,0],
+
+    $ = function( id ) { return cuba.grab(id); }
+
+//if DOM is Ready
+cuba.ready(function() {
+
+     draw()
+
+     cuba.select('#start').on('click', function( event ){
+
+          cuba.stopPropagation( event ) 
+
+          bubbleSort()    
+     })
+
+
+     cuba.select('#reset').on('click', function( event ){
+
+          cuba.stopPropagation( event ) 
+
+          reset()    
+     })
+ 
+})      
+
+function bubbleSort() {
+
+     doIteration(0,0,arr.length-1,function(i,j){
+
+                 var aux;
+ 
+                 if(arr[j] > arr[j+1]) {
+
+                    aux    = arr[j]
+                    arr[j] = arr[j+1]
+                    arr[j+1] = aux 
+
+                 }
+
+                 draw()
+     })  
+}
+
+function doIteration(i,j,max,callback) {
+
+         callback(i,j)
+ 
+         if(++j>=max) {
+              j = 0
+              i++
+         }
+         if(i<max) window.setTimeout(function(){
+
+                          doIteration(i,j,max,callback)
+
+                   },200)
+}
+
+function draw() {
+
+         cuba.select('#result').html( arr.join(",") )
+}
+
+function reset() {
+         arr = [9,8,7,6,5,4,3,2,1,0]
+         cuba.select('#result').html( arr.join(",") )
+}
+
+</script>
+</head>
+<body>
+<h1>Bubble Sort Visualization</h1>
+<a href="#" id="start">START</a> | <a href="#" id="reset">RESET</a>
+<div id="result"></div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>cuba.js micro JavaScript Framework</title>
+<style type="text/css">
+
+.sandbox {
+    margin: 10px 0;
+    padding: 5px;
+    border: 1px solid #eee;
+    position: relative;
+}
+
+.box {
+  margin: 5px;
+  border: 1px solid #888;
+  font-size: 11px;
+  text-align: center;
+  line-height: 50px;
+}
+
+.small {
+        width: 50px;
+        height: 50px;
+}
+</style>
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+var $ = function(id) { return cuba.grab( id ) }
+
+function play(id, fn) {
+
+         cuba.select(id + ' .play').on('click', function( event ){
+
+              move("#pad .box1").set("margin-left",200).ease('ease-in').end()
+              move("#pad .box2").set("margin-left",200).ease('ease-out').end()
+              move("#pad .box3").set("margin-left",200).ease('ease-in-sine').end()
+              move("#pad .box4").set("margin-left",200).ease('ease-in-quint').end()
+              move("#pad .box5").set("margin-left",200).ease('ease-in-circ').end()
+
+              window.setTimeout(function(){
+                move("#pad .box1").set("margin-left",0).end()
+                move("#pad .box2").set("margin-left",0).end()
+                move("#pad .box3").set("margin-left",0).end()
+                move("#pad .box4").set("margin-left",0).end()
+                move("#pad .box5").set("margin-left",0).end()
+              },1200)
+         })
+}
+
+//if DOM is Ready
+cuba.ready(function() {
+
+     play('#pad', function(){
+
+           alert('click')
+
+     }) 
+})      
+
+</script>
+</head>
+<body>
+<h1>move</h1>
+<div id="pad">
+<a href="#" class="play">Play</a>
+<div class="sandbox">
+  <div class="box small box1"></div>
+  <div class="box small box2"></div>
+  <div class="box small box3"></div>
+  <div class="box small box4"></div>
+  <div class="box small box5"></div>
+</div>
+</div>
+</body>
+</html>
+

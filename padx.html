@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>cuba.animate( selector )</title>
+<style type="text/css">
+#box {
+    height: 400px;
+    width: 100%;
+    background: #ddd;
+    margin-top: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+#target {
+    height: 50px;
+    width: 50px;
+    background: #C17878;
+    position: absolute;
+    left:0;
+    top:0
+}
+</style>
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+var $ = function(id) { return cuba.grab( id ) }
+
+//if DOM is Ready
+cuba.ready(function() {
+
+         cuba.attach($('box'), 'click', function( event ){
+
+                 cuba.stopPropagation( event ) 
+
+                 var x = event.clientX,
+                     y = event.clientY
+
+                 cuba.animate('target').set('left',x-20).set('top',y-20).ease('ease-in-sine').end()
+         });
+
+})      
+
+</script>
+</head>
+<body>
+<h1>Click somewhere on the gray area to see the transition</h1>
+<div id="box">
+<div id="target"></div>
+</div>
+</body>
+</html>
+
