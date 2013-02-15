@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>CSS3 Skew based on cuba.js</title>
+<style type="text/css">
+#sandbox .box {
+  border: 1px solid #ccc;
+  width: 100px;
+  height: 100px;
+  /*margin-left: 100px;*/
+  background: ghostwhite;
+}
+
+</style>
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+var $ = function(id) { return cuba.grab( id ) }
+
+//if dom is ready go ahead!!!
+cuba.ready(function() {
+
+         $('skew1').Click( function( event ){
+
+                 cuba.stopPropagation( event )   
+
+                 move("#sandbox .box").to(300,300).skew(20,30).end()
+
+         } )
+
+         $('skew2').Click( function( event ){
+
+                 //cuba.stopPropagation( event )   
+
+                 //move("#sandbox .box").x(300).skew(50,10).end(move("#sandbox .box").to(0,0))
+ 
+                 cuba.animate("#sandbox .box").set('border','10px solid #ccc').rotate(20).end()
+
+         } )
+})      
+
+
+
+</script>
+</head>
+<body>
+<h1>CSS3 Skew based on cuba.js</h1>
+<a href="#" id="skew1">translate(300,300).skew(30,20)</a> | <a href="#" id="skew2">translateX(300).skew(50,10).to(0,0)</a>
+<div id="sandbox">
+     <div class="box"></div>
+</div>
+
+</body>
+</html>
+
