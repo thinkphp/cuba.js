@@ -8,6 +8,8 @@ A micro-library for basic domready, JSONP (JSON with padding and script tag inje
 * select( selector )
 * one( id )
 * grab( id )
+* getOne( id )
+* getAll( selector )
 * each(arr, fn)
 * some(arr, fn, scope)
 * getStyle(elem, prop)
@@ -31,6 +33,7 @@ A micro-library for basic domready, JSONP (JSON with padding and script tag inje
 * yql(query, callback, format, diagnostics)
 * jsonp(url, callback, params, callbackName)
 * ajax(method, url, callback, postData)
+* animate( selector )
  
 ##How it works
 
