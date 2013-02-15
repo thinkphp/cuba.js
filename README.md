@@ -143,7 +143,9 @@ OR
                       cuba.select('#flickr').html( out )
          })
 
+
 OR
+  
          //CSS3 Animation (transition and transform)
          cuba.animate("#sandbox .box").set('margin-left',200).end()
 
