@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>CSS3 translateY based on cuba.js</title>
+<style type="text/css">
+#sandbox .box {
+  border: 1px solid #ccc;
+  width: 100px;
+  height: 100px;
+}
+
+</style>
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+var $ = function(id) { return cuba.grab( id ) }
+
+//if dom is ready go ahead!!!
+cuba.ready(function() {
+
+         $('start').Click( function( event ){
+
+                 cuba.stopPropagation( event )   
+
+                 move("#sandbox .box").y(300).end()
+
+                 window.setTimeout(function(){
+                        move("#sandbox .box").set('background-color','#69c').end()
+                        move("#sandbox .box").set('border','10px solid #ccc').end()
+                        move("#sandbox .box").set('margin-left',0).end()
+                        move("#sandbox .box").rotate(180).end()
+                 }, 1200) 
+         } )
+
+})      
+
+
+
+</script>
+</head>
+<body>
+<h1>CSS3 TranslateY based on cuba.js</h1>
+<a href="#" id="start">translateY and rotate</a>
+<div id="sandbox">
+     <div class="box"></div>
+</div>
+
+</body>
+</html>
+
