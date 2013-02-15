@@ -143,7 +143,18 @@ OR
                       cuba.select('#flickr').html( out )
          })
 
-##Browser Support
+OR
+         //CSS3 Animation (transition and transform)
+         cuba.animate("#sandbox .box").set('margin-left',200).end()
+
+         window.setTimeout(function(){
+                        cuba.animate("#sandbox .box").set('background-color','#69c').end()
+                        cuba.animate("#sandbox .box").set('border','10px solid #ccc').end()
+                        cuba.animate("#sandbox .box").set('margin-left',0).end()
+         }, 1200) 
+
+
+##Browsers Support
 
 * IE6+
 * Chrome 1+
