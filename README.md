@@ -1,7 +1,7 @@
 cuba.js - a micro JavaScript Framework
 --------------------------------------
 
-A micro-library for basic domready, JSONP (JSON with padding and script tag injection), AJAX, DOM, CSS manipulation!
+A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, YQL (Yahoo! Query Language) and CSS3 Animation(transition and transforms)
 
 ## cuba API Documentation
 
@@ -145,6 +145,7 @@ OR
 
 
 OR
+  
          //CSS3 Animation (transition and transform)
          cuba.animate("#sandbox .box").set('margin-left',200).end()
 
@@ -154,7 +155,8 @@ OR
                         cuba.animate("#sandbox .box").set('margin-left',0).end()
          }, 1200) 
 
-##Browser Support
+
+##Browsers Support
 
 * IE6+
 * Chrome 1+
@@ -165,3 +167,18 @@ OR
 ## Demos:
   
 * [http://thinkphp.github.com/cuba.js/](http://thinkphp.github.com/cuba.js/)
+* [http://thinkphp.github.com/cuba.js/search.html](http://thinkphp.github.com/cuba.js/search.html)
+* [http://thinkphp.github.com/cuba.js/flickr.html](http://thinkphp.github.com/cuba.js/flickr.html)
+* [http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html](http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html)
+* [http://thinkphp.github.com/cuba.js/bubble-sort.html](http://thinkphp.github.com/cuba.js/bubble-sort.html)
+* [http://thinkphp.github.com/cuba.js/jsonp.html](http://thinkphp.github.com/cuba.js/jsonp.html)
+* [http://thinkphp.github.com/cuba.js/yql.html](http://thinkphp.github.com/cuba.js/yql.html)
+* [http://thinkphp.github.com/cuba.js/ajax.html](http://thinkphp.github.com/cuba.js/ajax.html)
+* [http://thinkphp.github.com/cuba.js/padx.html](http://thinkphp.github.com/cuba.js/padx.html)
+* [http://thinkphp.github.com/cuba.js/multibox.html](http://thinkphp.github.com/cuba.js/multibox.html)
+* [http://thinkphp.github.com/cuba.js/select-by-min-visualization.html](http://thinkphp.github.com/cuba.js/select-by-min-visualization.html)
+* [http://thinkphp.github.com/cuba.js/http://thinkphp.github.com/cuba.js/select-by-min.html](http://thinkphp.github.com/cuba.js/select-by-min.html)
+* [http://thinkphp.github.com/cuba.js/rotate.html](http://thinkphp.github.com/cuba.js/rotate.html)
+* [http://thinkphp.github.com/cuba.js/translate.html](http://thinkphp.github.com/cuba.js/translate.html)
+* [http://thinkphp.github.com/cuba.js/skew.html](http://thinkphp.github.com/cuba.js/skew.html)
+* [http://thinkphp.github.com/cuba.js/scale.html](http://thinkphp.github.com/cuba.js/scale.html)
