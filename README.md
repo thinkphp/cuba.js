@@ -11,52 +11,52 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ### DOM
 
-* select( selector )
-* one( id )
-* grab( id )
-* getOne( id )
-* getAll( selector )
-* each(arr, fn)
-* some(arr, fn, scope)
-* getStyle(elem, prop)
-* css( v )
-* html( h, text )
-* attr( a, v )
-* removeAttr( k )
-* addClass(elem, c)
-* removeClass(elem, c)
-* hasClass(elem, c)
-* toggleClass( c )
-* trim(s)
-* is( node )
-* camelize( s )
+* .select( selector )
+* .one( id )
+* .grab( id )
+* .getOne( id )
+* .getAll( selector )
+* .each(arr, fn)
+* .some(arr, fn, scope)
+* .getStyle(elem, prop)
+* .css( v )
+* .html( h, text )
+* .attr( a, v )
+* .removeAttr( k )
+* .addClass(elem, c)
+* .removeClass(elem, c)
+* .hasClass(elem, c)
+* .toggleClass( c )
+* .trim(s)
+* .is( node )
+* .camelize( s )
 
 ### Events Handling
 
-* on(evType, handlerFn)
-* unbind(evType, handlerFn)
-* attach(elem, evType, fn, useCapture)
-* detach(elem, evType, fn, useCapture)
-* elem.Click( fn )
-* stopPropagation( event )
+* .on(evType, handlerFn, useCapture)
+* .unbind(evType, handlerFn, useCapture)
+* .attach(elem, evType, fn, useCapture)
+* .detach(elem, evType, fn, useCapture)
+* .elem.Click( fn )
+* .stopPropagation( event )
 
 ### Effects Fading
 
-* fadeIn(elem || id,speed,callback)
-* fadeOut(elem || id,speed,callback)
-* fadeInById(elem || id,speed,callback)
-* fadeOutById(elem || id,speed,callback)
-* elem.fadeIn(speed, callback)
-* elem.fadeOut(speed, callback)
+* .fadeIn(elem || id,speed,callback)
+* .fadeOut(elem || id,speed,callback)
+* .fadeInById(elem || id,speed,callback)
+* .fadeOutById(elem || id,speed,callback)
+* .elem.fadeIn(speed, callback)
+* .elem.fadeOut(speed, callback)
 
 
 ### More
 
-* script(url, callback)
-* yql(query, callback, format, diagnostics)
-* jsonp(url, callback, params, callbackName)
-* ajax(method, url, callback, postData)
-* animate( selector )
+* .script(url, callback)
+* .yql(query, callback, format, diagnostics)
+* .jsonp(url, callback, params, callbackName)
+* .ajax(method, url, callback, postData)
+* .animate( selector )
  
 ##How it works
 
