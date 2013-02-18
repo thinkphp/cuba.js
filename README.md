@@ -34,7 +34,9 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 ### Events Handling
 
 * on(evType, handlerFn)
+* unbind(evType, handlerFn)
 * attach(elem, evType, fn, useCapture)
+* detach(elem, evType, fn, useCapture)
 * elem.Click( fn )
 * stopPropagation( event )
 
@@ -71,7 +73,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                })  
           })
 
-### Event Handling 
+### Event Handling - bind a handler to the event for the elements.
     
     //#1
     //handler function
