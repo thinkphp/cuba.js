@@ -37,7 +37,9 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
  
 ##How it works
 
-          //specify a function to execute when the DOM is fully loaded
+### Specify a function to execute when the DOM is fully loaded.
+
+          //cuba.ready( fn );
           cuba.ready(function(){
 
                cuba.select("#in").html(arr.join(","))
@@ -47,29 +49,26 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                     cuba.select("#out").html( sorting.insert( arr ).join(",") )
                })  
           })
-          // cuba.ready( fn ) => fn - a function to execute after the DOM is ready
 
-OR
-
-         //select an element and added a handler on event 'click'
+### Event Handling 
+                   
+         //adding a handler for event 'click'
          cuba.select("#btn").on('click', function(){
                alert('clicked')
          })
 
-OR
+### DOM manipulation
 
          //added label to the button
-         cuba.select("#btn").html("Click Me")  
+         cuba.select("#div").html("content")  
 
-OR
 
          //select an element, then invoke the methods: html() and css()
          cuba.select("#out")
              .html("Jean Baptiste Poquelin")
              .css("width: 100px; height: 100px;border: 1px solid #ccc;background: #393;color: #fff")
 
-OR
-
+### JSNOP
 
          // JSONP or JSON with padding is a communication technique (CORS can be used as a modern alternative to the JSONP)
          // creates a JSON request using script tag injection and handles the callbacks for you.
@@ -108,7 +107,7 @@ OR
 
          }, params, 'jsoncallback')
 
-OR
+### AJAX 
 
          //load data from the server using HTTP GET request
          cuba.ajax('GET','README.md', function( data ){
@@ -117,7 +116,7 @@ OR
                    console.log(data)
          })
 
-OR
+### YQL
 
          //Yahoo! Query Language YQL is an expressive SQL-like language that lets you query, filter, and join data across Web Services.
          //With YQL apps run faster with fewer lines of code and smaller network footprint.
@@ -144,7 +143,7 @@ OR
          })
 
 
-OR
+### CSS3 Animation
   
          //CSS3 Animation (transition and transform)
          cuba.animate("#sandbox .box").set('margin-left',200).end()
@@ -155,6 +154,19 @@ OR
                         cuba.animate("#sandbox .box").set('margin-left',0).end()
          }, 1200) 
 
+
+### Fading Effects
+
+        <div id="div1" style="width:80px;height:80px;opacity:0;background-color:red;"></div><br>
+        <div id="div2" style="width:80px;height:80px;opacity:0;background-color:green;"></div><br>
+        <div id="div3" style="width:80px;height:80px;opacity:0;background-color:blue;"></div>
+
+        $('btn').Click(function( event ){
+
+                 $('div1').fadeIn()
+                 $('div2').fadeIn()
+                 $('div3').fadeIn()
+        })
 
 ##Browsers Support
 
