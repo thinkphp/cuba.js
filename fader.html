@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>Fader</title>
+<style type="text/css">
+
+#sandbox .box {
+  border: 1px solid #ccc;
+  width: 100px;
+  height: 100px;
+  background: ghostwhite;
+}
+
+</style>
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+var fader = {
+
+    canTransitions: (function() {
+       var t = ['transition', 'MozTransition', 'WebkitTransition', 'KhtmlTransition', 'OTransition', 'msTransition'],
+           len = t.length,
+           doc = document.body || document.documentElement; 
+           for(var i=0;i<len;i++) {
+               if('string' == typeof doc.style[t[i]]) return t[i]
+           }
+             
+       return false;
+    })(),
+
+    fadeIn: function(elem, time, callback) {
+
+        time = time || 2
+
+        this.runFade(elem, time, 0, 100, callback)
+    },
+
+
+    fadeOut: function(elem, time, callback) {
+
+        time = time || 2
+
+        this.runFade(elem, time, 100, 0, callback)
+    },
+
+    fadeInById: function(id, time, callback) {
+
+        time = time || 2
+
+        this.runFade(document.getElementById(id), time, 0, 100, callback)
+    },
+
+    fadeOutById: function(id, time, callback) {
+
+        time = time || 2
+
+        this.runFade(document.getElementById(id), time, 100, 0, callback)
+    }, 
+
+    fadeInByClass: function(className, index, time, callback) {
+
+              var elem = document.getElementsByClassName(className)[index]; 
+
+              fader.runFade(elem, time, 0, 100, callback) 
+    },
+
+    fadeOutByClass: function(className, index, time, callback) {
+
+              var elem = document.getElementsByClassName(className)[index]
+
+              this.runFade(elem, time, 100, 0, callback) 
+    },
+
+    runFade: function(elem, time, li, ls, callback) {
+
+             var callback = callback || function(){}
+
+             if(fader.canTransitions) { 
+
+                elem.style.opacity = (li == 100) ? 1 : 0
+
+                elem.style[fader.canTransitions] = "opacity " + time * 1000 + 'ms linear'
+
+                elem.style.opacity = (ls == 100) ? 1 : 0
+
+                return;
+             }
+
+             var alpha = li;
+
+             var inc;
+
+             if(ls >= li) {
+
+                inc = 2;
+
+             } else {
+
+                inc = -2; 
+             }
+
+             var timer = (time * 1000) / 50
+
+             var f = window.setInterval(function(){
+
+                     if((alpha >= ls && inc > 0) || (alpha <= ls && inc < 0)) {
+
+                         clearInterval(f) 
+                     }
+
+                     fader.set(elem, alpha)
+
+                     alpha += inc
+
+             }, timer) 
+    },
+    set: function(x, alpha) {
+
+         x.style.filter = "alpha(opacity=" + alpha + ")";
+
+         x.style.opacity = alpha/100;
+    }
+}
+
+HTMLElement.prototype.fadeOut = function( time, fn ) {
+
+      fader.fadeOut(this, time)
+}
+
+HTMLElement.prototype.fadeIn = function( time, fn ) {
+     
+      fader.fadeIn(this, time)
+}
+
+</script>
+</head>
+<body>
+<h1>fader</h1>
+<button id="btn">Click to fadeIn in boxes</button>
+<button id="btn2">Click to fadeOut in boxes</button>
+<button id="btn3">Click to fadeIn by id</button>
+<button id="btn4">Click to fadeOut by id</button>
+<button id="btn5">Click to fadeIn by class</button>
+<button id="btn6">Click to fadeOut by class</button>
+<br><br>
+<div id="div1" style="width:80px;height:80px;opacity:0;background-color:red;"></div><br>
+<div id="div2" style="width:80px;height:80px;opacity:0;background-color:green;"></div><br>
+<div id="div3" style="width:80px;height:80px;opacity:0;background-color:blue;"></div>
+
+<div class="box" style="width:80px;height:80px;opacity:0;background-color:silver;"></div><br>
+<div class="box" style="width:80px;height:80px;opacity:0;background-color:lightgreen;"></div><br>
+<div class="box" style="width:80px;height:80px;opacity:0;background-color:lightblue;"></div>
+
+<div id="sandbox">
+</div>
+<script type="text/javascript">        
+
+           var $ = function( id ) {return document.getElementById(id);},
+
+               addEvent = function(elem, ev, fn, useCapture) {
+  
+                  if( elem.addEventListener ) {
+
+                     elem.addEventListener(ev, fn, useCapture)
+
+                  } else if( elem.attachEvent ) {
+
+                     elem.attachEvent( 'on' + ev, fn)
+
+                  } else {
+
+                     elem[ 'on' + ev ] = fn
+                  }
+            }
+
+            HTMLElement.prototype.Click = function( fn ) {
+
+                   addEvent(this,'click', fn, false)
+            }
+   
+        $('btn').Click(function( event ){
+
+                 $('div1').fadeIn()
+                 $('div2').fadeIn()
+                 $('div3').fadeIn()
+        })
+
+        $('btn2').Click(function( event ){
+
+                 $('div1').fadeOut()
+                 $('div2').fadeOut()
+                 $('div3').fadeOut()
+        })
+
+        $('btn3').Click(function( event ){
+
+
+                 fader.fadeInById('div1')
+                 fader.fadeInById('div2')
+                 fader.fadeInById('div3')
+        })
+
+        $('btn4').Click(function( event ){
+                 
+                 fader.fadeOutById('div1')
+                 fader.fadeOutById('div2')
+                 fader.fadeOutById('div3')
+        })
+
+        $('btn5').Click(function( event ){
+
+                 Fader.fadeInWithClass('box',0)
+                 fader.fadeInByClass('box',1)
+                 fader.fadeInByClass('box',2)
+        })
+
+        $('btn6').Click(function( event ){
+
+                 fader.fadeOutByClass('box',0)
+                 fader.fadeOutByClass('box',1)
+                 fader.fadeOutByClass('box',2)
+        })
+
+</script>
+</body>
+</html>
+
