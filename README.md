@@ -225,7 +225,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 ### cuba UI
 
 
-    Accordion  
+#### Accordion  
 
     HTML Structure
     <div id="accordion" class="accordion ui-accordion ui-widget">
