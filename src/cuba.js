@@ -520,6 +520,23 @@ var cuba = {
                 document.getElementsByTagName("head")[0].appendChild(s);
      },
 
+     loadLink: function( url ) {
+                //get a reference to the head element
+                var head = document.head || document.getElementsByTagName("head")[0],
+                    //create a link element
+                    linkEl = document.createElement('link');
+                    //set attribute 'type'
+                    linkEl.setAttribute('type','text/css')       
+                    //set attribute 'rel'
+                    linkEl.setAttribute('rel','stylesheet')
+                    //set attribute 'href'
+                    linkEl.setAttribute('href', url)
+                    //if ok then append it
+                    if( url ){
+
+                        head.appendChild( linkEl ) 
+                    }
+     },
 
      ready: function( foo ) {
 
@@ -908,17 +925,65 @@ HTMLElement.prototype.fadeIn = function( time, fn ) {
 //cuba UI (User Interface)
 cuba.UI = {
 
+     accordion: function(accordionID, acc_hidden, urlCSS) {
+
+        cuba.loadLink( urlCSS ) 
+
+        var elem = cuba.grab( accordionID ) 
+
+        //using event delegation
+        cuba.attach(elem,'click', function( event ){
+
+              var target = cuba.getTarget( event );
+
+              if(cuba.hasClass(target.parentNode, acc_hidden))
+
+              if(target.nodeName.toLowerCase() == 'h1') {
+
+                   var next = [], 
+                       prev = [];
+
+                   var target = event.target,
+                       el = target.parentNode
+;
+                   var n = el.nextSibling
+                   while(n && (n.nodeType != 1 || n.nodeType != 2)) { 
+                        n = n.nextSibling; 
+                        next.push(n)
+                   }
+                   var p = el.previousSibling;
+                   while(p && (p.nodeType != 1 || p.nodeType != 2)) { 
+                        p = p.previousSibling; 
+                        prev.push(p)
+                   }   
+                   var len = next.length, 
+                       len2 = prev.length;
+
+                   for(var i=0;i<len;i++) {
+                       if(next[i] != null && next[i].nodeType == 1) {
+                          cuba.addClass(next[i], acc_hidden)
+                       } 
+                   }
+                   for(var i=0;i<len2;i++) {
+                       if(prev[i]!= null && prev[i].nodeType == 1) {
+                          cuba.addClass(prev[i], acc_hidden)
+                       } 
+                   }
+
+                   cuba.removeClass(el, acc_hidden);
+
+              }//end if
+
+        })//end event delegation     
+     },
+
      autocomplete: function() {
         
      },
 
      tabs: function() {
 
-     },
-
-     accordion: function() {
-        //do stuff
-     }  
+     }
 };
 
 //cuba badges
