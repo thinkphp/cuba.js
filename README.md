@@ -222,6 +222,35 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                  cuba.fadeIn('div3')
         })
 
+### cuba UI
+
+
+#### Accordion  
+
+    HTML Structure
+    <div id="accordion" class="accordion ui-accordion ui-widget">
+    <section id="item1" class="acc_hidden">
+    <p class="pointer">&#9654;</p><h1><a href="#">Class Abstraction1</a></h1>
+    <p>content1</p>
+    </section>
+    <section id="item1" class="">
+    <p class="pointer">&#9654;</p><h1><a href="#">Class Abstraction2</a></h1>
+    <p>content3</p>
+    </section>
+    <section id="item1" class="acc_hidden">
+    <p class="pointer">&#9654;</p><h1><a href="#">Class Abstraction3</a></h1>
+    <p>content3</p>
+    </section>
+    </div>
+
+    JavaScript     
+    //Accordion based on CSS3
+    //cuba.UI.accordion(accordionID, hiddenClass, urlCSS);
+    cuba.UI.accordion('accordion','acc_hidden', 'link.css');   
+
+#### Autocomplete
+
+#### Tabview
 
 ##Browsers Support
 
@@ -232,20 +261,39 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * Opera
 
 ## Demos:
-  
+
+Core
+
 * [http://thinkphp.github.com/cuba.js/](http://thinkphp.github.com/cuba.js/)
 * [http://thinkphp.github.com/cuba.js/search.html](http://thinkphp.github.com/cuba.js/search.html)
 * [http://thinkphp.github.com/cuba.js/flickr.html](http://thinkphp.github.com/cuba.js/flickr.html)
-* [http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html](http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html)
-* [http://thinkphp.github.com/cuba.js/bubble-sort.html](http://thinkphp.github.com/cuba.js/bubble-sort.html)
 * [http://thinkphp.github.com/cuba.js/jsonp.html](http://thinkphp.github.com/cuba.js/jsonp.html)
 * [http://thinkphp.github.com/cuba.js/yql.html](http://thinkphp.github.com/cuba.js/yql.html)
 * [http://thinkphp.github.com/cuba.js/ajax.html](http://thinkphp.github.com/cuba.js/ajax.html)
-* [http://thinkphp.github.com/cuba.js/padx.html](http://thinkphp.github.com/cuba.js/padx.html)
-* [http://thinkphp.github.com/cuba.js/multibox.html](http://thinkphp.github.com/cuba.js/multibox.html)
+
+Event Handler
+
+* [http://thinkphp.github.com/cuba.js/events.html](http://thinkphp.github.com/cuba.js/events.html)
+
+Effects Fading
+
+* [http://thinkphp.github.com/cuba.js/fading.html](http://thinkphp.github.com/cuba.js/fading.html)
+
+CSS3 Animation
+
+* [http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html](http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html)
+* [http://thinkphp.github.com/cuba.js/bubble-sort.html](http://thinkphp.github.com/cuba.js/bubble-sort.html)
+* [http://thinkphp.github.com/cuba.js/select-by-min.html](http://thinkphp.github.com/cuba.js/select-by-min.html)
 * [http://thinkphp.github.com/cuba.js/select-by-min-visualization.html](http://thinkphp.github.com/cuba.js/select-by-min-visualization.html)
-* [http://thinkphp.github.com/cuba.js/http://thinkphp.github.com/cuba.js/select-by-min.html](http://thinkphp.github.com/cuba.js/select-by-min.html)
 * [http://thinkphp.github.com/cuba.js/rotate.html](http://thinkphp.github.com/cuba.js/rotate.html)
 * [http://thinkphp.github.com/cuba.js/translate.html](http://thinkphp.github.com/cuba.js/translate.html)
 * [http://thinkphp.github.com/cuba.js/skew.html](http://thinkphp.github.com/cuba.js/skew.html)
 * [http://thinkphp.github.com/cuba.js/scale.html](http://thinkphp.github.com/cuba.js/scale.html)
+* [http://thinkphp.github.com/cuba.js/padx.html](http://thinkphp.github.com/cuba.js/padx.html)
+* [http://thinkphp.github.com/cuba.js/multibox.html](http://thinkphp.github.com/cuba.js/multibox.html)
+
+cuba UI
+
+* [http://thinkphp.github.com/cuba.js/accordion.html](http://thinkphp.github.com/cuba.js/accordion.html)
+
+
