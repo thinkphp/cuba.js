@@ -72,11 +72,28 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
           })
 
 ### Event Handling 
-                   
-         //adding a handler for event 'click'
-         cuba.select("#btn").on('click', function(){
-               alert('clicked')
-         })
+    
+    //#1
+    //handler function
+    var f = function(){ alert('click') }
+
+    //bind a handler to the event click for an element
+    cuba.attach($('btn'),'click', f, false)
+
+    window.setTimeout(function(){
+ 
+           //unbind the handler to the event click
+           cuba.detach($('btn'),'click', f, false)
+
+           cuba.select('#msg').html('event removed')
+
+    },2000)
+       
+    //#2  
+    //attach a handler to the event 'click' for an element
+    cuba.select("#btn").on('click', function(){
+         alert('clicked')
+    })
 
 ### DOM manipulation
 
