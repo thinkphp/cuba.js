@@ -102,6 +102,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
          //added label to the button
          cuba.select("#div").html("content")  
 
+
          //select an element, then invoke the methods: html() and css()
          cuba.select("#out")
              .html("Jean Baptiste Poquelin")
@@ -232,7 +233,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ## Demos:
 
-Events, DOM Manipulation, AJAX, JSON with Padding, YQL
+Core
 
 * [http://thinkphp.github.com/cuba.js/](http://thinkphp.github.com/cuba.js/)
 * [http://thinkphp.github.com/cuba.js/search.html](http://thinkphp.github.com/cuba.js/search.html)
