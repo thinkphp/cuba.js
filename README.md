@@ -248,6 +248,10 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
     //cuba.UI.accordion(accordionID, hiddenClass, urlCSS);
     cuba.UI.accordion('accordion','acc_hidden', 'link.css');   
 
+#### Autocomplete
+
+#### Tabview
+
 ##Browsers Support
 
 * IE6+
