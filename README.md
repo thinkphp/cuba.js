@@ -28,6 +28,8 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * attach(elem, evType, fn, useCapture)
 * elem.Click( fn )
 * stopPropagation( event )
+* fadeIn(elem || id,speed,callback)
+* fadeOut(elem || id,speed,callback)
 * ready( fn )
 * script(url, callback)
 * yql(query, callback, format, diagnostics)
@@ -167,6 +169,21 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                  $('div2').fadeIn()
                  $('div3').fadeIn()
         })
+
+        $('btn2').Click(function( event ){
+
+                 $('div1').fadeOut()
+                 $('div2').fadeOut()
+                 $('div3').fadeOut()
+        })
+
+        $('btn3').Click(function( event ){
+
+                 cuba.fadeIn('div1')
+                 cuba.fadeIn('div2')
+                 cuba.fadeIn('div3')
+        })
+
 
 ##Browsers Support
 
