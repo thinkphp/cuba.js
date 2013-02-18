@@ -68,10 +68,10 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
              .html("Jean Baptiste Poquelin")
              .css("width: 100px; height: 100px;border: 1px solid #ccc;background: #393;color: #fff")
 
-### JSNOP
+### JSONP stands for "JSON with Padding" and it is a workaround for loading data from different domains.
 
-         // JSONP or JSON with padding is a communication technique (CORS can be used as a modern alternative to the JSONP)
-         // creates a JSON request using script tag injection and handles the callbacks for you.
+         //creates a JSON request using script tag injection and handles the callbacks for you.
+         //CORS can be used as a modern alternative to the JSONP)
          var url = 'http://search.twitter.com/search.json?q=mootools&rpp=5&callback=?'
 
          cuba.jsonp(url, function(data){
@@ -107,7 +107,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
          }, params, 'jsoncallback')
 
-### AJAX 
+### AJAX functionality - the transport for requests is XMLHttpRequest.
 
          //load data from the server using HTTP GET request
          cuba.ajax('GET','README.md', function( data ){
@@ -116,9 +116,9 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                    console.log(data)
          })
 
-### YQL
+### YQL - Yahoo! Query Language YQL is an expressive SQL-like language.
 
-         //Yahoo! Query Language YQL is an expressive SQL-like language that lets you query, filter, and join data across Web Services.
+         //Lets you query, filter, and join data across Web Services.
          //With YQL apps run faster with fewer lines of code and smaller network footprint.
          var query = "select * from flickr.photos.search where has_geo='true' and text='san francisco' and api_key='e407090ddb7d7c7c36e0a0474289ec74'"
         
