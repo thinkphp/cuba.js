@@ -5,6 +5,12 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ## cuba API Documentation
 
+### DOM Ready
+
+* ready( fn )
+
+### DOM
+
 * select( selector )
 * one( id )
 * grab( id )
@@ -24,13 +30,26 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * trim(s)
 * is( node )
 * camelize( s )
+
+### Events Handling
+
 * on(evType, handlerFn)
 * attach(elem, evType, fn, useCapture)
 * elem.Click( fn )
 * stopPropagation( event )
+
+### Effects Fading
+
 * fadeIn(elem || id,speed,callback)
 * fadeOut(elem || id,speed,callback)
-* ready( fn )
+* fadeInById(elem || id,speed,callback)
+* fadeOutById(elem || id,speed,callback)
+* elem.fadeIn(speed, callback)
+* elem.fadeOut(speed, callback)
+
+
+### More
+
 * script(url, callback)
 * yql(query, callback, format, diagnostics)
 * jsonp(url, callback, params, callbackName)
