@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>cuba.js UI Accordion</title>
+<style type="text/css">
+</style>
+</head>
+<body>
+<h1>cuba UI CSS3 Accordion</h1>
+<div id="accordion" class="accordion ui-accordion ui-widget ui-helper-reset">
+  <section id="item1" class="ac_hidden">
+    <p class="pointer">&#9654;</p><h1><a href="#">Class Abstraction</a></h1>
+    <p>
+     PHP 5 introduces abstract classes and methods. It is not allowed to create an instance of a class that has been defined as abstract. Any class that contains at least one abstract method must also be abstract. Methods defined as abstract simply declare the method's signature they cannot define the implementation. When inheriting from an abstract class, all methods marked abstract in the parent's class declaration must be defined by the child; additionally, these methods must be defined with the same (or a less restricted) visibility. For example, if the abstract method is defined as protected, the function implementation must be defined as either protected or public, but not private. 
+    </p>
+  </section>
+  <section id="item2" class="">
+    <p class="pointer">&#9654;</p><h1><a href="#">Late Static Bind</a></h1>
+    <p>
+<pre><code>
+class A {
+    public static function who() {
+        echo __CLASS__;
+    }
+    public static function test() {
+        self::who();
+    }
+}
+
+</code></pre>
+    </p>
+  </section>
+  <section id="item3" class="ac_hidden">
+    <p class="pointer">&#9654;</p><h1><a href="#">Overloading</a></h1>
+<pre><code>
+__set() is run when writing data to inaccessible 
+properties.
+
+__get() is utilized for reading data from inaccessible 
+properties.
+
+__isset() is triggered by calling isset() or empty() on inaccessible 
+properties.
+
+__unset() is invoked when unset() is used on inaccessible properties. 
+</code></pre>
+  </section>
+</div>
+
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+cuba.UI.accordion('accordion','ac_hidden','src/UI/accordion.css')
+
+</script>
+</body>
+</html>
+
