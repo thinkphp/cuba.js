@@ -248,13 +248,13 @@ Event Handler
 
 Effects Fading
 
-* [http://thinkphp.github.com/cuba.js/scale.html](http://thinkphp.github.com/cuba.js/fading.html)
+* [http://thinkphp.github.com/cuba.js/fading.html](http://thinkphp.github.com/cuba.js/fading.html)
 
 CSS3 Animation
 
 * [http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html](http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html)
 * [http://thinkphp.github.com/cuba.js/bubble-sort.html](http://thinkphp.github.com/cuba.js/bubble-sort.html)
-* [http://thinkphp.github.com/cuba.js/http://thinkphp.github.com/cuba.js/select-by-min.html](http://thinkphp.github.com/cuba.js/select-by-min.html)
+* [http://thinkphp.github.com/cuba.js/select-by-min.html](http://thinkphp.github.com/cuba.js/select-by-min.html)
 * [http://thinkphp.github.com/cuba.js/select-by-min-visualization.html](http://thinkphp.github.com/cuba.js/select-by-min-visualization.html)
 * [http://thinkphp.github.com/cuba.js/rotate.html](http://thinkphp.github.com/cuba.js/rotate.html)
 * [http://thinkphp.github.com/cuba.js/translate.html](http://thinkphp.github.com/cuba.js/translate.html)
