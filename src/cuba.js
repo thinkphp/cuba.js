@@ -5,12 +5,22 @@
  * MIT License
  */
 
+//@namespace cuba
 var cuba = {
 
+   /**
+    *  Library version
+    */
     version: '1.0.5',
 
+   /**
+    *  Library name
+    */
     name: 'cuba.js',
  
+   /**
+    *  DOM Manipulation
+    */  
     select: function( selector ) {
  
             this.value = Array.prototype.slice.call( document.querySelectorAll( selector ) )
@@ -285,6 +295,9 @@ var cuba = {
         })   
     },
 
+    /**
+     *  Events Handling
+     */
     on: function(ev, fn) {
 
        this.value = this.each.call(this, this.value, function( elem ){
@@ -353,6 +366,9 @@ var cuba = {
        return target;
     },
 
+   /**
+    *  Utilities
+    */
     ajax: function(method,url,callback,postData) {
 
                   function handleReadyState(o,callback) { 
@@ -645,12 +661,223 @@ var cuba = {
           }
      },
 
+     /**
+      *  cuba Effects - Fading 
+      *  With cuba you can fade elements in and out of visibility  
+      *
+      *  - fadeIn(elem[,speed,callback])           - this method is used to fade in a hidden element.
+      *  - fadeOut(elem[,speed,callback])          - this method is used to fade out in a visible element.
+      *  - fadeInById(id,speed,callback)           
+      *  - fadeOutById(id,speed,callback)
+      */
+      canTransitions: (function() {
+           var t = ['transition', 'MozTransition', 'WebkitTransition', 'KhtmlTransition', 'OTransition', 'msTransition'],
+           len = t.length,
+           doc = document.body || document.documentElement; 
+           for(var i=0;i<len;i++) {
+               if('string' == typeof doc.style[t[i]]) return t[i]
+           }
+             
+       return false;
+      })(),
+
+     /**
+      * This method is used to fade in a hidden element.
+      * 
+      * @public method fadeIn
+      * @param elem  Object -  the element to fade
+      * @param speed number -  the optional speed parameter specifies the duration of the effect.    
+      * @param callback     -  the optional callback parameter is the name of a function to be executed after the fading completes.
+      * @return this        -  return this object (cuba)
+      */
+      fadeIn: function(elem, speed, callback) {
+
+        speed = speed || 2
+
+        this.runFade(elem, speed, 0, 100, callback)
+ 
+        return this 
+      },
+
+     /**
+      * This method is used to fade out a visible element.
+      * 
+      * @public method fadeIn
+      * @param elem  Object -  the element to fade
+      * @param speed number -  the optional speed parameter specifies the duration of the effect.    
+      * @param callback     -  the optional callback parameter is the name of a function to be executed after the fading completes.
+      * @return this        -  return this object (cuba)
+      */
+      fadeOut: function(elem, speed, callback) {
+
+        speed = speed || 2
+
+        this.runFade(elem, speed, 100, 0, callback)
+
+        return this
+      },
+
+     /**
+      * This method is used to fade in a hidden element.
+      * 
+      * @public method fadeInById
+      * @param elem String  -  the id of the element to fade in.
+      * @param speed number -  the optional speed parameter specifies the duration of the effect.    
+      * @param callback     -  the optional callback parameter is the name of a function to be executed after the fading completes.
+      * @return this        -  return this object (cuba)
+      */
+      fadeInById: function(id, speed, callback) {
+
+        speed = speed || 2
+
+        this.runFade(document.getElementById(id), speed, 0, 100, callback)
+
+        return this
+      },
+
+     /**
+      * This method is used to fade out a visible element
+      * 
+      * @public method fadeOutById
+      * @param elem String  -  the id of the element to fade out.
+      * @param speed number -  the optional speed parameter specifies the duration of the effect.    
+      * @param callback     -  the optional callback parameter is the name of a function to be executed after the fading completes.
+      * @return this        -  return this object (cuba)
+      */
+      fadeOutById: function(id, speed, callback) {
+
+        speed = speed || 2
+
+        this.runFade(document.getElementById(id), speed, 100, 0, callback)
+
+        return this
+      }, 
+
+     /**
+      * This method is used to fade in a hidden element.
+      * 
+      * @private
+      * @param elem String  -  the id of the element to fade
+      * @param speed number -  the optional speed parameter specifies the duration of the effect.    
+      * @param callback     -  the optional callback parameter is the name of a function to be executed after the fading completes.
+      * @param li           -  initial value to fade.
+      * @param ls           -  finish value to fade.
+      * @return this        -  return this object (cuba)
+      */
+      runFade: function(elem, speed, li, ls, callback) {
+
+             var callback = callback || function(){},
+
+                 set = function(x, alpha) {
+
+                       x.style.filter = "alpha(opacity=" + alpha + ")";
+
+                       x.style.opacity = alpha/100;
+                 };
+
+
+             if(cuba.canTransitions) { 
+
+                elem.style.opacity = (li == 100) ? 1 : 0
+
+                elem.style[cuba.canTransitions] = "opacity " + speed * 1000 + 'ms linear'
+
+                elem.style.opacity = (ls == 100) ? 1 : 0
+
+                return;
+             }
+
+             var alpha = li;
+
+             var inc;
+
+             if(ls >= li) {
+
+                inc = 2;
+
+             } else {
+
+                inc = -2; 
+             }
+
+             var timer = (speed * 1000) / 50
+
+             var f = window.setInterval(function(){
+
+                     if((alpha >= ls && inc > 0) || (alpha <= ls && inc < 0)) {
+
+                         clearInterval(f) 
+                     }
+
+                     set(elem, alpha)
+
+                     alpha += inc
+
+             }, timer);
+
+       return this
+     },
+
+     /**
+      *  @public method animate()
+      *  @param selector String - the selector to get elements
+      *  @return object (Move)
+      */
      animate: function( selector ) {
 
             return move( selector ) 
      }
 };
 
+
+HTMLElement.prototype.fadeOut = function( time, fn ) {
+
+      cuba.fadeOut(this, time)
+}
+
+HTMLElement.prototype.fadeIn = function( time, fn ) {
+     
+      cuba.fadeIn(this, time)
+}
+
+
+//cuba UI (User Interface)
+cuba.UI = {
+
+     autocomplete: function() {
+        
+     },
+
+     tabs: function() {
+
+     },
+
+     accordion: function() {
+        //do stuff
+     }  
+};
+
+//cuba badges
+cuba.badges = {
+ 
+     twitter: function() {
+
+     },
+
+     flickr: function() {
+
+     },
+
+     lastfm: function() {
+
+     },
+
+     weather: function() {
+
+     }
+}
+
+//Event 'click' Handling
 HTMLElement.prototype.Click = function( fn ) {
 
      return cuba.attach(this, 'click', fn, false)  
