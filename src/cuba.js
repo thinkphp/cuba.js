@@ -5,12 +5,22 @@
  * MIT License
  */
 
+//@namespace cuba
 var cuba = {
 
+   /**
+    *  Library version
+    */
     version: '1.0.5',
 
+   /**
+    *  Library name
+    */
     name: 'cuba.js',
  
+   /**
+    *  DOM Manipulation
+    */  
     select: function( selector ) {
  
             this.value = Array.prototype.slice.call( document.querySelectorAll( selector ) )
@@ -118,9 +128,9 @@ var cuba = {
         } : function(elem, property){ 
 
             return elem.style[this.camelize[property]]
-    }
+    },
 
-    ,css: function( v ) {
+    css: function( v ) {
          
          this.value = this.each.call(this, this.value, function( elem ){
 
@@ -285,42 +295,109 @@ var cuba = {
         })   
     },
 
-    on: function(ev, fn) {
+    /**
+     *  Events Handling.     
+     *
+     *  A JS handler can be executed when an event occurs, like when a user click on an HTML element.
+     */
+
+    /**
+      * Attach a handler to a event for the elements
+      *
+      */ 
+    on: function(evType, fn, useCapture) {
 
        this.value = this.each.call(this, this.value, function( elem ){
 
-                  if( elem.addEventListener ) {
+           if(elem.addEventListener) {
 
-                     elem.addEventListener(ev, fn, false)
+              return elem.addEventListener(evType, fn, useCapture)
+  
+           } else if(elem.attachEvent) {
+ 
+                  var _fn = function(){ fn.call(elem, window.event); }
 
-                  } else if( elem.attachEvent ) {
+                  var r = elem.attachEvent('on'+evType, _fn)
 
-                     elem.attachEvent( 'on' + ev, fn)  
+                  elem[fn.toString() + evType] = _fn
+   
+                  return r;
 
-                  } else {
+           } else {
 
-                     elem[ 'on' + ev ] = fn
-                  }
+                  elem['on'+evType] = fn
+           } 
        })  
 
       return this
     },
 
-    attach: function(elem, ev, fn, useCapture) {
+    /**
+     * Remove a previously-attached event handler from the elements.
+     */
+    unbind: function(elem,evType,fn,useCapture) {
 
-                  if( elem.addEventListener ) {
+       this.value = this.each.call(this, this.value, function( elem ){
 
-                     elem.addEventListener(ev, fn, useCapture)
+        if(elem.addEventListener) {
 
-                  } else if( elem.attachEvent ) {
+           return elem.removeEventListener(evType, fn, useCapture)
 
-                     elem.attachEvent( 'on' + ev, fn)  
+        } else if(elem.detachEvent) {
 
-                  } else {
+           return elem.detachEvent('on'+evType, elem[fn.toString() + evType])
 
-                     elem[ 'on' + ev ] = fn
-                  }
+           elem[fn.toString() + evType] = null
+
+        } else {
+
+           elem['on'+evType] = function(){}
+        } 
+
+       })  
+
+      return this
     },
+
+    attach: function(elem, evType, fn, useCapture) {
+
+        if(elem.addEventListener) {
+
+              return elem.addEventListener(evType, fn, useCapture)
+  
+           } else if(elem.attachEvent) {
+ 
+                  var _fn = function(){ fn.call(elem, window.event); }
+
+                  var r = elem.attachEvent('on'+evType, _fn)
+
+                  elem[fn.toString() + evType] = _fn
+   
+                  return r;
+
+           } else {
+
+                  elem['on'+evType] = fn
+           }    
+    },
+
+    detach: function(elem,evType,fn,useCapture) {
+
+        if(elem.addEventListener) {
+
+           return elem.removeEventListener(evType, fn, useCapture)
+
+        } else if(elem.detachEvent) {
+
+           return elem.detachEvent('on'+evType, elem[fn.toString() + evType])
+
+           elem[fn.toString() + evType] = null
+
+        } else {
+
+           elem['on'+evType] = function(){}
+        } 
+    },    
 
     stopPropagation: function( e ) {
 
@@ -353,6 +430,9 @@ var cuba = {
        return target;
     },
 
+   /**
+    *  Utilities
+    */
     ajax: function(method,url,callback,postData) {
 
                   function handleReadyState(o,callback) { 
@@ -645,12 +725,223 @@ var cuba = {
           }
      },
 
+     /**
+      *  cuba Effects - Fading 
+      *  With cuba you can fade elements in and out of visibility  
+      *
+      *  - fadeIn(elem[,speed,callback])           - this method is used to fade in a hidden element.
+      *  - fadeOut(elem[,speed,callback])          - this method is used to fade out in a visible element.
+      *  - fadeInById(id,speed,callback)           
+      *  - fadeOutById(id,speed,callback)
+      */
+      canTransitions: (function() {
+           var t = ['transition', 'MozTransition', 'WebkitTransition', 'KhtmlTransition', 'OTransition', 'msTransition'],
+           len = t.length,
+           doc = document.body || document.documentElement; 
+           for(var i=0;i<len;i++) {
+               if('string' == typeof doc.style[t[i]]) return t[i]
+           }
+             
+       return false;
+      })(),
+
+     /**
+      * This method is used to fade in a hidden element.
+      * 
+      * @public method fadeIn
+      * @param elem  Object -  the element to fade
+      * @param speed number -  the optional speed parameter specifies the duration of the effect.    
+      * @param callback     -  the optional callback parameter is the name of a function to be executed after the fading completes.
+      * @return this        -  return this object (cuba)
+      */
+      fadeIn: function(elem, speed, callback) {
+
+        speed = speed || 2
+
+        this.runFade(elem, speed, 0, 100, callback)
+ 
+        return this 
+      },
+
+     /**
+      * This method is used to fade out a visible element.
+      * 
+      * @public method fadeIn
+      * @param elem  Object -  the element to fade
+      * @param speed number -  the optional speed parameter specifies the duration of the effect.    
+      * @param callback     -  the optional callback parameter is the name of a function to be executed after the fading completes.
+      * @return this        -  return this object (cuba)
+      */
+      fadeOut: function(elem, speed, callback) {
+
+        speed = speed || 2
+
+        this.runFade(elem, speed, 100, 0, callback)
+
+        return this
+      },
+
+     /**
+      * This method is used to fade in a hidden element.
+      * 
+      * @public method fadeInById
+      * @param elem String  -  the id of the element to fade in.
+      * @param speed number -  the optional speed parameter specifies the duration of the effect.    
+      * @param callback     -  the optional callback parameter is the name of a function to be executed after the fading completes.
+      * @return this        -  return this object (cuba)
+      */
+      fadeInById: function(id, speed, callback) {
+
+        speed = speed || 2
+
+        this.runFade(document.getElementById(id), speed, 0, 100, callback)
+
+        return this
+      },
+
+     /**
+      * This method is used to fade out a visible element
+      * 
+      * @public method fadeOutById
+      * @param elem String  -  the id of the element to fade out.
+      * @param speed number -  the optional speed parameter specifies the duration of the effect.    
+      * @param callback     -  the optional callback parameter is the name of a function to be executed after the fading completes.
+      * @return this        -  return this object (cuba)
+      */
+      fadeOutById: function(id, speed, callback) {
+
+        speed = speed || 2
+
+        this.runFade(document.getElementById(id), speed, 100, 0, callback)
+
+        return this
+      }, 
+
+     /**
+      * This method is used to fade in a hidden element.
+      * 
+      * @private
+      * @param elem String  -  the id of the element to fade
+      * @param speed number -  the optional speed parameter specifies the duration of the effect.    
+      * @param callback     -  the optional callback parameter is the name of a function to be executed after the fading completes.
+      * @param li           -  initial value to fade.
+      * @param ls           -  finish value to fade.
+      * @return this        -  return this object (cuba)
+      */
+      runFade: function(elem, speed, li, ls, callback) {
+
+             var callback = callback || function(){},
+
+                 set = function(x, alpha) {
+
+                       x.style.filter = "alpha(opacity=" + alpha + ")";
+
+                       x.style.opacity = alpha/100;
+                 };
+
+
+             if(cuba.canTransitions) { 
+
+                elem.style.opacity = (li == 100) ? 1 : 0
+
+                elem.style[cuba.canTransitions] = "opacity " + speed * 1000 + 'ms linear'
+
+                elem.style.opacity = (ls == 100) ? 1 : 0
+
+                return;
+             }
+
+             var alpha = li;
+
+             var inc;
+
+             if(ls >= li) {
+
+                inc = 2;
+
+             } else {
+
+                inc = -2; 
+             }
+
+             var timer = (speed * 1000) / 50
+
+             var f = window.setInterval(function(){
+
+                     if((alpha >= ls && inc > 0) || (alpha <= ls && inc < 0)) {
+
+                         clearInterval(f) 
+                     }
+
+                     set(elem, alpha)
+
+                     alpha += inc
+
+             }, timer);
+
+       return this
+     },
+
+     /**
+      *  @public method animate()
+      *  @param selector String - the selector to get elements
+      *  @return object (Move)
+      */
      animate: function( selector ) {
 
             return move( selector ) 
      }
 };
 
+
+HTMLElement.prototype.fadeOut = function( time, fn ) {
+
+      cuba.fadeOut(this, time)
+}
+
+HTMLElement.prototype.fadeIn = function( time, fn ) {
+     
+      cuba.fadeIn(this, time)
+}
+
+
+//cuba UI (User Interface)
+cuba.UI = {
+
+     autocomplete: function() {
+        
+     },
+
+     tabs: function() {
+
+     },
+
+     accordion: function() {
+        //do stuff
+     }  
+};
+
+//cuba badges
+cuba.badges = {
+ 
+     twitter: function() {
+
+     },
+
+     flickr: function() {
+
+     },
+
+     lastfm: function() {
+
+     },
+
+     weather: function() {
+
+     }
+}
+
+//Event 'click' Handling
 HTMLElement.prototype.Click = function( fn ) {
 
      return cuba.attach(this, 'click', fn, false)  
