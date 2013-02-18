@@ -83,54 +83,8 @@ var cuba = {
         return false  
     },
 
-    getStyle: document.defaultView && document.defaultView.getComputedStyle ? function(elem, property) {
 
-               var value = null;
-
-               if(property == 'float') { property = 'cssFloat';}      
-
-               var computed = document.defaultView.getComputedStyle(elem, '') 
-
-               value = computed[this.camelize(property)] 
-
-             return elem.style[property] || value
-        
-        } : (ie && html.currentStyle) ? function(elem, property){
-
-              property = this.camelize(property);
-
-              property = property == 'float' ? 'styleFloat' : property;
-
-              if(property == 'opacity') {
-
-                 var val = 100;
-
-                 try {
-
-                   val = elem.filters['DXImageTransform.Microsoft.Alpha'].opacity;
-
-                 } catch( e1 ) {
-
-                   try{
-
-                      val = elem.filters('alpha').opacity
-
-                   }catch( e2 ) {
-
-                   }
-                 }
-              }
-
-              var value = elem.currentStyle ? elem.currentStyle[property] : null;
-
-            return elem.style[property] || value
-              
-        } : function(elem, property){ 
-
-            return elem.style[this.camelize[property]]
-    }
-
-    ,css: function( v ) {
+    css: function( v ) {
          
          this.value = this.each.call(this, this.value, function( elem ){
 
@@ -296,44 +250,108 @@ var cuba = {
     },
 
     /**
-     *  Events Handling
+     *  Events Handling.     
+     *
+     *  A JS handler can be executed when an event occurs, like when a user click on an HTML element.
      */
-    on: function(ev, fn) {
+
+    /**
+      * Attach a handler to a event for the elements
+      *
+      */ 
+    on: function(evType, fn, useCapture) {
 
        this.value = this.each.call(this, this.value, function( elem ){
 
-                  if( elem.addEventListener ) {
+           if(elem.addEventListener) {
 
-                     elem.addEventListener(ev, fn, false)
+              return elem.addEventListener(evType, fn, useCapture)
+  
+           } else if(elem.attachEvent) {
+ 
+                  var _fn = function(){ fn.call(elem, window.event); }
 
-                  } else if( elem.attachEvent ) {
+                  var r = elem.attachEvent('on'+evType, _fn)
 
-                     elem.attachEvent( 'on' + ev, fn)  
+                  elem[fn.toString() + evType] = _fn
+   
+                  return r;
 
-                  } else {
+           } else {
 
-                     elem[ 'on' + ev ] = fn
-                  }
+                  elem['on'+evType] = fn
+           } 
        })  
 
       return this
     },
 
-    attach: function(elem, ev, fn, useCapture) {
+    /**
+     * Remove a previously-attached event handler from the elements.
+     */
+    unbind: function(elem,evType,fn,useCapture) {
 
-                  if( elem.addEventListener ) {
+       this.value = this.each.call(this, this.value, function( elem ){
 
-                     elem.addEventListener(ev, fn, useCapture)
+        if(elem.addEventListener) {
 
-                  } else if( elem.attachEvent ) {
+           return elem.removeEventListener(evType, fn, useCapture)
 
-                     elem.attachEvent( 'on' + ev, fn)  
+        } else if(elem.detachEvent) {
 
-                  } else {
+           return elem.detachEvent('on'+evType, elem[fn.toString() + evType])
 
-                     elem[ 'on' + ev ] = fn
-                  }
+           elem[fn.toString() + evType] = null
+
+        } else {
+
+           elem['on'+evType] = function(){}
+        } 
+
+       })  
+
+      return this
     },
+
+    attach: function(elem, evType, fn, useCapture) {
+
+        if(elem.addEventListener) {
+
+              return elem.addEventListener(evType, fn, useCapture)
+  
+           } else if(elem.attachEvent) {
+ 
+                  var _fn = function(){ fn.call(elem, window.event); }
+
+                  var r = elem.attachEvent('on'+evType, _fn)
+
+                  elem[fn.toString() + evType] = _fn
+   
+                  return r;
+
+           } else {
+
+                  elem['on'+evType] = fn
+           }    
+    },
+
+    detach: function(elem,evType,fn,useCapture) {
+
+        if(elem.addEventListener) {
+
+           return elem.removeEventListener(evType, fn, useCapture)
+
+        } else if(elem.detachEvent) {
+
+           return elem.detachEvent('on'+evType, elem[fn.toString() + evType])
+
+           elem[fn.toString() + evType] = null
+
+        } else {
+
+           elem['on'+evType] = function(){}
+        } 
+    },    
 
     stopPropagation: function( e ) {
 
