@@ -102,7 +102,6 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
          //added label to the button
          cuba.select("#div").html("content")  
 
-
          //select an element, then invoke the methods: html() and css()
          cuba.select("#out")
              .html("Jean Baptiste Poquelin")
