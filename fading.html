@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>Fader</title>
+<style type="text/css">
+#first {
+float: left;
+}
+#second {
+float: right;
+margin-right:450px
+}
+</style>
+<script type="text/javascript" src="src/cuba.js"></script>
+</head>
+<body>
+<h1>cuba Fading: elem.fadeIn(), elem.fadeOut()</h1>
+<button id="btn">Click to fadeIn in boxes</button>
+<button id="btn2">Click to fadeOut in boxes</button>
+<button id="btn3">Click to fadeIn by id</button>
+<button id="btn4">Click to fadeOut by id</button>
+<br><br>
+<div id="first">
+<div id="div1" style="width:80px;height:80px;opacity:0;background-color:red;"></div><br>
+<div id="div2" style="width:80px;height:80px;opacity:0;background-color:green;"></div><br>
+<div id="div3" style="width:80px;height:80px;opacity:0;background-color:blue;"></div>
+</div>
+<div id="second">
+<div id="div4" style="width:80px;height:80px;opacity:0;background-color:red;"></div><br>
+<div id="div5" style="width:80px;height:80px;opacity:0;background-color:green;"></div><br>
+<div id="div6" style="width:80px;height:80px;opacity:0;background-color:blue;"></div>
+</div>
+
+<div id="sandbox">
+</div>
+<script type="text/javascript">        
+
+        var $ = function( id ) {return document.getElementById(id);}
+
+
+        $('btn').Click(function( event ){
+
+                 $('div1').fadeIn()
+                 $('div2').fadeIn()
+                 $('div3').fadeIn()
+        })
+
+        $('btn2').Click(function( event ){
+
+                 $('div1').fadeOut()
+                 $('div2').fadeOut()
+                 $('div3').fadeOut()
+        })
+
+        $('btn3').Click(function( event ){
+
+                 cuba.fadeInById('div4')
+                 cuba.fadeInById('div5')
+                 cuba.fadeInById('div6')
+        })
+
+        $('btn4').Click(function( event ){
+                 
+                 cuba.fadeOutById('div4')
+                 cuba.fadeOutById('div5')
+                 cuba.fadeOutById('div6')
+        })
+</script>
+</body>
+</html>
+
