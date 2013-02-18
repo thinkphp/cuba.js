@@ -7,7 +7,7 @@
 #out {
      font-weight: bold
 }
-
+#logger{position:absolute;left: 30.1%;top:30%; float: left;padding: 0.5em 0em 0.2em;margin-left: 10px;width: 295px;height: 80px;border: 1px solid #d6d6d6;border-left-color: #e4e4e4;border-top-color: #e4e4e4;margin-top: 10px;opacity:0;font-size: 25px;font-weight: bold;text-align: center;z-index:3;background-color: lightyellow}
 .minimal {
   background: #e3e3e3;
   border: 1px solid #bbb;
@@ -116,8 +116,13 @@ function selectbymin(i,j,max,callback) {
 
          if(i<max) window.setTimeout(function(){
                           selectbymin(i,j+1,max,callback)
-                   }, 1200)  
-
+                   }, 1200);
+          else {
+               $('logger').fadeIn(0.5)
+               window.setTimeout(function(){
+                  $('logger').fadeOut(0.5)
+               }, 2000)
+          }  
 }
 
 function draw(i,j) {
@@ -133,7 +138,7 @@ function toNumber(o) {
 </head>
 <body>
 <h1>Select By Min Sort Visualization</h1>
-
+<div id="logger">End Sorting</div>
 <a href="#" id="run" class="minimal">execute</a> 
 
 <div id="padx">
