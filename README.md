@@ -57,6 +57,12 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * .jsonp(url, callback, params, callbackName)
 * .ajax(method, url, callback, postData)
 * .animate( selector )
+
+### cuba UI
+
+* .accordion(accordionID, hiddenClass, urlCSS)
+* .autocomplete (work in progress)
+* .tabview (work in progress)
  
 ##How it works
 
