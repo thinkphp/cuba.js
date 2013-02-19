@@ -53,6 +53,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 ### More
 
 * .script(url, callback)
+* .loadLink(url, callback)
 * .yql(query, callback, format, diagnostics)
 * .jsonp(url, callback, params, callbackName)
 * .ajax(method, url, callback, postData)
