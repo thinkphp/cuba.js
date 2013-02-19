@@ -9,15 +9,17 @@
 var cuba = {
 
    /**
+    *  cuba.version
     *  Library version
     */
-    version: '1.0.5',
+    version: '@VERSION@',
 
    /**
+    *  cuba.name
     *  Library name
     */
     name: 'cuba.js',
- 
+
    /**
     *  DOM Manipulation
     */  
@@ -54,6 +56,11 @@ var cuba = {
 
                      return this.value.length > 0 ? this.value[this.value.length-1]:null
          return this   
+    },
+
+    is: function( node ) {
+           
+                   return node && node.nodeName && node.nodeType == 1;
     },
 
     each: function(arr, fn) {
@@ -190,24 +197,6 @@ var cuba = {
 
          return this            
  
-    },
-
-    trim: function( s ) {
-
-          return String.prototype.trim ? s.trim() : s.replace(/(^\s*|\s*$)/g,'')    
-    },
-
-    is: function( node ) {
-          
-        return node && node.nodeName && node.nodeType == 1
-    },
-
-    camelize: function( s ) {
-
-        return s.replace(/-(.)/g, function(m,m1){
-
-               return m1.toUpperCase();
-        })  
     },
 
     /**
@@ -1467,3 +1456,231 @@ HTMLElement.prototype.Click = function( fn ) {
 
 })(this);
 
+
+   /**
+    *  cuba.lang - contains js language utilities that are used in the micro-library.
+    */  
+
+cuba.lang = cuba.lang || {};
+
+(function() {
+
+    var L = cuba.lang,
+
+        O_P = Object.prototype, 
+ 
+        html_chars = {'&':'&amp','<':'&lt','>':'&gt','"':'&quot',"'":'&#x27','/':'&#x2F','`':'&#x60'},
+
+        ARRAY_TOSTRING = '[object Array]',
+        FUNCTION_TOSTRING = '[object Function]',
+        OBJECT_TOSTRING = '[object Object]',
+        NOTHING        = [],
+        
+
+        OB = {
+
+             /**
+              * Determines whether or not the provided object is an array.
+              *
+              * @method isArray
+              * @param (any)      - the object being tested
+              * @return (boolean) - the result 
+              * @static  
+              */
+             isArray: function( ob ) {
+
+                      return O_P.toString.apply( ob ) == ARRAY_TOSTRING;
+             },
+
+
+             /**
+              * Determines whether or not the provided object is a boolean.
+              *
+              * @method isArray
+              * @param (any)      - the object being tested
+              * @return (boolean) - the result 
+              * @static  
+              */
+             isBoolean: function( ob ) {
+
+                      return ob === 'boolean';
+             },
+
+
+             /**
+              * Determines whether or not the provided object is a function.
+              *
+              * @method isFunction
+              * @param (any)      - the object being tested
+              * @return (boolean) - the result 
+              * @static  
+              */
+             isFunction: function( ob ) {
+
+                      return (typeof ob === 'function') || O_P.toString.apply( ob ) === FUNCTION_TOSTRING
+             },
+
+
+             /**
+              * Determines whether or not the provided object is null.
+              *
+              * @method isNull
+              * @param (any)      - the object being tested
+              * @return (boolean) - the result 
+              * @static  
+              */
+             isNull: function( ob ) {
+
+                      return ob === null;
+             },
+
+             /**
+              * Determines whether or not the provided object is a legal number.
+              *
+              * @method isNumber
+              * @param (any)      - the object being tested
+              * @return (boolean) - the result 
+              * @static  
+              * @since 1.0.0
+              */
+             isNumber: function( ob ) {
+
+                      return typeof ob === 'number' && isFinite( ob )
+             },
+
+
+             /**
+              * Determines whether or not the provided object of type object of function/
+              *
+              * @method isObject.
+              * @param (any)      - the object being tested
+              * @return (boolean) - the result 
+              * @static  
+              */
+             isObject: function( ob ) {
+
+                     return ( ob && (typeof ob === 'object') || L.isFunction( ob ) ) || false
+             },
+
+
+             /**
+              * Determines whether or not the provided  object is a string.
+              *
+              * @method isString
+              * @param (any)      - the object being tested
+              * @return (boolean) - the result 
+              * @static  
+              * @since 1.0.0
+              */
+             isString: function( ob ) {
+
+                       return typeof ob === 'string'
+             },
+
+             /**
+              * Determines whether or not the provided object is undefined.
+              *
+              * @method isUndefined
+              * @param  (any) ob - the object being tested. 
+              * @return (Boolean: true/false)  - the result that tell me whether is or not undefined
+              * @static  
+              */
+             isUndefined: function( ob ) {
+
+                          return typeof ob === 'undefined'      
+             },
+
+
+             /**
+              * A convenience method for detecting a legitimate non-null value. 
+              * Returns false for null, NaN, undefined, and true for other values.
+              *
+              * @method isValue
+              * @param  (any) ob  - the object being tested. 
+              * @return (Boolean) - true if it is not null/undefined/NaN OR False
+              * @static  
+              */
+             isValue: function( ob ) {
+
+                      return L.isObject( ob ) || L.isString( ob ) || L.isNumber( ob ) || L.isBoolean( ob )
+             },
+
+
+             /**
+              * Returns a copy of the specified string with special HTML characters escaped.
+              *
+              * @method escapeHTML
+              * @param (String) html - String to escape.
+              * @return (String)     - Escaped string
+              * @static  
+              * @since 1.0.0
+              */
+             escapeHTML: function( html ) {
+ 
+                  return html.replace(/[&<>"'\/`]/g, function( match ){
+
+                         return html_chars[ match ] 
+                  });  
+             },
+
+
+
+             /**
+              * Returns a string without any leading or trailing whitespace.
+              * If the input is not a string, the input will be returned untouched.
+              *
+              * @method trim
+              * @param (String) s    - the string to trim.
+              * @return (String)     - the trimmed string.
+              * @static  
+              * @since 1.0.0
+              */
+             trim: function( s ) {
+
+                 try{  
+
+                   return String.prototype.trim ? s.trim() : s.replace(/(^\s*|\s*$)/g,'')    
+
+                 }catch(e) {
+
+                   return s; 
+                 }
+             },
+
+             camelize: function( s ) {
+
+                   return s.replace(/-(.)/g, function(m, m1){
+
+                         return m1.toUpperCase();
+                   })
+             },
+
+             augmentObject: function(child, parent) {
+
+                    if(!child || !parent) {
+
+                        throw new Error("Failed, verify argumetns");
+                    } 
+
+                    var p, override = arguments[2]
+
+                    for(p in parent) {
+
+                        if(override || !(p in parent)) {
+
+                            child[ p ] = parent[ p ]
+                        }
+                    }       
+            
+                return child;
+             }
+
+        };
+
+        OB.augmentObject(L, OB, true)
+
+        cuba.lang = L; 
+ 
+        cuba.extend = OB.augmentObject;
+console.log(cuba)
+})();
