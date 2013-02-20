@@ -98,13 +98,13 @@ var cuba = {
 
                var computed = document.defaultView.getComputedStyle(elem, '') 
 
-               value = computed[this.camelize(property)] 
+               value = computed[cuba.lang.camelize(property)] 
 
              return elem.style[property] || value
         
         } : (ie && html.currentStyle) ? function(elem, property){
 
-              property = this.camelize(property);
+              property = cuba.lang.camelize(property);
 
               property = property == 'float' ? 'styleFloat' : property;
 
@@ -134,7 +134,7 @@ var cuba = {
               
         } : function(elem, property){ 
 
-            return elem.style[this.camelize[property]]
+            return elem.style[cuba.lang.camelize[property]]
     },
 
     css: function( v ) {
@@ -226,7 +226,7 @@ var cuba = {
 
               this.value = this.each.call(this, this.value, function( elem ){
 
-                   elem.className = this.trim(elem.className + ' ' + c)
+                   elem.className = cuba.lang.trim(elem.className + ' ' + c)
               })
           }
 
@@ -264,7 +264,7 @@ var cuba = {
 
               this.value = this.each.call(this, this.value, function( elem ){
 
-                   elem.className = this.trim(elem.className + ' ' + c)
+                   elem.className = cuba.lang.trim(elem.className + ' ' + c)
               })
          }
 
@@ -910,70 +910,6 @@ HTMLElement.prototype.fadeIn = function( time, fn ) {
       cuba.fadeIn(this, time)
 }
 
-
-//cuba UI (User Interface)
-cuba.UI = {
-
-     accordion: function(accordionID, acc_hidden, urlCSS) {
-
-        cuba.loadLink( urlCSS ) 
-
-        var elem = cuba.grab( accordionID ) 
-
-        //using event delegation
-        cuba.attach(elem,'click', function( event ){
-
-              var target = cuba.getTarget( event );
-
-              if(cuba.hasClass(target.parentNode, acc_hidden))
-
-              if(target.nodeName.toLowerCase() == 'h1') {
-
-                   var next = [], 
-                       prev = [];
-
-                   var target = event.target,
-                       el = target.parentNode
-;
-                   var n = el.nextSibling
-                   while(n && (n.nodeType != 1 || n.nodeType != 2)) { 
-                        n = n.nextSibling; 
-                        next.push(n)
-                   }
-                   var p = el.previousSibling;
-                   while(p && (p.nodeType != 1 || p.nodeType != 2)) { 
-                        p = p.previousSibling; 
-                        prev.push(p)
-                   }   
-                   var len = next.length, 
-                       len2 = prev.length;
-
-                   for(var i=0;i<len;i++) {
-                       if(next[i] != null && next[i].nodeType == 1) {
-                          cuba.addClass(next[i], acc_hidden)
-                       } 
-                   }
-                   for(var i=0;i<len2;i++) {
-                       if(prev[i]!= null && prev[i].nodeType == 1) {
-                          cuba.addClass(prev[i], acc_hidden)
-                       } 
-                   }
-
-                   cuba.removeClass(el, acc_hidden);
-
-              }//end if
-
-        })//end event delegation     
-     },
-
-     autocomplete: function() {
-        
-     },
-
-     tabs: function() {
-
-     }
-};
 
 //cuba badges
 cuba.badges = {
@@ -1647,14 +1583,40 @@ cuba.lang = cuba.lang || {};
                  }
              },
 
+             /**
+              * Returns a string camelized.
+              * If the input is not a string, the input will be returned untouched.
+              *
+              * @method camelize
+              * @param (String) s    - the string to camelize.
+              * @return (String)     - the camelized string.
+              * @static  
+              * @since 1.0.0
+              */
              camelize: function( s ) {
 
+                try{
+ 
                    return s.replace(/-(.)/g, function(m, m1){
 
                          return m1.toUpperCase();
                    })
+
+                }catch(e) {
+
+                   return s;
+                }
              },
 
+             /**
+              * Inheritance by copying properties.
+              *
+              * @method augmentObject
+              * @param (Object) child  - the child object, c`est-a-dire is the object to receive the augmentation.
+              * @param (Object) parent - the parent object, c`est-a-dre is the object that supplies the properties to augment.
+              * @return (Object) - inheritance by copying properties.
+              * @static  
+              */
              augmentObject: function(child, parent) {
 
                     if(!child || !parent) {
@@ -1673,8 +1635,30 @@ cuba.lang = cuba.lang || {};
                     }       
             
                 return child;
-             }
+             },
 
+             /**
+              * Inheritance by copying properties.
+              *
+              * @method mixins
+              * @return (Object) - inheritance by copying properties.
+              * @static  
+              */
+
+             mixins: function() {
+ 
+                     var arg, prop, child = {};
+
+                     for(arg = 0; arg < arguments.length; arg++) {
+
+                         for(prop in arguments[ arg ]) {
+
+                             child[ prop ] = arguments[ arg ][ prop ]
+                         }
+                     } 
+
+                return child;
+             } 
         };
 
         OB.augmentObject(L, OB, true)
@@ -1682,5 +1666,77 @@ cuba.lang = cuba.lang || {};
         cuba.lang = L; 
  
         cuba.extend = OB.augmentObject;
-console.log(cuba)
+
+        cuba.mixins = OB.mixins;
+})();
+
+cuba.UI = cuba.UI || {};
+
+(function(){
+
+    var _UI = cuba.UI;
+
+    var UI = {
+
+       accordion: function(accordionID, acc_hidden, urlCSS) {
+
+            cuba.loadLink( urlCSS ) 
+
+            var elem = cuba.grab( accordionID ) 
+
+            //using event delegation
+            cuba.attach(elem,'click', function( event ){
+
+            var target = cuba.getTarget( event );
+
+            if(cuba.hasClass(target.parentNode, acc_hidden))
+
+            if(target.nodeName.toLowerCase() == 'h1') {
+
+                   var next = [], 
+                       prev = [];
+
+                   var target = event.target,
+                       el = target.parentNode
+;
+                   var n = el.nextSibling
+                   while(n && (n.nodeType != 1 || n.nodeType != 2)) { 
+                        n = n.nextSibling; 
+                        next.push(n)
+                   }
+                   var p = el.previousSibling;
+                   while(p && (p.nodeType != 1 || p.nodeType != 2)) { 
+                        p = p.previousSibling; 
+                        prev.push(p)
+                   }   
+                   var len = next.length, 
+                       len2 = prev.length;
+
+                   for(var i=0;i<len;i++) {
+                       if(next[i] != null && next[i].nodeType == 1) {
+                          cuba.addClass(next[i], acc_hidden)
+                       } 
+                   }
+                   for(var i=0;i<len2;i++) {
+                       if(prev[i]!= null && prev[i].nodeType == 1) {
+                          cuba.addClass(prev[i], acc_hidden)
+                       } 
+                   }
+
+                   cuba.removeClass(el, acc_hidden);
+
+              }//end if
+
+        })//end event delegation     
+     },
+
+     autocomplete: function() {
+
+     }
+
+    }
+
+    cuba.extend(_UI, UI, true)
+
+    cuba.UI = _UI
 })();
