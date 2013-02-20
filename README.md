@@ -80,6 +80,10 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * .ajax(method, url, callback, postData)
 * .animate( selector )
 
+### Micro-Template Engine
+
+* cuba.template
+
 ### cuba UI
 
 * .accordion(accordionID, hiddenClass, urlCSS)
@@ -321,6 +325,19 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                  cuba.fadeIn('div2')
                  cuba.fadeIn('div3')
         })
+
+### Template Engine
+
+      var tmp = 'This {project} presents a very {compact} micro-templating {solution} creating for learning purposes';
+
+      var ob = {
+             'project': 'MooTools',
+             'compact': "extra",
+             'solution': "miss"  
+      };
+
+      cuba.select("#title").html(cuba.template(tmp, ob))
+
 
 ### cuba UI
 
