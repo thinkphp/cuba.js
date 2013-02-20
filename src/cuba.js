@@ -1491,6 +1491,7 @@ HTMLElement.prototype.Click = function( fn ) {
     *    static string  camelize
     *    static string  escapeHTML
     *    static object  augmentObject
+    *    static object  hasOwnProperty(ob,prop)
     */  
 
 cuba.lang = cuba.lang || {};
@@ -1535,7 +1536,7 @@ cuba.lang = cuba.lang || {};
               */
              isBoolean: function( ob ) {
 
-                      return ob === 'boolean';
+                      return typeof ob === 'boolean';
              },
 
 
@@ -1856,3 +1857,20 @@ cuba.UI = cuba.UI || {};
 
     cuba.UI = _UI
 })();
+
+/**
+ *  Template Engine
+ */
+(function(context, name) {
+
+  var template = function(tmp, ob) {
+
+      return tmp.replace((RegExp("{([^{}]*)}","gi")), function(tag, prop){
+
+             return ob[prop]
+      })
+  } 
+
+  context[ name ] = template
+
+})(cuba, "template");
