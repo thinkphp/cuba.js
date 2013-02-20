@@ -48,9 +48,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * .removeClass(elem, c)
 * .hasClass(elem, c)
 * .toggleClass( c )
-* .trim(s)
 * .is( node )
-* .camelize( s )
 
 ### Events Handling
 
