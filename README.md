@@ -88,6 +88,71 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
  
 ##How it works
 
+### cuba.lang - contains language extensions that are used in the library.
+
+       //true, an array literal is an array
+       console.log(cuba.lang.isArray([1, 2]));
+
+       //false, an object literal is not an array
+       console.log(cuba.lang.isArray({"one": "two"}));
+
+       //however, when declared as an array, it is true
+       var a = new Array();
+       a["one"] = "two";
+       console.log(cuba.lang.isArray(a));
+
+       //false, a collection of elements is like an array, but isn't
+       console.log(cuba.lang.isArray(document.getElementsByTagName("body")));
+
+       //true, false is a boolean
+       console.log(cuba.lang.isBoolean(false));
+
+       //false, 1 and the string "true" are not booleans
+       console.log(cuba.lang.isBoolean(1));
+       console.log(cuba.lang.isBoolean("true"));
+
+       // null is null, but false, undefined and "" are not
+       console.log(cuba.lang.isNull(null)); // true
+       console.log(cuba.lang.isNull(undefined)); // false
+       console.log(cuba.lang.isNull("")); // false
+
+       //a function is a function, but an object is not
+       console.log(cuba.lang.isFunction(function(){})); // true
+       console.log(cuba.lang.isFunction({foo: "bar"})); // false
+
+       //true, ints and floats are numbers
+       console.log(cuba.lang.isNumber(0));//true
+       console.log(cuba.lang.isNumber(123.123));//true
+
+       //false, strings that can be cast to numbers aren't really numbers
+       console.log(cuba.lang.isNumber("123.123"));
+
+
+       //false, undefined numbers and infinity are not numbers we want to use
+       console.log(cuba.lang.isNumber(1/0));
+
+       // true, objects, functions, and arrays are objects
+       console.log(cuba.lang.isObject({}));
+       console.log(cuba.lang.isObject(function(){}));
+       console.log(cuba.lang.isObject([1,2]));
+
+       // false, primitives are not objects
+       console.log(cuba.lang.isObject(1)); //false
+       console.log(cuba.lang.isObject(true)); //false
+       console.log(cuba.lang.isObject("{}"));//false
+
+       //strings
+       console.log(cuba.lang.isString("{}")); // true
+       console.log(cuba.lang.isString({foo: "bar"})); // false
+       console.log(cuba.lang.isString(123)); // false
+       console.log(cuba.lang.isString(true)); // false
+
+       // undefined is undefined, but null and false are not
+       console.log(cuba.lang.isUndefined(undefined)); // true
+       console.log(cuba.lang.isUndefined(false)); // false
+       console.log(cuba.lang.isUndefined(null)); // false
+
+
 ### Specify a function to execute when the DOM is fully loaded.
 
           //cuba.ready( fn );
