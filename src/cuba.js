@@ -5,7 +5,9 @@
  * MIT License
  */
 
-//@namespace cuba
+/**
+ *  cuba - Global Namespace object.
+ */
 var cuba = {
 
    /**
@@ -204,9 +206,11 @@ var cuba = {
      *  It's important to note that this method does not replace a class. It simply adds the class, appending it to any which
      *  may already be assigned to the elements.
      * 
-     *  @param elem Object - the element for which add class
+     *  @method addClass
+     *  @param elem Object - the element for which I add the class
      *  @param c String - add specified class to the element
-     *  @return (cuba) object
+     *  @return (cuba) the result and returns global object
+     *  @static
      */
     addClass: function(elem, c) {
 
@@ -233,6 +237,14 @@ var cuba = {
        return this
     },
 
+    /**
+     *  Determines whether or not an element has a given className
+     * 
+     *  @method hasClassClass
+     *  @param elem (Object) - the element to test the className
+     *  @param c (String) - the className
+     *  @return (boolean) true/false
+     */
     hasClass: function( el, c ) {
 
           if('classList' in document.createElement('p')) {
@@ -246,6 +258,15 @@ var cuba = {
 
     },
 
+
+    /**
+     *  Removes the specified class(es) to each of the set of matched elements.
+     * 
+     *  @method removeClass
+     *  @param elem Object - the element for which I add the class
+     *  @param c String - add specified class to the element
+     *  @return (cuba) the result and returns global object
+     */
     removeClass: function(elem, c ) {
 
          if('classList' in document.createElement('p')) {
@@ -271,11 +292,26 @@ var cuba = {
        return this
     },
 
+    /**
+     *  A regular expression that describes a pattern of characters.
+     * 
+     *  @method classReg 
+     *  @param c String - className.
+     *  @return (object)- returns an object with pattern-matching and methods: test(),exec() and compile()  
+     */
     classReg: function( c ) {
 
         return new RegExp('(^|\\s+)' + c +'(\\s+$)')
     }, 
 
+    /**
+     *  Toggles between the method addClass and removeClass
+     * 
+     *  @method toggleClass
+     *  @param c (String) className to togggle
+     *  @return the result
+     *  @static
+     */
     toggleClass: function( c ) {
 
         this.each.call(this, this.value, function( elem ){
@@ -293,6 +329,12 @@ var cuba = {
     /**
       * Attach a handler to a event for the elements
       *
+      * @method on
+      * @param (String) evType - the type of event to append.
+      * @param (Function) fn   - the function to fire when event.
+      * @param (boolean)  useCapture - true/false for bubbling or not.
+      * @return (Object) the global object.
+      * @static      
       */ 
     on: function(evType, fn, useCapture) {
 
@@ -322,9 +364,16 @@ var cuba = {
     },
 
     /**
-     * Remove a previously-attached event handler from the elements.
-     */
-    unbind: function(elem,evType,fn,useCapture) {
+      * Detach a handler to a event for the elements
+      *
+      * @method unbind
+      * @param (String) evType - the type of event to append.
+      * @param (Function) fn   - the function to fire when event.
+      * @param (boolean)  useCapture - true/false for bubbling or not.
+      * @return (Object) the global object.
+      * @static
+      */ 
+    unbind: function(evType, fn, useCapture) {
 
        this.value = this.each.call(this, this.value, function( elem ){
 
@@ -348,6 +397,17 @@ var cuba = {
       return this
     },
 
+    /**
+      * Attach a handler to a event for the elements
+      *
+      * @method attache
+      * @param (Object | HTMLElement) - an element to assign the listener to.
+      * @param (String) evType - the type of event to append.
+      * @param (Function) fn   - the function to fire when event.
+      * @param (boolean)  useCapture - true/false for bubbling or not.
+      * @return (Object) the global object.
+      * @static
+      */ 
     attach: function(elem, evType, fn, useCapture) {
 
         if(elem.addEventListener) {
@@ -370,7 +430,18 @@ var cuba = {
            }    
     },
 
-    detach: function(elem,evType,fn,useCapture) {
+    /**
+      * Detach a handler to a event for the elements
+      *
+      * @method Detach
+      * @param (Object | HTMLElement) - an element to assign the listener to.
+      * @param (String) evType - the type of event to append.
+      * @param (Function) fn   - the function to fire when event.
+      * @param (boolean)  useCapture - true/false for bubbling or not.
+      * @return (Object) the global object.
+      * @static
+      */ 
+    detach: function(elem, evType, fn, useCapture) {
 
         if(elem.addEventListener) {
 
@@ -405,6 +476,14 @@ var cuba = {
         }
     },
 
+    /**
+      * Get the target that triggered the event.
+      *
+      * @method getTarget
+      * @param (Object) event triggered.
+      * @return (Object) the target.
+      * @static
+      */ 
     getTarget: function( evt ) {
 
          var target = window.event ? window.event.srcElement : evt ? evt.target : null  
@@ -1394,7 +1473,24 @@ HTMLElement.prototype.Click = function( fn ) {
 
 
    /**
-    *  cuba.lang - contains js language utilities that are used in the micro-library.
+    *  Contains JS language utilities that are used in the micro-library.
+    *  class cuba.lang
+    *
+    *  Properties
+    *  Methods: 
+    *    static boolean isArray
+    *    static boolean isBoolean
+    *    static boolean isFunction
+    *    static boolean isNull
+    *    static boolean isNumber
+    *    static boolean isObject
+    *    static boolean isString
+    *    static boolean isUndefined
+    *    static boolean isValue
+    *    static string  trim
+    *    static string  camelize
+    *    static string  escapeHTML
+    *    static object  augmentObject
     */  
 
 cuba.lang = cuba.lang || {};
@@ -1566,8 +1662,8 @@ cuba.lang = cuba.lang || {};
               * If the input is not a string, the input will be returned untouched.
               *
               * @method trim
-              * @param (String) s    - the string to trim.
-              * @return (String)     - the trimmed string.
+              * @param (String) s  - the string to trim.
+              * @return (String)   - the trimmed string.
               * @static  
               * @since 1.0.0
               */
@@ -1660,6 +1756,26 @@ cuba.lang = cuba.lang || {};
                 return child;
              } 
         };
+
+        /**
+         * Test whether the object has the specified property.
+         *
+         * @method hasOwnProperty
+         * @param (Object|Any) ob   - the object being tested.
+         * @param (String) property - the name of the property to test.
+         * @return (Boolean) the result. return a boolean indicating whether the object has the specified property.
+         * @static  
+         */
+        L.hasOwnProperty = (O_P.hasOwnProperty) ? 
+
+            function(ob, property) {
+
+                return ob && ob.hasOwnProperty && ob.hasOwnProperty( property );
+
+            } : function(ob, property){
+
+                return !L.isUndefined( ob[ property ] ) && ob.constructor.prototype[ property ] !== ob[ property ];
+            };
 
         OB.augmentObject(L, OB, true)
 
