@@ -5,13 +5,8 @@
 <title>Fader</title>
 <style type="text/css">
 
-#sandbox .box {
-  border: 1px solid #ccc;
-  width: 100px;
-  height: 100px;
-  background: ghostwhite;
-}
-
+.left{float: left}
+.right{float: right}
 </style>
 <script type="text/javascript" src="src/cuba.js"></script>
 <script type="text/javascript">
@@ -75,7 +70,7 @@ var fader = {
     runFade: function(elem, time, li, ls, callback) {
 
              var callback = callback || function(){}
-
+console.log(elem)
              if(fader.canTransitions) { 
 
                 elem.style.opacity = (li == 100) ? 1 : 0
@@ -144,16 +139,17 @@ HTMLElement.prototype.fadeIn = function( time, fn ) {
 <button id="btn5">Click to fadeIn by class</button>
 <button id="btn6">Click to fadeOut by class</button>
 <br><br>
+<div class="left">
 <div id="div1" style="width:80px;height:80px;opacity:0;background-color:red;"></div><br>
 <div id="div2" style="width:80px;height:80px;opacity:0;background-color:green;"></div><br>
 <div id="div3" style="width:80px;height:80px;opacity:0;background-color:blue;"></div>
-
+</div>
+<div class="right">
 <div class="box" style="width:80px;height:80px;opacity:0;background-color:silver;"></div><br>
 <div class="box" style="width:80px;height:80px;opacity:0;background-color:lightgreen;"></div><br>
 <div class="box" style="width:80px;height:80px;opacity:0;background-color:lightblue;"></div>
-
-<div id="sandbox">
 </div>
+
 <script type="text/javascript">        
 
            var $ = function( id ) {return document.getElementById(id);},
@@ -210,7 +206,7 @@ HTMLElement.prototype.fadeIn = function( time, fn ) {
 
         $('btn5').Click(function( event ){
 
-                 Fader.fadeInWithClass('box',0)
+                 fader.fadeInByClass('box',0)
                  fader.fadeInByClass('box',1)
                  fader.fadeInByClass('box',2)
         })
