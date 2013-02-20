@@ -152,6 +152,13 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
        console.log(cuba.lang.isUndefined(false)); // false
        console.log(cuba.lang.isUndefined(null)); // false
 
+       //hasOwnProperty
+       var F = function(){}
+       F.prototype.foo = 'foo'
+       var a = new F();
+       a.moo = "moo";
+       console.log(cuba.lang.hasOwnProperty(a,"moo"))//true
+       console.log(cuba.lang.hasOwnProperty(a,"foo"))//false
 
 ### Specify a function to execute when the DOM is fully loaded.
 
