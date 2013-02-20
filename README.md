@@ -11,6 +11,8 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ### cuba.lang
 
+    Contains language utilities and extensions that are used in the cuba.js
+
 * static boolean isArray( object )
 * static boolean isBoolean( object )
 * static boolean isFunction( object )
