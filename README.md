@@ -5,9 +5,30 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ## cuba API Documentation
 
+### cuba Global Object
+
+    Provides a single global namespace within all cuba library code resides.
+
+### cuba.lang
+
+* static boolean isArray( object )
+* static boolean isBoolean( object )
+* static boolean isFunction( object )
+* static boolean isNull( object )
+* static boolean isNumber( object )
+* static boolean isObject( object )
+* static boolean isString( object )
+* static boolean isUndefined( object )
+* static boolean isValue( object )
+* static string  trim( string )
+* static string  camelize( string )
+* static string  escapeHTML( html )
+* static object  augmentObject(child, parent)
+* static object  hasOwnProperty(ob, property)
+
 ### DOM Ready
 
-* ready( fn )
+* .ready( fn )
 
 ### DOM
 
