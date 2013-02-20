@@ -10,7 +10,7 @@
 <h1>cuba.lang</h1>
 <script type="text/javascript" src="src/cuba.js"></script>
 <script type="text/javascript">
-
+/*
 // true, an array literal is an array
 console.log(cuba.lang.isArray([1, 2]));
 
@@ -76,6 +76,13 @@ console.log(cuba.lang.isString(true)); // false
 console.log(cuba.lang.isUndefined(undefined)); // true
 console.log(cuba.lang.isUndefined(false)); // false
 console.log(cuba.lang.isUndefined(null)); // false
+
+var F = function(){}
+    F.prototype.foo = 'foo'
+var a = new F();
+    a.moo = "moo";
+    console.log(cuba.lang.hasOwnProperty(a,"moo"))//true
+    console.log(cuba.lang.hasOwnProperty(a,"foo"))//false
 </script>
 </body>
 </html>
