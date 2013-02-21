@@ -30,6 +30,8 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ### DOM Ready
 
+    Lets you define a function that will execute as soon as the DOM is in a usable state.
+
 * .ready( fn )
 
 ### DOM
@@ -60,6 +62,12 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * .detach(elem, evType, fn, useCapture)
 * .elem.Click( fn )
 * .stopPropagation( event )
+
+### Custom Events
+
+.addEvent(evType, handler)
+.removeEvent(evType, handler)
+.fireEvent(evType)
 
 ### Effects Fading
 
@@ -200,6 +208,61 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
     cuba.select("#btn").on('click', function(){
          alert('clicked')
     })
+
+### Custom Events
+
+    var arr = [9,8,7,5,4,3,2,1,0,-1,-2,-3]
+
+        cuba.select("#btn").on('click', function( event ){
+ 
+        evt.fireEvent("start");    
+
+         doBubble(0, 0, arr.length-1, function(i,j){
+
+            var aux; 
+
+            if(arr[j] > arr[j+1]) {
+               aux = arr[j]
+               arr[j] = arr[j+1]
+               arr[j+1] = aux       
+            }
+ 
+            draw();
+         })
+       });
+
+       function doBubble(i, j, len, callback) {
+
+         callback(i,j);
+ 
+         if(++j>=len) {
+            j = 0
+            i++ 
+         } 
+
+         if(i<len) window.setTimeout(function(){
+                          doBubble(i, j, len, callback)
+
+                   }, 100); else  evt.fireEvent('sorted')
+       } 
+ 
+       function draw() {
+
+          cuba.select("#input").html(arr.join(", "))
+       }
+
+       draw()
+
+       var evt = cuba.util.CustomEvent;
+
+           evt.addEvent("start", function(){
+               console.log('start sorting!!!');
+           })
+
+           evt.addEvent("sorted", function(){
+               console.log('end sorting!!!');
+              alert('sorted!!!');
+           })
 
 ### DOM manipulation
 
