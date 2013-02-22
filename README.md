@@ -405,6 +405,26 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
       };
 
       cuba.select("#title").html(cuba.template(tmp, ob))
+      
+### Cache using localStorage
+
+     if(cache.get( key )) {
+
+        var photos_cached = cache.get( key )
+
+        cuba.select('#results').html( photos_cached )
+ 
+        cuba.select('#status').html('(read from cache)')
+
+     } else {
+
+        cuba.ajax('GET', url, function(data){
+
+             this.seed( data )
+             
+        }.binding(this));
+     }
+      
 
 
 ### cuba UI
