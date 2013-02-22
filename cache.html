@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+   <title></title>
+   <style type="text/css">
+    body {
+      font-size:24px;
+      line-height:1.2;
+      color:#333;
+    }
+
+    h1,h2,h3,body { font-family:'gill sans','dejavu sans',verdana,sans-serif; }
+
+    h1 {
+      font-weight:bold;
+      font-size:80px;
+      letter-spacing:-5px;
+      color:#000;
+      margin-bottom:0;
+      position:relative;    
+    }
+    h1 b {
+      color:#ccc;
+    }
+    ul {float: left;width: 270px}
+    li {float: left; list-style: none}
+   </style>
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+ var cache = {
+
+     expiry: 60*60*1000,
+
+     prefix: 'cache.cuba.js # ',
+
+     storage: window.localStorage,
+
+     set: function( key, value, expiry ) {
+
+          this.expiry = expiry || this.expiry || 1e5
+
+          //get time now
+          var time = new Date().getTime(),
+
+              ob = JSON.stringify({ data: value, expiry: time });
+ 
+          this.storage.setItem(this.prefix + key, ob)
+          
+        return [key, value]
+     },
+
+     get: function( key, callback ) {
+
+          var key = this.prefix + key,
+ 
+              curr = this.storage.getItem( key );
+
+              if( curr ) {
+
+                  var ob = JSON.parse( curr )
+
+                  if( (new Date().getTime()) - ob.expiry < this.expiry ) {
+
+                     return ob.data
+ 
+                  } else {
+
+                     return false
+                  } 
+              }
+     },
+     
+     remove: function( key ) {
+
+             var key = this.prefix + key;
+          
+             this.storage.removeItem( key )
+
+        return key;
+     }
+ };
+
+</script>
+
+</head>
+<body>
+<h1><b>|</b>localStorage on cuba.js</h1>
+<p>Wrapper to store the results in localStorage HTML5 when the browser support it with timed expiry.</p>
+<div id="results"></div>
+<span id="status"></span>
+</body>
+</html>
+
+
