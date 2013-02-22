@@ -91,6 +91,12 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 ### Micro-Template Engine
 
 * cuba.template
+ 
+### Cache using localStorage
+
+* cuba.cache.get( key )
+* cache.set( key, data)
+* cache.remove( key )
 
 ### cuba UI
 
