@@ -420,13 +420,15 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
         cuba.ajax('GET', url, function(data){
 
-             this.seed( data )
+           cuba.select('#results').html( data )
+
+           cache.set(key, data)
+
+           cuba.select('#status').html('Read from api (fresh)')
              
         }.binding(this));
      }
       
-
-
 ### cuba UI
 
 
