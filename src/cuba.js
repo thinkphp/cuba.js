@@ -1973,3 +1973,39 @@ cuba.util.CustomEvent = function() {
        }
      }
 }();
+
+/**
+ *  Creates a new function that, when called, has its "this" keyword set to provided value,
+ *  with a given sequence of arguments preceding any provided when the new function was called.
+ *
+ *  Syntax:
+ *
+ *  fn.binding(thisArg[, arg1, [arg2 ]])  
+ *
+ *  Parameters:
+ *
+ *  thisArg - the value to be passed as  the THIS parameter to the target function when the bound function is called.
+ *  arg1, arg2, arg3, ... arguments to prepend to arguments provided to the bound function when invoking the target function.
+ *
+ *  Description:
+ *
+ *  The binding() function creates a new function (a bound function) with the same function body (internal call attribute in ECMAScript 5 terms)
+ *  as the function it is being called on (the bound functions's target function) with the THIS value bound to the first
+ *  argument of bind(), which cannot be overriden.
+ */
+
+Function.prototype.binding = function() {
+
+         var fn = this,
+
+             args = Array.prototype.slice.call(arguments),
+
+             scope = args.shift();
+
+         return function() {
+
+                return fn.apply(scope, 
+
+                       args.concat( Array.prototype.slice.call( arguments )) )
+         }  
+};
