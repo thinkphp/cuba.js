@@ -2,7 +2,7 @@
 <html>
 <head>
    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-   <title></title>
+   <title>localStorage</title>
    <style type="text/css">
     body {
       font-size:24px;
@@ -26,62 +26,86 @@
     ul {float: left;width: 270px}
     li {float: left; list-style: none}
    </style>
+
 <script type="text/javascript" src="src/cuba.js"></script>
 <script type="text/javascript">
 
- var cache = {
+var getFlickr = function(){
 
-     expiry: 60*60*1000,
+   //@private
+   var bigImage,
+       key = 'flickr1',
+       cache = cuba.util.cache;
 
-     prefix: 'cache.cuba.js # ',
+   //@public
+   function init() {
 
-     storage: window.localStorage,
+            var url = 'flickr.php?sid=' + (new Date().getTime()); 
 
-     set: function( key, value, expiry ) {
+            if(cache.get( key )) {
 
-          this.expiry = expiry || this.expiry || 1e5
+               var photos_cached = cache.get( key )
 
-          //get time now
-          var time = new Date().getTime(),
-
-              ob = JSON.stringify({ data: value, expiry: time });
+               cuba.select('#results').html( photos_cached )
  
-          this.storage.setItem(this.prefix + key, ob)
-          
-        return [key, value]
-     },
+               cuba.select('#status').html('(read from cache)')
 
-     get: function( key, callback ) {
+            } else {
 
-          var key = this.prefix + key,
+                   cuba.ajax('GET', url, function(data){
+
+                             this.seed( data )
+
+                   }.binding(this));
+            }
+   };
+
+   function seed( data ) {
+
+           cuba.select('#results').html( data )
+
+           cache.set(key, data)
+
+           cuba.select('#status').html('Read from api (fresh)')
+   };
+
+   function show( o ) {
+
+            if(bigImage == null) {
  
-              curr = this.storage.getItem( key );
+               bigImage = document.createElement('div');
+               bigImage.style.position = 'absolute';
+               bigImage.style.left = '300px';
+               bigImage.style.border = '5px solid #ccc';
+               bigImage.style.padding = '4px';
+               document.body.appendChild(bigImage);   
+            }
 
-              if( curr ) {
+                        var output = o.innerHTML.replace(/_s/,'_m');
+                        bigImage.innerHTML = '<a href="#" onclick="this.parentNode.style.display = \'none\';return false;">' + output + '</a>';
+                        bigImage.style.display = 'block';
 
-                  var ob = JSON.parse( curr )
+                        var y;
+                        if(self.pageYOffset) {
+                               y = self.pageYOffset;
+                         } else if(document.documentElement && document.documentElement.scrollTop) {
+                               y = document.documentElement.scrollTop;
+                        } else if(document.body) {
+                               y = document.body.scrollTop; 
+                        }
 
-                  if( (new Date().getTime()) - ob.expiry < this.expiry ) {
+                        bigImage.style.top = 100 + y + 'px';
+   }; 
 
-                     return ob.data
- 
-                  } else {
+   //return an object with these properties and methods.
+   return { init: init, seed: seed, show: show }
+}();
 
-                     return false
-                  } 
-              }
-     },
-     
-     remove: function( key ) {
+cuba.ready(function(){
 
-             var key = this.prefix + key;
-          
-             this.storage.removeItem( key )
-
-        return key;
-     }
- };
-
+     getFlickr.init();
+});
+console.log(cuba.lang)
 </script>
 
 </head>
