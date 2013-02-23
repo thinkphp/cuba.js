@@ -5,9 +5,34 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ## cuba API Documentation
 
+### cuba Global Object
+
+    Provides a single global namespace within all cuba library code resides.
+
+### cuba.lang
+
+    Contains language utilities and extensions that are used in the cuba.js
+
+* static boolean isArray( object )
+* static boolean isBoolean( object )
+* static boolean isFunction( object )
+* static boolean isNull( object )
+* static boolean isNumber( object )
+* static boolean isObject( object )
+* static boolean isString( object )
+* static boolean isUndefined( object )
+* static boolean isValue( object )
+* static string  trim( string )
+* static string  camelize( string )
+* static string  escapeHTML( html )
+* static object  augmentObject(child, parent)
+* static object  hasOwnProperty(ob, property)
+
 ### DOM Ready
 
-* ready( fn )
+    Lets you define a function that will execute as soon as the DOM is in a usable state.
+
+* .ready( fn )
 
 ### DOM
 
@@ -27,9 +52,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * .removeClass(elem, c)
 * .hasClass(elem, c)
 * .toggleClass( c )
-* .trim(s)
 * .is( node )
-* .camelize( s )
 
 ### Events Handling
 
@@ -39,6 +62,12 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * .detach(elem, evType, fn, useCapture)
 * .elem.Click( fn )
 * .stopPropagation( event )
+
+### Custom Events
+
+* .addEvent(evType, handler)
+* .removeEvent(evType, handler)
+* .fireEvent(evType)
 
 ### Effects Fading
 
@@ -53,10 +82,21 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 ### More
 
 * .script(url, callback)
+* .loadLink(url, callback)
 * .yql(query, callback, format, diagnostics)
 * .jsonp(url, callback, params, callbackName)
 * .ajax(method, url, callback, postData)
 * .animate( selector )
+
+### Micro-Template Engine
+
+* cuba.template
+ 
+### Cache using localStorage
+
+* cuba.cache.get( key )
+* cache.set( key, data)
+* cache.remove( key )
 
 ### cuba UI
 
@@ -65,6 +105,78 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * .tabview (work in progress)
  
 ##How it works
+
+### cuba.lang - contains language extensions that are used in the library.
+
+       //true, an array literal is an array
+       console.log(cuba.lang.isArray([1, 2]));
+
+       //false, an object literal is not an array
+       console.log(cuba.lang.isArray({"one": "two"}));
+
+       //however, when declared as an array, it is true
+       var a = new Array();
+       a["one"] = "two";
+       console.log(cuba.lang.isArray(a));
+
+       //false, a collection of elements is like an array, but isn't
+       console.log(cuba.lang.isArray(document.getElementsByTagName("body")));
+
+       //true, false is a boolean
+       console.log(cuba.lang.isBoolean(false));
+
+       //false, 1 and the string "true" are not booleans
+       console.log(cuba.lang.isBoolean(1));
+       console.log(cuba.lang.isBoolean("true"));
+
+       // null is null, but false, undefined and "" are not
+       console.log(cuba.lang.isNull(null)); // true
+       console.log(cuba.lang.isNull(undefined)); // false
+       console.log(cuba.lang.isNull("")); // false
+
+       //a function is a function, but an object is not
+       console.log(cuba.lang.isFunction(function(){})); // true
+       console.log(cuba.lang.isFunction({foo: "bar"})); // false
+
+       //true, ints and floats are numbers
+       console.log(cuba.lang.isNumber(0));//true
+       console.log(cuba.lang.isNumber(123.123));//true
+
+       //false, strings that can be cast to numbers aren't really numbers
+       console.log(cuba.lang.isNumber("123.123"));
+
+
+       //false, undefined numbers and infinity are not numbers we want to use
+       console.log(cuba.lang.isNumber(1/0));
+
+       // true, objects, functions, and arrays are objects
+       console.log(cuba.lang.isObject({}));
+       console.log(cuba.lang.isObject(function(){}));
+       console.log(cuba.lang.isObject([1,2]));
+
+       // false, primitives are not objects
+       console.log(cuba.lang.isObject(1)); //false
+       console.log(cuba.lang.isObject(true)); //false
+       console.log(cuba.lang.isObject("{}"));//false
+
+       //strings
+       console.log(cuba.lang.isString("{}")); // true
+       console.log(cuba.lang.isString({foo: "bar"})); // false
+       console.log(cuba.lang.isString(123)); // false
+       console.log(cuba.lang.isString(true)); // false
+
+       // undefined is undefined, but null and false are not
+       console.log(cuba.lang.isUndefined(undefined)); // true
+       console.log(cuba.lang.isUndefined(false)); // false
+       console.log(cuba.lang.isUndefined(null)); // false
+
+       //hasOwnProperty
+       var F = function(){}
+       F.prototype.foo = 'foo'
+       var a = new F();
+       a.moo = "moo";
+       console.log(cuba.lang.hasOwnProperty(a,"moo"))//true
+       console.log(cuba.lang.hasOwnProperty(a,"foo"))//false
 
 ### Specify a function to execute when the DOM is fully loaded.
 
@@ -103,11 +215,65 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
          alert('clicked')
     })
 
+### Custom Events
+
+    var arr = [9,8,7,5,4,3,2,1,0,-1,-2,-3]
+
+        cuba.select("#btn").on('click', function( event ){
+ 
+        evt.fireEvent("start");    
+
+         doBubble(0, 0, arr.length-1, function(i,j){
+
+            var aux; 
+
+            if(arr[j] > arr[j+1]) {
+               aux = arr[j]
+               arr[j] = arr[j+1]
+               arr[j+1] = aux       
+            }
+ 
+            draw();
+         })
+       });
+
+       function doBubble(i, j, len, callback) {
+
+         callback(i,j);
+ 
+         if(++j>=len) {
+            j = 0
+            i++ 
+         } 
+
+         if(i<len) window.setTimeout(function(){
+                          doBubble(i, j, len, callback)
+
+                   }, 100); else  evt.fireEvent('sorted')
+       } 
+ 
+       function draw() {
+
+          cuba.select("#input").html(arr.join(", "))
+       }
+
+       draw()
+
+       var evt = cuba.util.CustomEvent;
+
+           evt.addEvent("start", function(){
+               console.log('start sorting!!!');
+           })
+
+           evt.addEvent("sorted", function(){
+               console.log('end sorting!!!');
+              alert('sorted!!!');
+           })
+
 ### DOM manipulation
 
          //added label to the button
          cuba.select("#div").html("content")  
-
 
          //select an element, then invoke the methods: html() and css()
          cuba.select("#out")
@@ -228,6 +394,41 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                  cuba.fadeIn('div3')
         })
 
+### Template Engine
+
+      var tmp = 'This {project} presents a very {compact} micro-templating {solution} creating for learning purposes';
+
+      var ob = {
+             'project': 'MooTools',
+             'compact': "extra",
+             'solution': "miss"  
+      };
+
+      cuba.select("#title").html(cuba.template(tmp, ob))
+      
+### Cache using localStorage
+
+     if(cache.get( key )) {
+
+        var photos_cached = cache.get( key )
+
+        cuba.select('#results').html( photos_cached )
+ 
+        cuba.select('#status').html('(read from cache)')
+
+     } else {
+
+        cuba.ajax('GET', url, function(data){
+
+           cuba.select('#results').html( data )
+
+           cache.set(key, data)
+
+           cuba.select('#status').html('Read from api (fresh)')
+             
+        }.binding(this));
+     }
+      
 ### cuba UI
 
 
@@ -268,6 +469,10 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ## Demos:
 
+cuba lang
+
+* [http://thinkphp.github.com/cuba.js/cuba.lang.test.html](http://thinkphp.github.com/cuba.js/cuba.lang.test.html)
+
 Core
 
 * [http://thinkphp.github.com/cuba.js/](http://thinkphp.github.com/cuba.js/)
@@ -297,6 +502,18 @@ CSS3 Animation
 * [http://thinkphp.github.com/cuba.js/scale.html](http://thinkphp.github.com/cuba.js/scale.html)
 * [http://thinkphp.github.com/cuba.js/padx.html](http://thinkphp.github.com/cuba.js/padx.html)
 * [http://thinkphp.github.com/cuba.js/multibox.html](http://thinkphp.github.com/cuba.js/multibox.html)
+
+Template Engine
+
+* [http://thinkphp.github.com/cuba.js/template.html](http://thinkphp.github.com/cuba.js/template.html)
+
+Custom Events
+
+* [http://thinkphp.github.com/cuba.js/customEvent.html](http://thinkphp.github.com/cuba.js/customEvent.html)
+
+localStorage
+
+* [http://thinkphp.ro/apps/js-hacks/cuba.js/cache.html](http://thinkphp.ro/apps/js-hacks/cuba.js/cache.html)
 
 cuba UI
 

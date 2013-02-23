@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>cuba.js micro JavaScript Framework</title>
+<style type="text/css">
+</style>
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+Function.prototype.bind = function(object) {
+         var method = this;
+         return function() {
+                method.apply(object, arguments)
+         } 
+}
+
+var F = function( url, target){
+
+    this.url = url;
+    this.target = target; 
+}
+    F.prototype.ajax = function() {
+
+         //make an AJAX GET request (asynchronous HTTP)
+         cuba.ajax('GET', this.url, function( data ){
+ 
+              this.display( data )
+
+         }.bind( this ))                
+    }
+
+    F.prototype.display = function( data ) {
+
+         //if(window.console) console.log(data)
+         cuba.select(this.target).html( data )
+    }
+
+//if dom is ready go ahead!!!
+cuba.ready(function() {
+
+    var ob = new F("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fws.audioscrobbler.com%2F1.0%2Fuser%2Fthinkphp%2Frecenttracks.rss%22&format=json","#results")
+        ob.ajax()
+
+    var ob = new F("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fws.audioscrobbler.com%2F1.0%2Fuser%2Fvoidberg%2Frecenttracks.rss%22&format=json","#results2")
+        ob.ajax()
+
+})
+
+</script>
+</head>
+<body>
+<h1>AJAX cuba.js</h1>
+<div id="out"></div>
+<h2>How it works</h3>
+<div id="results"></div>
+<div id="results2"></div>
+<pre><code>
+</code></pre>
+</body>
+</html>
+

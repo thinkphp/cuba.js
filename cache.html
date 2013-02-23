@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+   <title>localStorage</title>
+   <style type="text/css">
+    body {
+      font-size:24px;
+      line-height:1.2;
+      color:#333;
+    }
+
+    h1,h2,h3,body { font-family:'gill sans','dejavu sans',verdana,sans-serif; }
+
+    h1 {
+      font-weight:bold;
+      font-size:80px;
+      letter-spacing:-5px;
+      color:#000;
+      margin-bottom:0;
+      position:relative;    
+    }
+    h1 b {
+      color:#ccc;
+    }
+    ul {float: left;width: 270px}
+    li {float: left; list-style: none}
+   </style>
+
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+var getFlickr = function(){
+
+   //@private
+   var bigImage,
+       key = 'flickr1',
+       cache = cuba.util.cache;
+
+   //@public
+   function init() {
+
+            var url = 'flickr.php?sid=' + (new Date().getTime()); 
+
+            if(cache.get( key )) {
+
+               var photos_cached = cache.get( key )
+
+               cuba.select('#results').html( photos_cached )
+ 
+               cuba.select('#status').html('(read from cache)')
+
+            } else {
+
+                   cuba.ajax('GET', url, function(data){
+
+                             this.seed( data )
+
+                   }.binding(this));
+            }
+   };
+
+   function seed( data ) {
+
+           cuba.select('#results').html( data )
+
+           cache.set(key, data)
+
+           cuba.select('#status').html('Read from api (fresh)')
+   };
+
+   function show( o ) {
+
+            if(bigImage == null) {
+ 
+               bigImage = document.createElement('div');
+               bigImage.style.position = 'absolute';
+               bigImage.style.left = '300px';
+               bigImage.style.border = '5px solid #ccc';
+               bigImage.style.padding = '4px';
+               document.body.appendChild(bigImage);   
+            }
+
+                        var output = o.innerHTML.replace(/_s/,'_m');
+                        bigImage.innerHTML = '<a href="#" onclick="this.parentNode.style.display = \'none\';return false;">' + output + '</a>';
+                        bigImage.style.display = 'block';
+
+                        var y;
+                        if(self.pageYOffset) {
+                               y = self.pageYOffset;
+                         } else if(document.documentElement && document.documentElement.scrollTop) {
+                               y = document.documentElement.scrollTop;
+                        } else if(document.body) {
+                               y = document.body.scrollTop; 
+                        }
+
+                        bigImage.style.top = 100 + y + 'px';
+   }; 
+
+   //return an object with these properties and methods.
+   return { init: init, seed: seed, show: show }
+}();
+
+cuba.ready(function(){
+
+     getFlickr.init();
+});
+console.log(cuba.lang)
+</script>
+
+</head>
+<body>
+<h1><b>|</b>localStorage on cuba.js</h1>
+<p>Wrapper to store the results in localStorage HTML5 when the browser support it with timed expiry.</p>
+<div id="results"></div>
+<span id="status"></span>
+</body>
+</html>
+
+
