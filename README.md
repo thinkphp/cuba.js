@@ -469,6 +469,10 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ## Demos:
 
+cuba lang
+
+* [http://thinkphp.github.com/cuba.js/cuba.lang.test.html](http://thinkphp.github.com/cuba.js/cuba.lang.test.html)
+
 Core
 
 * [http://thinkphp.github.com/cuba.js/](http://thinkphp.github.com/cuba.js/)
@@ -498,6 +502,18 @@ CSS3 Animation
 * [http://thinkphp.github.com/cuba.js/scale.html](http://thinkphp.github.com/cuba.js/scale.html)
 * [http://thinkphp.github.com/cuba.js/padx.html](http://thinkphp.github.com/cuba.js/padx.html)
 * [http://thinkphp.github.com/cuba.js/multibox.html](http://thinkphp.github.com/cuba.js/multibox.html)
+
+Template Engine
+
+* [http://thinkphp.github.com/cuba.js/template.html](http://thinkphp.github.com/cuba.js/template.html)
+
+Custom Events
+
+* [http://thinkphp.github.com/cuba.js/customEvent.html](http://thinkphp.github.com/cuba.js/customEvent.html)
+
+localStorage
+
+* [http://thinkphp.ro/apps/js-hacks/cuba.js/cache.html](http://thinkphp.ro/apps/js-hacks/cuba.js/cache.html)
 
 cuba UI
 
