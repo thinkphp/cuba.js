@@ -8,7 +8,7 @@
 body,html{background:#999;color:#000;}
 #doc{background:#fff;border:1em solid #fff;}
 form{background:#ccc;padding:.5em;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
-h1{color:#999;margin:10px 0;font-size:40px;}
+h1{color: #ccc;margin:10px 0;font-size:40px;}
 h2{margin:0;padding:.5em 0;color:#393;}
 h3{margin:0;padding:.5em 0;color:#036;}
 a:link{color:#369;}
@@ -53,42 +53,69 @@ input[type=text]{
 //show me love to the module pattern
 var googlesearch = function(){
 
+      /* defines the vars*/
+      //for google form
       var f, 
+
+          //for div container
           resultscontainer, 
+
+          //for button
           send, 
+
+          //var for textfield
           q;
 
+      //@public init function
       function init() {
 
+          //get the form element
           f    = cuba.select('#googleform').value[0],
+
+          //get the button element
           send = cuba.select('#send').value[0],
+
+          //get the input text element
           q    = cuba.select('#q').value[0],
+
+          //get the div result
           resultscontainer = cuba.select('#results').value[0];
 
+          //if all exist then attach the handler for event submit
           if(f && resultscontainer && send && q) {
 
+                  //bind the handler to the event submit
                   cuba.select('#googleform').on("submit", googlesearch.get) 
           }
       }
 
+      //handler for submit event
       function get(event) {
 
+          //stop propagation
           cuba.stopPropagation( event )
 
+          //change attribute with loading
           cuba.select('#send').attr('value','Loading...')            
 
+          //change window location hash
           window.location = "#/search/" + q.value;
       };
 
       return {init: init, get: get};
   }();
 
+  //call init function
   googlesearch.init();
 
+  // define a var f that holds the handler function 
+  // and fires when location hash is changed.
   var f;
 
+  //router defined for location.hash changed
   cuba.router.get("/search/:what", f = function( data ){
 
+          //assemble the URL for REST GET request
           var url = 'http://ajax.googleapis.com/ajax/services/search/web?gl=en'+
                     '&userip=&'+
                     'hl=en&'+
@@ -97,54 +124,78 @@ var googlesearch = function(){
                     'rsz=8&'+
                     'q='+data.what;
 
+          //make a JSONP request
           cuba.jsonp(url, function( o ){
-
+ 
+               //grab the data from server
+               if(window.console) console.log( o )
+     
+               //change the attribute 'value' for the button search
                cuba.select('#send').attr('value','Go!')
 
+               //change the attr value for the textfield input
                cuba.select('#q').attr("value", data.what) 
 
+               //declare a val with '' value
                var output = '';
 
+               //if resposenstatus is ok then
                if(o.responseStatus == 200) {
-
+                 
+                 //define a var 
                  var out = '',
 
+                     //grab the results from object received
                      results = o.responseData.results;
 
-                 if(undefined !== results) {
+                 //if the results are not undefined and are object then
+                 if(undefined !== results && typeof results === 'object') {
 
+                     //get the length of the results
                      var all = results.length;
+
+                     //append a h3 
                      out += '<h3>Web Results</h3><ol>';
+
+                     //loop through all the results and assemble the result
                      for(var i=0;i<all;i++) {
+
                          out += '<li><h4><a href="' + results[i].url + '">' + results[i].title + '</a></h4>' + 
+
                                 '<p>' + results[i].content +  '<span>(' + results[i].url + ')</span></p>';
                       }  
 
                       out += '</ol>';
                   }  
 
+                  //final output
                   output = '<h2>Results</h2><div>' + out + '</div>'; 
 
+                //otherwise error
                 } else {
 
                 out = '<div class="error"><h2>Error</h2>' +
+
                       '<p>'+ o.responseDetails +'</p>' +
+
                       '</div>';
                 }
 
+                //append the container result into the div reserved for results
                 cuba.select("#results").html( out )
           })
   })
 
+//run the router
 cuba.router.run(); 
 
-if(window.location.hash.indexOf("/search")!=-1) {
+if(window.location.hash.indexOf("/search") != -1) {
 
    var _val = location.hash.split("/")[2]
 
    cuba.select("#q").attr("value", _val);
 
-   f({data: _val});
+   f({what: _val});
 }
 
 </script>
