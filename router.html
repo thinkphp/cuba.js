@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+   <title>Google Search using cuba.router</title>
+   <link rel="stylesheet" href="http://yui.yahooapis.com/2.8.0r4/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+   <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/base/base.css" type="text/css">
+   <style type="text/css">
+body,html{background:#999;color:#000;}
+#doc{background:#fff;border:1em solid #fff;}
+form{background:#ccc;padding:.5em;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
+h1{color:#999;margin:10px 0;font-size:40px;}
+h2{margin:0;padding:.5em 0;color:#393;}
+h3{margin:0;padding:.5em 0;color:#036;}
+a:link{color:#369;}
+a:visited{color:#999;}
+a:hover{color:#69c;}
+a:active{color:#69c;}
+#googleform {background: #999;border-radius:10px;box-shadow:4px 4px 10px rgba(0,1,0,.7);padding: 14px 14px;}
+label{color: #fff}
+input[type=submit]{font-size: 20px;margin-left: 10px}
+input[type=text]{			
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+      font-size: 24px
+}
+
+   </style>
+</head>
+<body class="yui-skin-sam">
+<div id="doc" class="yui-t7">
+   <div id="hd" role="banner"><h1>Google Search using cuba.router</h1></div>
+   <div id="bd" role="main">
+	<div class="yui-g">
+
+           <form action="http://www.google.com/search" id="googleform">
+             <div>
+                <label for="q">Google Search:</label>
+                <input type="text" id="q" name="q" placeholder="enter a term" required/> 
+                <input type="submit" id="send" name="send" value="Go!"/> 
+             </div> 
+           </form>
+
+           <div id="results"></div>
+
+	</div>
+	</div>
+   <div id="ft" role="contentinfo"><p>Created by  @<a href="http://twitter.com/thinkphp">thinkphp</a> | Download on <a href="http://github.com/thinkphp/cuba.js">GitHub</a></p></div>
+</div>
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+//show me love to the module pattern
+var googlesearch = function(){
+
+      var f, 
+          resultscontainer, 
+          send, 
+          q;
+
+      function init() {
+
+          f    = cuba.select('#googleform').value[0],
+          send = cuba.select('#send').value[0],
+          q    = cuba.select('#q').value[0],
+          resultscontainer = cuba.select('#results').value[0];
+
+          if(f && resultscontainer && send && q) {
+
+                  cuba.select('#googleform').on("submit", googlesearch.get) 
+          }
+      }
+
+      function get(event) {
+
+          cuba.stopPropagation( event )
+
+          cuba.select('#send').attr('value','Loading...')            
+
+          window.location = "#/search/" + q.value;
+      };
+
+      return {init: init, get: get};
+  }();
+
+  googlesearch.init();
+
+  var f;
+
+  cuba.router.get("/search/:what", f = function( data ){
+
+          var url = 'http://ajax.googleapis.com/ajax/services/search/web?gl=en'+
+                    '&userip=&'+
+                    'hl=en&'+
+                    'v=1.0&'+
+                    'start=0&'+
+                    'rsz=8&'+
+                    'q='+data.what;
+
+          cuba.jsonp(url, function( o ){
+
+               cuba.select('#send').attr('value','Go!')
+
+               cuba.select('#q').attr("value", data.what) 
+
+               var output = '';
+
+               if(o.responseStatus == 200) {
+
+                 var out = '',
+
+                     results = o.responseData.results;
+
+                 if(undefined !== results) {
+
+                     var all = results.length;
+                     out += '<h3>Web Results</h3><ol>';
+                     for(var i=0;i<all;i++) {
+                         out += '<li><h4><a href="' + results[i].url + '">' + results[i].title + '</a></h4>' + 
+                                '<p>' + results[i].content +  '<span>(' + results[i].url + ')</span></p>';
+                      }  
+
+                      out += '</ol>';
+                  }  
+
+                  output = '<h2>Results</h2><div>' + out + '</div>'; 
+
+                } else {
+
+                out = '<div class="error"><h2>Error</h2>' +
+                      '<p>'+ o.responseDetails +'</p>' +
+                      '</div>';
+                }
+
+                cuba.select("#results").html( out )
+          })
+  })
+
+cuba.router.run(); 
+
+if(window.location.hash.indexOf("/search")!=-1) {
+
+   var _val = location.hash.split("/")[2]
+
+   cuba.select("#q").attr("value", _val);
+
+   f({data: _val});
+}
+
+</script>
+</body>
+</html>
