@@ -103,6 +103,14 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * .accordion(accordionID, hiddenClass, urlCSS)
 * .autocomplete (work in progress)
 * .tabview (work in progress)
+
+### cuba Router
+
+    Provides URL-based same-page routing using location hash. This makes it easy to wire up route handlers for different app
+    states while providing full stack back/forward navigation support.
+
+* cuba.router.get(pattern, handler)
+* cuba.router.run()
  
 ##How it works
 
