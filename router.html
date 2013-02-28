@@ -124,6 +124,12 @@ var googlesearch = function(){
                     'rsz=8&'+
                     'q='+data.what;
 
+          //change the attr value for the textfield input
+          cuba.select('#q').attr("value", data.what) 
+
+          //change input value
+          cuba.select('#q').value[0].value = data.what;
+
           //make a JSONP request
           cuba.jsonp(url, function( o ){
  
@@ -132,9 +138,6 @@ var googlesearch = function(){
      
                //change the attribute 'value' for the button search
                cuba.select('#send').attr('value','Go!')
-
-               //change the attr value for the textfield input
-               cuba.select('#q').attr("value", data.what) 
 
                //declare a val with '' value
                var output = '';
