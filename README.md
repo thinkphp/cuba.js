@@ -57,11 +57,15 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 ### Events Handling
 
 * .on(evType, handlerFn, useCapture)
-* .unbind(evType, handlerFn, useCapture)
+* .off(evType, handlerFn, useCapture)
 * .attach(elem, evType, fn, useCapture)
 * .detach(elem, evType, fn, useCapture)
 * .elem.Click( fn )
 * .stopPropagation( event )
+
+### Event Delegation
+
+* .delegate(elem, selector, evType, fn, useCapture)
 
 ### Custom Events
 
@@ -103,6 +107,14 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * .accordion(accordionID, hiddenClass, urlCSS)
 * .autocomplete (work in progress)
 * .tabview (work in progress)
+
+### cuba Router
+
+    Provides URL-based same-page routing using location hash. This makes it easy to wire up route handlers for different app
+    states while providing full stack back/forward navigation support.
+
+* cuba.router.get(pattern, handler)
+* cuba.router.run()
  
 ##How it works
 
@@ -486,6 +498,15 @@ Event Handler
 
 * [http://thinkphp.github.com/cuba.js/events.html](http://thinkphp.github.com/cuba.js/events.html)
 
+Custom Events
+
+* [http://thinkphp.github.com/cuba.js/customEvent.html](http://thinkphp.github.com/cuba.js/customEvent.html)
+
+Event Delegation
+
+* [http://thinkphp.github.com/cuba.js/delegate.html](http://thinkphp.github.com/cuba.js/delegate.html)
+
+
 Effects Fading
 
 * [http://thinkphp.github.com/cuba.js/fading.html](http://thinkphp.github.com/cuba.js/fading.html)
@@ -506,10 +527,6 @@ CSS3 Animation
 Template Engine
 
 * [http://thinkphp.github.com/cuba.js/template.html](http://thinkphp.github.com/cuba.js/template.html)
-
-Custom Events
-
-* [http://thinkphp.github.com/cuba.js/customEvent.html](http://thinkphp.github.com/cuba.js/customEvent.html)
 
 localStorage
 
