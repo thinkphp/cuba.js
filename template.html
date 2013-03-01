@@ -4,6 +4,25 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 <title>cuba.js UI Accordion</title>
 <style type="text/css">
+code {
+    font-size: 1.2em;
+}
+ pre,code {
+    font-family: menlo,'dejavu sans mono',monospace;
+}
+pre{
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  overflow: auto;
+  font-family: courier;
+  background: ghostwhite;
+  border: 1px solid #ddd;
+}
+
+code {
+  padding: 2px 5px;
+} 
+
 </style>
 </head>
 <body>
@@ -23,6 +42,18 @@
       cuba.select("#title").html(cuba.template(tmp, ob))
 
 </script>
+
+<pre><code>
+      var tmp = 'This {project} presents a very {compact} micro-templating {solution} creating for learning purposes';
+
+      var ob = {
+             'project': 'MooTools',
+             'compact': "extra",
+             'solution': "miss"  
+      };
+
+      cuba.select("#title").html(cuba.template(tmp, ob))
+</code></pre>
 </body>
 </html>
 
