@@ -358,6 +358,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
          })
 
 * [http://thinkphp.github.com/cuba.js/ajax.html](http://thinkphp.github.com/cuba.js/ajax.html)
+* [http://thinkphp.github.com/cuba.js/ajax2.html](http://thinkphp.github.com/cuba.js/ajax2.html)
 
 
 ### YQL - Yahoo! Query Language YQL is an expressive SQL-like language.
