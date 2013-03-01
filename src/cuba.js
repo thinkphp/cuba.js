@@ -373,7 +373,7 @@ var cuba = {
       * @return (Object) the global object.
       * @static
       */ 
-    unbind: function(evType, fn, useCapture) {
+    off: function(evType, fn, useCapture) {
 
        this.value = this.each.call(this, this.value, function( elem ){
 
@@ -395,6 +395,35 @@ var cuba = {
        })  
 
       return this
+    },
+
+   /**
+    *  Event Delegation
+    */
+    delegate: function(elem, selector, type, fn, useCapture) {
+
+          var match = function(el, selector) {
+ 
+              var nodes = el.parentNode.querySelectorAll( selector );
+ 
+              for(var i=0, len = nodes.length; i < len; i++) {
+
+                   if(nodes[i] == el) {
+
+                      return true
+                   }
+              }        
+                      return false;   
+           }     
+
+          return cuba.attach(elem, type, function( e ){
+
+                  if(match(e.target, selector)) {
+
+                     fn.call(elem, e)
+                  }
+
+          }, useCapture)
     },
 
     /**
