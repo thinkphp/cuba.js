@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>Event Delegation cuba.js</title>
+<style type="text/css">
+.hidden ul{display: none;margin-top: 10px;margin-left: 30px;list-style:square}
+code {
+    font-size: 1.2em;
+}
+ pre,code {
+    font-family: menlo,'dejavu sans mono',monospace;
+}
+pre{
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  overflow: auto;
+  font-family: courier;
+  background: ghostwhite;
+  border: 1px solid #ddd;
+}
+
+code {
+  padding: 2px 5px;
+} 
+</style>
+
+<script type="text/javascript" src="src/cuba.js"></script>
+<script type="text/javascript">
+
+
+function init() {
+
+         cuba.delegate(document.getElementById('menu'), 'li a', 'click', function( e ){
+
+              var ul = e.target.parentNode.querySelector("ul")
+
+                  if(ul.style.display == "none") {
+
+                     ul.style.display = "block"
+
+                  } else {
+
+                    ul.style.display = "none"
+                  }
+
+                  console.log(e.target)
+
+         }, false);
+}
+
+cuba.ready(function(){
+
+     init()
+})
+
+</script>
+</head>
+<body>
+
+<h1>Cuba.js Event Delegation</h1>
+
+<ul id="menu">
+
+<li>
+   <a href="#">Event Delegation List 1</a>
+   <ul>
+       <li>item1</li>
+       <li>item2</li>
+       <li>item3</li>
+       <li>item4</li>
+       <li>item5</li>
+   </ul>
+</li>
+
+<li>
+   <a href="#">Event Delegation List 2</a>
+   <ul>
+       <li>item1</li>
+       <li>item2</li>
+       <li>item3</li>
+       <li>item4</li>
+       <li>item5</li>
+   </ul>
+</li>
+
+<li>
+   <a href="#">Event Delegation List 3</a>
+   <ul>
+       <li>item1</li>
+       <li>item2</li>
+       <li>item3</li>
+       <li>item4</li>
+       <li>item5</li>
+   </ul>
+</li>
+
+
+</ul>
+<pre><code>
+cuba.ready(function(){
+ 
+         cuba.delegate($('#menu'), 'li a', 'click', function( e ){
+
+              var ul = e.target.parentNode.querySelector("ul")
+
+                  if(ul.style.display == "none") {
+
+                     ul.style.display = "block"
+
+                  } else {
+
+                    ul.style.display = "none"
+                  }
+
+                  console.log(e.target)
+
+         }, false);
+})
+
+</code></pre>
+</body>
+</html>
+
