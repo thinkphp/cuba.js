@@ -16,17 +16,19 @@
 var $ = function(id){return document.getElementById(id);}
 
 var f = function(){
-    alert('click')
+
+   alert('Clicked')
+
+   window.setTimeout(function(){
+
+      cuba.detach($('btn'),'click', f, false)
+      cuba.select('#msg').html('event removed')
+
+   }, 1000)
+
 }
 cuba.attach($('btn'),'click', f, false)
 
-window.setTimeout(function(){
-
-   cuba.detach($('btn'),'click', f, false)
-
-   cuba.select('#msg').html('event removed')
-
-},2000)
 
 </script>
 </body>
