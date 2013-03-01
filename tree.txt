@@ -1,13 +1,13 @@
 cuba (Global Object)
 
+cuba.lang
+
 cuba.DOM
-cuba.EVENT
-cuba.TEMPLATE
+cuba.EVENT    (on, off, attach, detach, delegate)
+cuba.TEMPLATE (tpl, obj)
 cuba.ANIM
 
-cuba.router
-
-cuba.lang
+cuba.router (get, run)
 
 cuba.UI  
 cuba.UI.accordion
@@ -15,8 +15,8 @@ cuba.UI.tabview
 cuba.UI.autosuggest
       
 cuba.util
-cuba.util.CustomEvent
-cuba.util.cache
+cuba.util.CustomEvent (addEvent, removeEvent, fireEvent)
+cuba.util.cache       (get, set, remove)
     
 
 Function.prototype.binding
