@@ -498,6 +498,10 @@ Event Handler
 
 * [http://thinkphp.github.com/cuba.js/events.html](http://thinkphp.github.com/cuba.js/events.html)
 
+Custom Events
+
+* [http://thinkphp.github.com/cuba.js/customEvent.html](http://thinkphp.github.com/cuba.js/customEvent.html)
+
 Event Delegation
 
 * [http://thinkphp.github.com/cuba.js/delegate.html](http://thinkphp.github.com/cuba.js/delegate.html)
@@ -523,10 +527,6 @@ CSS3 Animation
 Template Engine
 
 * [http://thinkphp.github.com/cuba.js/template.html](http://thinkphp.github.com/cuba.js/template.html)
-
-Custom Events
-
-* [http://thinkphp.github.com/cuba.js/customEvent.html](http://thinkphp.github.com/cuba.js/customEvent.html)
 
 localStorage
 
