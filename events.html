@@ -4,6 +4,24 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 <title>Events Handling</title>
 <style type="text/css">
+pre, code {
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  overflow: auto;
+  font-family: courier;
+  background: ghostwhite;
+  border: 1px solid #ddd;
+}
+
+code {
+  padding: 2px 5px;
+}
+
+pre code {
+  padding: 0;
+  margin-bottom: 0;
+  border: 0;
+}
 </style>
 </head>
 <body>
@@ -29,8 +47,23 @@ var f = function(){
 }
 cuba.attach($('btn'),'click', f, false)
 
-
 </script>
+<pre><code>
+var f = function(){
+
+   alert('Clicked')
+
+   window.setTimeout(function(){
+
+      cuba.detach($('btn'),'click', f, false)
+
+      cuba.select('#msg').html('event removed')
+
+   }, 1000)
+
+}
+cuba.attach($('btn'),'click', f, false)
+</code></pre>
 </body>
 </html>
 
