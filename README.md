@@ -57,11 +57,15 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 ### Events Handling
 
 * .on(evType, handlerFn, useCapture)
-* .unbind(evType, handlerFn, useCapture)
+* .off(evType, handlerFn, useCapture)
 * .attach(elem, evType, fn, useCapture)
 * .detach(elem, evType, fn, useCapture)
 * .elem.Click( fn )
 * .stopPropagation( event )
+
+### Event Delegation
+
+* .delegate(elem, selector, evType, fn, useCapture)
 
 ### Custom Events
 
@@ -493,6 +497,11 @@ Core
 Event Handler
 
 * [http://thinkphp.github.com/cuba.js/events.html](http://thinkphp.github.com/cuba.js/events.html)
+
+Event Delegation
+
+* [http://thinkphp.github.com/cuba.js/delegate.html](http://thinkphp.github.com/cuba.js/delegate.html)
+
 
 Effects Fading
 
