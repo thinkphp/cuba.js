@@ -373,7 +373,7 @@ var cuba = {
       * @return (Object) the global object.
       * @static
       */ 
-    unbind: function(evType, fn, useCapture) {
+    off: function(evType, fn, useCapture) {
 
        this.value = this.each.call(this, this.value, function( elem ){
 
@@ -395,6 +395,35 @@ var cuba = {
        })  
 
       return this
+    },
+
+   /**
+    *  Event Delegation
+    */
+    delegate: function(elem, selector, type, fn, useCapture) {
+
+          var match = function(el, selector) {
+ 
+              var nodes = el.parentNode.querySelectorAll( selector );
+ 
+              for(var i=0, len = nodes.length; i < len; i++) {
+
+                   if(nodes[i] == el) {
+
+                      return true
+                   }
+              }        
+                      return false;   
+           }     
+
+          return cuba.attach(elem, type, function( e ){
+
+                  if(match(e.target, selector)) {
+
+                     fn.call(elem, e)
+                  }
+
+          }, useCapture)
     },
 
     /**
@@ -1854,7 +1883,11 @@ cuba.UI = cuba.UI || {};
         })//end event delegation     
      },
 
-     autocomplete: function() {
+     autosuggest: function() {
+
+     },
+
+     tabview: function() {
 
      }
 
@@ -2031,6 +2064,90 @@ cuba.util.cache = function() {
    };
 }();
 
+
+/**
+ *
+ *  Router.js
+ *
+ */
+
+cuba.router = function() {
+
+     var _rules = [],
+
+         _compiled = [];
+ 
+     function get(rule, handler) {
+ 
+         _rules.push([rule, handler]);
+
+     };
+
+     function _compile() {
+
+          var i, n = _rules.length, keys = [];
+
+          for(i = 0; i < n; i++) {
+
+              var re = _rules[i][0].replace(/:[^\/]+/gi, function( key ) {
+
+                  keys.push(key.substring(1));
+
+                  return "([^\/]+)";
+              })
+                             _compiled.push({
+                             keys: keys,
+                             handler: _rules[i][1],
+                             re: new RegExp(re)
+                             })
+
+          }//endfor
+     };
+
+     function _attach() {
+
+         window.addEventListener("hashchange", function() {
+
+                _match( document.location.hash )
+         });
+     };
+
+     function _match( url ) {
+
+              var i, n = _compiled.length, data = {};
+
+              for(i = 0; i < n; i++) {
+
+                  var match = url.match( _compiled[ i ].re );
+                
+                  if( match ) {
+
+                      var keys = _compiled[ i ].keys, m = keys.length;
+
+                      for(var j = 0; j < m; j++) {
+
+                          data[ keys[ j ] ] = match[i+1]                           
+                      }
+
+                      var handler = _compiled[i].handler;
+
+                      if( handler ) {
+
+                          handler( data )
+                      }
+                  }
+              }  
+     };
+
+     function run() {
+ 
+         _attach();
+   
+         _compile();    
+     };
+
+     return { get: get, run: run };
+}();
 
 /**
  *  Creates a new function that, when called, has its "this" keyword set to provided value,
