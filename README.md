@@ -536,4 +536,8 @@ cuba UI
 
 * [http://thinkphp.github.com/cuba.js/accordion.html](http://thinkphp.github.com/cuba.js/accordion.html)
 
+cuba Router
+
+* [http://thinkphp.github.com/cuba.js/router.html](http://thinkphp.github.com/cuba.js/router.html)
+
 
