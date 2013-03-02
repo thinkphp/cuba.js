@@ -131,11 +131,9 @@ var flickr = function(){
                        out += template(tplflickr,photos[i])
                    }  
 
-                   out += '</ul>';
+                   out += '</ul>'
 
-                   cuba.select('#results').html( out );  
-
-                   cuba.select("#results").html( out )            
+                   cuba.select('#results').html( out )
       }
 
       return {init    : init,
