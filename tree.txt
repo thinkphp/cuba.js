@@ -20,6 +20,6 @@ cuba.util.cache       (get, set, remove)
     
 
 Function.prototype.binding
-HTMLElement.prototype.html
-HTMLElement.prototype.css
+HTMLElement.prototype.html !important
+HTMLElement.prototype.css  !important
 HTMLElement.prototype.Click
