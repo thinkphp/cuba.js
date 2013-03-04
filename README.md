@@ -600,7 +600,8 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 #### Accordion  
 
-    HTML Structure
+```html
+
     <div id="accordion" class="accordion ui-accordion ui-widget">
     <section id="item1" class="acc_hidden">
     <p class="pointer">&#9654;</p><h1><a href="#">Class Abstraction1</a></h1>
@@ -616,10 +617,16 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
     </section>
     </div>
 
+```
+
+```js
+
     JavaScript     
     //Accordion based on CSS3
     //cuba.UI.accordion(accordionID, hiddenClass, urlCSS);
     cuba.UI.accordion('accordion','acc_hidden', 'link.css');   
+
+```
 
 * [http://thinkphp.github.com/cuba.js/accordion.html](http://thinkphp.github.com/cuba.js/accordion.html)
 
