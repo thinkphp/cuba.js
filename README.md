@@ -122,6 +122,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ### cuba.lang - contains language extensions that are used in the library.
 
+```js
        //true, an array literal is an array
        console.log(cuba.lang.isArray([1, 2]));
 
@@ -191,9 +192,11 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
        a.moo = "moo";
        console.log(cuba.lang.hasOwnProperty(a,"moo"))//true
        console.log(cuba.lang.hasOwnProperty(a,"foo"))//false
+```
 
 ### Specify a function to execute when the DOM is fully loaded.
 
+```js
           //cuba.ready( fn );
           cuba.ready(function(){
 
@@ -204,6 +207,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                     cuba.select("#out").html( sorting.insert( arr ).join(",") )
                })  
           })
+```
 
 ### Event Handling - bind a handler to the event for the elements.
     
