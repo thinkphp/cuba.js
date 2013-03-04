@@ -211,6 +211,8 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ### Event Handling - bind a handler to the event for the elements.
     
+```js
+
     //#1
     //handler function
     var f = function(){ alert('click') }
@@ -233,10 +235,14 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
          alert('clicked')
     })
 
+```
+
 * [http://thinkphp.github.com/cuba.js/events.html](http://thinkphp.github.com/cuba.js/events.html)
 
 
 ### Custom Events
+
+```js
 
     var arr = [9,8,7,5,4,3,2,1,0,-1,-2,-3]
 
@@ -290,6 +296,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                console.log('end sorting!!!');
               alert('sorted!!!');
            })
+```
 
 * [http://thinkphp.github.com/cuba.js/customEvent.html](http://thinkphp.github.com/cuba.js/customEvent.html)
 
@@ -301,6 +308,8 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ### DOM manipulation
 
+```js
+
          //added label to the button
          cuba.select("#div").html("content")  
 
@@ -308,9 +317,11 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
          cuba.select("#out")
              .html("Jean Baptiste Poquelin")
              .css("width: 100px; height: 100px;border: 1px solid #ccc;background: #393;color: #fff")
+```
 
 ### JSONP stands for "JSON with Padding" and it is a workaround for loading data from different domains.
 
+```js
          //creates a JSON request using script tag injection and handles the callbacks for you.
          //CORS can be used as a modern alternative to the JSONP)
          var url = 'http://search.twitter.com/search.json?q=mootools&rpp=5&callback=?'
@@ -347,6 +358,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                       cuba.select('#container').html( out );  
 
          }, params, 'jsoncallback')
+```
 
 * [http://thinkphp.github.com/cuba.js/jsonp.html](http://thinkphp.github.com/cuba.js/jsonp.html)
 * [http://thinkphp.github.com/cuba.js/search.html](http://thinkphp.github.com/cuba.js/search.html)
@@ -354,12 +366,14 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ### AJAX functionality - the transport for requests is XMLHttpRequest.
 
+```js
          //load data from the server using HTTP GET request
          cuba.ajax('GET','README.md', function( data ){
 
                    //do stuff with data
                    console.log(data)
          })
+```
 
 * [http://thinkphp.github.com/cuba.js/ajax.html](http://thinkphp.github.com/cuba.js/ajax.html)
 * [http://thinkphp.github.com/cuba.js/ajax2.html](http://thinkphp.github.com/cuba.js/ajax2.html)
@@ -367,6 +381,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ### YQL - Yahoo! Query Language YQL is an expressive SQL-like language.
 
+```js
          //Lets you query, filter, and join data across Web Services.
          //With YQL apps run faster with fewer lines of code and smaller network footprint.
          var query = "select * from flickr.photos.search where has_geo='true' and text='san francisco' and api_key='e407090ddb7d7c7c36e0a0474289ec74'"
@@ -390,12 +405,15 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
                       cuba.select('#flickr').html( out )
          })
+```
 
 * [http://thinkphp.github.com/cuba.js/yql.html](http://thinkphp.github.com/cuba.js/yql.html)
 
 
 
 ### CSS3 Animation
+
+```js
   
          //CSS3 Animation (transition and transform)
          cuba.animate("#sandbox .box").set('margin-left',200).end()
@@ -405,6 +423,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                         cuba.animate("#sandbox .box").set('border','10px solid #ccc').end()
                         cuba.animate("#sandbox .box").set('margin-left',0).end()
          }, 1200) 
+```
 
 * [http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html](http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html)
 * [http://thinkphp.github.com/cuba.js/bubble-sort.html](http://thinkphp.github.com/cuba.js/bubble-sort.html)
@@ -420,9 +439,13 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ### Fading Effects
 
+```html
         <div id="div1" style="width:80px;height:80px;opacity:0;background-color:red;"></div><br>
         <div id="div2" style="width:80px;height:80px;opacity:0;background-color:green;"></div><br>
         <div id="div3" style="width:80px;height:80px;opacity:0;background-color:blue;"></div>
+```
+
+```js
 
         $('btn').Click(function( event ){
 
@@ -444,11 +467,13 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                  cuba.fadeIn('div2')
                  cuba.fadeIn('div3')
         })
+```
 
 * [http://thinkphp.github.com/cuba.js/fading.html](http://thinkphp.github.com/cuba.js/fading.html)
 
 ### Template Engine
 
+```js
       var tmp = 'This {project} presents a very {compact} micro-templating {solution} creating for learning purposes';
 
       var ob = {
@@ -459,10 +484,13 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
       cuba.select("#title").html(cuba.template(tmp, ob))
 
+```
+
 * [http://thinkphp.github.com/cuba.js/template.html](http://thinkphp.github.com/cuba.js/template.html)
       
 ### Cache using localStorage
 
+```js
      if(cache.get( key )) {
 
         var photos_cached = cache.get( key )
@@ -483,18 +511,21 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
              
         }.binding(this));
      }
+```
 
 * [http://thinkphp.ro/apps/js-hacks/cuba.js/cache.html](http://thinkphp.ro/apps/js-hacks/cuba.js/cache.html)
 
 
 ### cuba Router
 
+```js
     cuba.router.get("/search/:what", function( data ){
 
                 console.log( data )
     });
 
     cuba.router.run()
+```
 
 * [http://thinkphp.github.com/cuba.js/router.html](http://thinkphp.github.com/cuba.js/router.html)
 
