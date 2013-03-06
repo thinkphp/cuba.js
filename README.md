@@ -28,8 +28,6 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * static object  augmentObject(child, parent)
 * static object  hasOwnProperty(ob, property)
 
-* [http://thinkphp.github.com/cuba.js/cuba.lang.test.html](http://thinkphp.github.com/cuba.js/cuba.lang.test.html)
-
 ### DOM Ready
 
     Lets you define a function that will execute as soon as the DOM is in a usable state.
@@ -193,6 +191,8 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
        console.log(cuba.lang.hasOwnProperty(a,"moo"))//true
        console.log(cuba.lang.hasOwnProperty(a,"foo"))//false
 ```
+
+* [http://thinkphp.github.com/cuba.js/cuba.lang.test.html](http://thinkphp.github.com/cuba.js/cuba.lang.test.html)
 
 ### Specify a function to execute when the DOM is fully loaded.
 
