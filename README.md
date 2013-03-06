@@ -428,6 +428,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * [http://thinkphp.github.com/cuba.js/jsonp.html](http://thinkphp.github.com/cuba.js/jsonp.html)
 * [http://thinkphp.github.com/cuba.js/search.html](http://thinkphp.github.com/cuba.js/search.html)
 * [http://thinkphp.github.com/cuba.js/flickr.html](http://thinkphp.github.com/cuba.js/flickr.html)
+* [http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v4-with-jsonp/](http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v4-with-jsonp/)
 
 ### AJAX functionality - the transport for requests is XMLHttpRequest.
 
@@ -442,6 +443,11 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 * [http://thinkphp.github.com/cuba.js/ajax.html](http://thinkphp.github.com/cuba.js/ajax.html)
 * [http://thinkphp.github.com/cuba.js/ajax2.html](http://thinkphp.github.com/cuba.js/ajax2.html)
+* [http://thinkphp.ro/apps/js-hacks/cuba.js/instagram/](http://thinkphp.ro/apps/js-hacks/cuba.js/instagram/)
+* [http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v1-with-ajax/](http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v1-with-ajax/)
+* [http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v2-with-ajax/](http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v2-with-ajax/)
+* [http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v3-with-ajax/](http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v3-with-ajax/)
+* [http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v4-with-ajax/](http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v4-with-ajax/)
 
 
 ### YQL - Yahoo! Query Language YQL is an expressive SQL-like language.
@@ -473,6 +479,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 ```
 
 * [http://thinkphp.github.com/cuba.js/yql.html](http://thinkphp.github.com/cuba.js/yql.html)
+* [http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v5-with-YQL/](http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v5-with-YQL/)
 
 
 
