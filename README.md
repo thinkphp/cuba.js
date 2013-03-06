@@ -447,7 +447,6 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * [http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v1-with-ajax/](http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v1-with-ajax/)
 * [http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v2-with-ajax/](http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v2-with-ajax/)
 * [http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v3-with-ajax/](http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v3-with-ajax/)
-* [http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v4-with-ajax/](http://thinkphp.ro/apps/js-hacks/cuba.js/plugins/lastfm/v4-with-ajax/)
 
 
 ### YQL - Yahoo! Query Language YQL is an expressive SQL-like language.
