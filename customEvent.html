@@ -4,6 +4,44 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 <title>CustomEvent</title>
 <style type="text/css">
+pre, code {
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  overflow: auto;
+  font-family: courier;
+  background: ghostwhite;
+  border: 1px solid #ddd;
+}
+
+code {
+  padding: 2px 5px;
+}
+
+pre code {
+  padding: 0;
+  margin-bottom: 0;
+  border: 0;
+}
+
+pre:before,
+pre:after {
+  content: '';
+  display: none;
+  width: 100%;
+  position: absolute;
+  left: 0;
+
+}
+
+pre:before {
+  border-top: 1px solid hsla( 0, 0%, 100%, 1 );
+  top: 0;
+}
+
+pre:after {
+  border-top: 1px solid hsla( 0, 0%, 0%, 0.05 );
+  bottom: 0px;
+}
 
 div#input {
     font-family: "Capriola",sans-serif;
@@ -78,6 +116,63 @@ var evt = cuba.util.CustomEvent;
     })
 
 </script>
+
+<pre><code>
+var arr = [9,8,7,5,4,3,2,1,0,-1,-2,-3]
+
+cuba.select("#btn").on('click', function( event ){
+ 
+   evt.fireEvent("start");    
+
+   doBubble(0, 0, arr.length-1, function(i,j){
+
+         var aux; 
+
+         if(arr[j] > arr[j+1]) {
+            aux = arr[j]
+            arr[j] = arr[j+1]
+            arr[j+1] = aux       
+         }
+
+         draw();
+   })
+
+});
+
+function doBubble(i, j, len, callback) {
+
+         callback( i, j );
+ 
+         if(++j >= len) {
+            j = 0
+            i++ 
+         } 
+
+         if( i < len ) window.setTimeout(function(){
+                          doBubble(i, j, len, callback)
+
+                   }, 100); else  evt.fireEvent('sorted')
+} 
+
+function draw() {
+
+         cuba.select("#input").html(arr.join(", "))
+}
+
+draw()
+
+var evt = cuba.util.CustomEvent;
+
+    evt.addEvent("start", function(){
+       console.log('start sorting!!!');
+    })
+
+    evt.addEvent("sorted", function(){
+       console.log('end sorting!!!');
+       alert('sorted!!!');
+    })
+
+</code></pre>
 </body>
 </html>
 
