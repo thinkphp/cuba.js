@@ -671,16 +671,16 @@ var availableTags = [
 
 ```
 
+* [http://thinkphp.github.com/cuba.js/autosuggest.html](http://thinkphp.github.com/cuba.js/autosuggest.html)
+
 
 #### Tabview
 
-##Browsers Support
+## Browsers Support
 
 * IE6+
 * Chrome 1+
 * Safari 3+
 * Firefox 2+
-* Opera
-
-
+* Opera 
 
