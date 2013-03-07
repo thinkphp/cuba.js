@@ -11,8 +11,9 @@ cuba.router (get, run)
 
 cuba.UI  
 cuba.UI.accordion
-cuba.UI.tabview
 cuba.UI.autosuggest
+cuba.UI.tabview
+
       
 cuba.util
 cuba.util.CustomEvent (addEvent, removeEvent, fireEvent)
