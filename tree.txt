@@ -11,8 +11,9 @@ cuba.router (get, run)
 
 cuba.UI  
 cuba.UI.accordion
-cuba.UI.tabview
 cuba.UI.autosuggest
+cuba.UI.tabview
+
       
 cuba.util
 cuba.util.CustomEvent (addEvent, removeEvent, fireEvent)
@@ -20,6 +21,6 @@ cuba.util.cache       (get, set, remove)
     
 
 Function.prototype.binding
-HTMLElement.prototype.html
-HTMLElement.prototype.css
+HTMLElement.prototype.html !important
+HTMLElement.prototype.css  !important
 HTMLElement.prototype.Click
