@@ -28,6 +28,8 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * static object  augmentObject(child, parent)
 * static object  hasOwnProperty(ob, property)
 
+* [http://thinkphp.github.com/cuba.js/cuba.lang.test.html](http://thinkphp.github.com/cuba.js/cuba.lang.test.html)
+
 ### DOM Ready
 
     Lets you define a function that will execute as soon as the DOM is in a usable state.
@@ -105,7 +107,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 ### cuba UI
 
 * .accordion(accordionID, hiddenClass, urlCSS)
-* .autocomplete (work in progress)
+* .autosuggest (elem, array_of_suggestions)
 * .tabview (work in progress)
 
 ### cuba Router
@@ -120,6 +122,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ### cuba.lang - contains language extensions that are used in the library.
 
+```js
        //true, an array literal is an array
        console.log(cuba.lang.isArray([1, 2]));
 
@@ -189,9 +192,11 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
        a.moo = "moo";
        console.log(cuba.lang.hasOwnProperty(a,"moo"))//true
        console.log(cuba.lang.hasOwnProperty(a,"foo"))//false
+```
 
 ### Specify a function to execute when the DOM is fully loaded.
 
+```js
           //cuba.ready( fn );
           cuba.ready(function(){
 
@@ -202,9 +207,12 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                     cuba.select("#out").html( sorting.insert( arr ).join(",") )
                })  
           })
+```
 
 ### Event Handling - bind a handler to the event for the elements.
     
+```js
+
     //#1
     //handler function
     var f = function(){ alert('click') }
@@ -227,7 +235,14 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
          alert('clicked')
     })
 
+```
+
+* [http://thinkphp.github.com/cuba.js/events.html](http://thinkphp.github.com/cuba.js/events.html)
+
+
 ### Custom Events
+
+```js
 
     var arr = [9,8,7,5,4,3,2,1,0,-1,-2,-3]
 
@@ -281,8 +296,84 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                console.log('end sorting!!!');
               alert('sorted!!!');
            })
+```
+
+* [http://thinkphp.github.com/cuba.js/customEvent.html](http://thinkphp.github.com/cuba.js/customEvent.html)
+
+
+### Event Delegation
+
+```html
+
+<ul id="menu">
+
+<li>
+   <a href="#">Event Delegation List 1</a>
+   <ul>
+       <li>item1</li>
+       <li>item2</li>
+       <li>item3</li>
+       <li>item4</li>
+       <li>item5</li>
+   </ul>
+</li>
+
+<li>
+   <a href="#">Event Delegation List 2</a>
+   <ul>
+       <li>item1</li>
+       <li>item2</li>
+       <li>item3</li>
+       <li>item4</li>
+       <li>item5</li>
+   </ul>
+</li>
+
+<li>
+   <a href="#">Event Delegation List 3</a>
+   <ul>
+       <li>item1</li>
+       <li>item2</li>
+       <li>item3</li>
+       <li>item4</li>
+       <li>item5</li>
+   </ul>
+</li>
+
+
+</ul>
+
+```
+
+```js
+
+   cuba.ready(function(){
+ 
+         cuba.delegate($('#menu'), 'li a', 'click', function( e ){
+
+              var ul = e.target.parentNode.querySelector("ul")
+
+                  if(ul.style.display == "none") {
+
+                     ul.style.display = "block"
+
+                  } else {
+
+                    ul.style.display = "none"
+                  }
+
+                  console.log(e.target)
+
+         }, false);
+   })
+```
+
+* [http://thinkphp.github.com/cuba.js/delegate.html](http://thinkphp.github.com/cuba.js/delegate.html)
+
 
 ### DOM manipulation
+
+```js
 
          //added label to the button
          cuba.select("#div").html("content")  
@@ -291,9 +382,11 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
          cuba.select("#out")
              .html("Jean Baptiste Poquelin")
              .css("width: 100px; height: 100px;border: 1px solid #ccc;background: #393;color: #fff")
+```
 
 ### JSONP stands for "JSON with Padding" and it is a workaround for loading data from different domains.
 
+```js
          //creates a JSON request using script tag injection and handles the callbacks for you.
          //CORS can be used as a modern alternative to the JSONP)
          var url = 'http://search.twitter.com/search.json?q=mootools&rpp=5&callback=?'
@@ -330,18 +423,30 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                       cuba.select('#container').html( out );  
 
          }, params, 'jsoncallback')
+```
+
+* [http://thinkphp.github.com/cuba.js/jsonp.html](http://thinkphp.github.com/cuba.js/jsonp.html)
+* [http://thinkphp.github.com/cuba.js/search.html](http://thinkphp.github.com/cuba.js/search.html)
+* [http://thinkphp.github.com/cuba.js/flickr.html](http://thinkphp.github.com/cuba.js/flickr.html)
 
 ### AJAX functionality - the transport for requests is XMLHttpRequest.
 
+```js
          //load data from the server using HTTP GET request
          cuba.ajax('GET','README.md', function( data ){
 
                    //do stuff with data
                    console.log(data)
          })
+```
+
+* [http://thinkphp.github.com/cuba.js/ajax.html](http://thinkphp.github.com/cuba.js/ajax.html)
+* [http://thinkphp.github.com/cuba.js/ajax2.html](http://thinkphp.github.com/cuba.js/ajax2.html)
+
 
 ### YQL - Yahoo! Query Language YQL is an expressive SQL-like language.
 
+```js
          //Lets you query, filter, and join data across Web Services.
          //With YQL apps run faster with fewer lines of code and smaller network footprint.
          var query = "select * from flickr.photos.search where has_geo='true' and text='san francisco' and api_key='e407090ddb7d7c7c36e0a0474289ec74'"
@@ -365,9 +470,15 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
                       cuba.select('#flickr').html( out )
          })
+```
+
+* [http://thinkphp.github.com/cuba.js/yql.html](http://thinkphp.github.com/cuba.js/yql.html)
+
 
 
 ### CSS3 Animation
+
+```js
   
          //CSS3 Animation (transition and transform)
          cuba.animate("#sandbox .box").set('margin-left',200).end()
@@ -377,13 +488,29 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                         cuba.animate("#sandbox .box").set('border','10px solid #ccc').end()
                         cuba.animate("#sandbox .box").set('margin-left',0).end()
          }, 1200) 
+```
+
+* [http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html](http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html)
+* [http://thinkphp.github.com/cuba.js/bubble-sort.html](http://thinkphp.github.com/cuba.js/bubble-sort.html)
+* [http://thinkphp.github.com/cuba.js/select-by-min.html](http://thinkphp.github.com/cuba.js/select-by-min.html)
+* [http://thinkphp.github.com/cuba.js/select-by-min-visualization.html](http://thinkphp.github.com/cuba.js/select-by-min-visualization.html)
+* [http://thinkphp.github.com/cuba.js/rotate.html](http://thinkphp.github.com/cuba.js/rotate.html)
+* [http://thinkphp.github.com/cuba.js/translate.html](http://thinkphp.github.com/cuba.js/translate.html)
+* [http://thinkphp.github.com/cuba.js/skew.html](http://thinkphp.github.com/cuba.js/skew.html)
+* [http://thinkphp.github.com/cuba.js/scale.html](http://thinkphp.github.com/cuba.js/scale.html)
+* [http://thinkphp.github.com/cuba.js/padx.html](http://thinkphp.github.com/cuba.js/padx.html)
+* [http://thinkphp.github.com/cuba.js/multibox.html](http://thinkphp.github.com/cuba.js/multibox.html)
 
 
 ### Fading Effects
 
+```html
         <div id="div1" style="width:80px;height:80px;opacity:0;background-color:red;"></div><br>
         <div id="div2" style="width:80px;height:80px;opacity:0;background-color:green;"></div><br>
         <div id="div3" style="width:80px;height:80px;opacity:0;background-color:blue;"></div>
+```
+
+```js
 
         $('btn').Click(function( event ){
 
@@ -405,9 +532,13 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
                  cuba.fadeIn('div2')
                  cuba.fadeIn('div3')
         })
+```
+
+* [http://thinkphp.github.com/cuba.js/fading.html](http://thinkphp.github.com/cuba.js/fading.html)
 
 ### Template Engine
 
+```js
       var tmp = 'This {project} presents a very {compact} micro-templating {solution} creating for learning purposes';
 
       var ob = {
@@ -417,9 +548,14 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
       };
 
       cuba.select("#title").html(cuba.template(tmp, ob))
+
+```
+
+* [http://thinkphp.github.com/cuba.js/template.html](http://thinkphp.github.com/cuba.js/template.html)
       
 ### Cache using localStorage
 
+```js
      if(cache.get( key )) {
 
         var photos_cached = cache.get( key )
@@ -440,13 +576,33 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
              
         }.binding(this));
      }
+```
+
+* [http://thinkphp.ro/apps/js-hacks/cuba.js/cache.html](http://thinkphp.ro/apps/js-hacks/cuba.js/cache.html)
+
+
+### cuba Router
+
+```js
+    cuba.router.get("/search/:what", function( data ){
+
+                console.log( data )
+    });
+
+    cuba.router.run()
+```
+
+* [http://thinkphp.github.com/cuba.js/router.html](http://thinkphp.github.com/cuba.js/router.html)
+
       
 ### cuba UI
 
 
 #### Accordion  
 
-    HTML Structure
+HTML Structure
+```html
+
     <div id="accordion" class="accordion ui-accordion ui-widget">
     <section id="item1" class="acc_hidden">
     <p class="pointer">&#9654;</p><h1><a href="#">Class Abstraction1</a></h1>
@@ -462,12 +618,59 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
     </section>
     </div>
 
-    JavaScript     
+```
+
+JS Code
+```js
+     
     //Accordion based on CSS3
-    //cuba.UI.accordion(accordionID, hiddenClass, urlCSS);
+    //syntax: cuba.UI.accordion(accordionID, hiddenClass, urlCSS);
     cuba.UI.accordion('accordion','acc_hidden', 'link.css');   
 
-#### Autocomplete
+```
+
+* [http://thinkphp.github.com/cuba.js/accordion.html](http://thinkphp.github.com/cuba.js/accordion.html)
+
+#### Autosuggest
+
+The autosuggest widget provides suggestions while you type into the field.
+
+```html
+  
+   <input type="text" id="tags" name="tags" />
+
+```
+
+```js
+
+var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"];
+
+      var suggest = cuba.UI.autosuggest($('tags'), availableTags)
+
+```
+
 
 #### Tabview
 
@@ -479,65 +682,5 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 * Firefox 2+
 * Opera
 
-## Demos:
-
-cuba lang
-
-* [http://thinkphp.github.com/cuba.js/cuba.lang.test.html](http://thinkphp.github.com/cuba.js/cuba.lang.test.html)
-
-Core
-
-* [http://thinkphp.github.com/cuba.js/](http://thinkphp.github.com/cuba.js/)
-* [http://thinkphp.github.com/cuba.js/search.html](http://thinkphp.github.com/cuba.js/search.html)
-* [http://thinkphp.github.com/cuba.js/flickr.html](http://thinkphp.github.com/cuba.js/flickr.html)
-* [http://thinkphp.github.com/cuba.js/jsonp.html](http://thinkphp.github.com/cuba.js/jsonp.html)
-* [http://thinkphp.github.com/cuba.js/yql.html](http://thinkphp.github.com/cuba.js/yql.html)
-* [http://thinkphp.github.com/cuba.js/ajax.html](http://thinkphp.github.com/cuba.js/ajax.html)
-
-Event Handler
-
-* [http://thinkphp.github.com/cuba.js/events.html](http://thinkphp.github.com/cuba.js/events.html)
-
-Custom Events
-
-* [http://thinkphp.github.com/cuba.js/customEvent.html](http://thinkphp.github.com/cuba.js/customEvent.html)
-
-Event Delegation
-
-* [http://thinkphp.github.com/cuba.js/delegate.html](http://thinkphp.github.com/cuba.js/delegate.html)
-
-
-Effects Fading
-
-* [http://thinkphp.github.com/cuba.js/fading.html](http://thinkphp.github.com/cuba.js/fading.html)
-
-CSS3 Animation
-
-* [http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html](http://thinkphp.github.com/cuba.js/bubble-sort-visualization.html)
-* [http://thinkphp.github.com/cuba.js/bubble-sort.html](http://thinkphp.github.com/cuba.js/bubble-sort.html)
-* [http://thinkphp.github.com/cuba.js/select-by-min.html](http://thinkphp.github.com/cuba.js/select-by-min.html)
-* [http://thinkphp.github.com/cuba.js/select-by-min-visualization.html](http://thinkphp.github.com/cuba.js/select-by-min-visualization.html)
-* [http://thinkphp.github.com/cuba.js/rotate.html](http://thinkphp.github.com/cuba.js/rotate.html)
-* [http://thinkphp.github.com/cuba.js/translate.html](http://thinkphp.github.com/cuba.js/translate.html)
-* [http://thinkphp.github.com/cuba.js/skew.html](http://thinkphp.github.com/cuba.js/skew.html)
-* [http://thinkphp.github.com/cuba.js/scale.html](http://thinkphp.github.com/cuba.js/scale.html)
-* [http://thinkphp.github.com/cuba.js/padx.html](http://thinkphp.github.com/cuba.js/padx.html)
-* [http://thinkphp.github.com/cuba.js/multibox.html](http://thinkphp.github.com/cuba.js/multibox.html)
-
-Template Engine
-
-* [http://thinkphp.github.com/cuba.js/template.html](http://thinkphp.github.com/cuba.js/template.html)
-
-localStorage
-
-* [http://thinkphp.ro/apps/js-hacks/cuba.js/cache.html](http://thinkphp.ro/apps/js-hacks/cuba.js/cache.html)
-
-cuba UI
-
-* [http://thinkphp.github.com/cuba.js/accordion.html](http://thinkphp.github.com/cuba.js/accordion.html)
-
-cuba Router
-
-* [http://thinkphp.github.com/cuba.js/router.html](http://thinkphp.github.com/cuba.js/router.html)
 
 
