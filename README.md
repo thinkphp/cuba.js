@@ -632,6 +632,45 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 #### Autosuggest
 
+The autosuggest widget provides suggestions while you type into the field.
+
+```html
+  
+   <input type="text" id="tags" name="tags" />
+
+```
+
+```js
+
+var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"];
+
+      var suggest = cuba.UI.autosuggest($('tags'), availableTags)
+
+```
+
+
 #### Tabview
 
 ##Browsers Support
