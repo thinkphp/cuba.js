@@ -107,7 +107,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 ### cuba UI
 
 * .accordion(accordionID, hiddenClass, urlCSS)
-* .autocomplete (work in progress)
+* .autosuggest (elem, array_of_suggestions)
 * .tabview (work in progress)
 
 ### cuba Router
@@ -600,6 +600,7 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 #### Accordion  
 
+HTML Structure
 ```html
 
     <div id="accordion" class="accordion ui-accordion ui-widget">
@@ -619,11 +620,11 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ```
 
+JS Code
 ```js
-
-    JavaScript     
+     
     //Accordion based on CSS3
-    //cuba.UI.accordion(accordionID, hiddenClass, urlCSS);
+    //syntax: cuba.UI.accordion(accordionID, hiddenClass, urlCSS);
     cuba.UI.accordion('accordion','acc_hidden', 'link.css');   
 
 ```
