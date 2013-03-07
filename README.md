@@ -538,6 +538,11 @@ A micro-library for basic domready, JSON with padding, AJAX, DOM manipulation, Y
 
 ### Template Engine
 
+```html
+
+   <p id="title"></p>
+```
+
 ```js
       var tmp = 'This {project} presents a very {compact} micro-templating {solution} creating for learning purposes';
 
