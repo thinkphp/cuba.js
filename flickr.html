@@ -61,7 +61,6 @@ ul li a img { border: 0; }
 <div id="ft" role="contentinfo"><p>Created by  @<a href="http://twitter.com/thinkphp">thinkphp</a> | Download on <a href="http://github.com/thinkphp/cuba.js">GitHub</a></p></div>
 
 <script type="text/javascript" src="src/cuba.js"></script>
-<script type="text/javascript">!function(win){var template = function(tmp,o){ return tmp.replace((RegExp("{([^{}]*)}","gi")), function(tag,p){return o[p];});};win['template'] = template;}(this);</script>
 <script type="text/javascript">
 
 //Module Pattern in Action!!!
@@ -128,7 +127,7 @@ var flickr = function(){
                    //for each photo execute
                    for(var i=0; i<n; i++) {
 
-                       out += template(tplflickr,photos[i])
+                       out += cuba.template(tplflickr,photos[i])
                    }  
 
                    out += '</ul>'
